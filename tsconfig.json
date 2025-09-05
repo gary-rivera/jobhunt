@@ -1,0 +1,19 @@
+{
+	"compilerOptions": {
+		"target": "es2022",
+		"module": "commonjs",
+		"rootDir": "./src",
+		"outDir": "./dist",
+		"lib": ["es2022"],
+		"esModuleInterop": true,
+		"strict": true,
+		"noImplicitAny": true,
+
+		"skipLibCheck": true,
+		"typeRoots": ["./node_modules/@types", "./types"],
+		"types": ["node", "express"],
+		"resolveJsonModule": true
+	},
+	"include": ["src/**/*", "types/**/*"],
+	"exclude": ["node_modules", "dist"]
+}
