@@ -1,15 +1,10 @@
 node_modules/
 dist/
 .env
-.env.local
+.env.development
 .env.production
 /certs/
+braindump.txt
 
 *.tsbuildinfo
 .vscode/
-
-/logs
-
-/src/generated/prisma
-
-/src/generated/prisma
