@@ -1,0 +1,66 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["postgresqlExtensions"]
+}
+
+datasource db {
+  provider   = "postgresql"
+  url        = env("DATABASE_URL")
+  extensions = [vector]
+}
+
+model JobListing {
+  id                   String                 @id @default(cuid())
+  jobScrapeRunId       String                 @map("job_scrape_run_id")
+  title                String
+  company              String
+  source               String?                @unique
+  location             String?
+  salaryRange          String?                @map("salary_range")
+  listingUrl           String                 @map("listing_url")
+  applyToUrl           String?                @map("apply_to_url")
+  descriptionRaw       String                 @map("description_raw")
+  descriptionCleaned   String                 @map("description_cleaned")
+  descriptionEmbedding Unsupported("vector")? @map("description_embedding")
+  skillsFound          String[]               @map("skills_found")
+  seniority            String?
+  overallScore         Float?                 @map("overall_score")
+  technicalMatch       Float?                 @map("technical_match")
+  experienceMatch      Float?                 @map("experience_match")
+  industryMatch        Float?                 @map("industry_match")
+  scrapedAt            DateTime               @default(now()) @map("scraped_at")
+  createdAt            DateTime               @default(now()) @map("created_at")
+  jobScrapeRun         JobScrapeRun           @relation(fields: [jobScrapeRunId], references: [id])
+
+  @@map("job_listings")
+}
+
+model JobScrapeRun {
+  id             String             @id @default(cuid())
+  startedAt      DateTime           @default(now()) @map("started_at")
+  completedAt    DateTime?          @map("completed_at")
+  totalScraped   Int?               @map("total_scraped")
+  afterFiltering Int?               @map("after_filtering")
+  status         JobScrapeRunStatus @default(RUNNING) @map("status")
+  errorMessage   String?            @map("error_message")
+  jobListings    JobListing[]
+
+  @@map("job_scrape_runs")
+}
+
+model UserProfile {
+  alias        String                 @unique
+  bio          String?
+  bioEmbedding Unsupported("vector")? @map("bio_embedding")
+  createdAt    DateTime               @default(now()) @map("created_at")
+  updatedAt    DateTime               @default(now()) @updatedAt @map("updated_at")
+  id           Int                    @id @default(autoincrement())
+
+  @@map("user_profiles")
+}
+
+enum JobScrapeRunStatus {
+  RUNNING
+  COMPLETED
+  FAILED
+}
