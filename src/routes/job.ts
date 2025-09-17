@@ -1,112 +1,120 @@
 import express from 'express';
 import prisma from '../lib/prisma';
 import lodash from 'lodash';
+import { getJobListing } from '../controllers/JobListingController';
 import { generateEmbedding } from '../services/ollama';
 import { formatOllamaMetrics } from '../utils/time';
 import { normalizeSalaryRange } from '../utils/jobs';
+import { cosineSimilarity } from '../utils/scoring';
 
-const scoreRouter = express.Router();
+const jobRouter = express.Router();
 
-interface LinkedInJob {
-	job_id: string;
-	company_name: string;
-	job_url: string;
-	apply_url: string;
-	company_url: string;
-	job_title: string;
-	job_location: string;
-	time_posted: string;
-	num_applicants: string; // lazy parse to number later
-	job_description: string;
-	seniority_level:
-		| 'Not Applicable'
-		| 'Internship'
-		| 'Entry level'
-		| 'Associate'
-		| 'Mid-Senior level'
-		| 'Director'
-		| 'Executive';
-	job_function: string;
-	industries: string;
-	employment_type: string;
-	salary_range?: string;
+export interface LinkedInJob {
+  job_id: string;
+  company_name: string;
+  job_url: string;
+  apply_url: string;
+  company_url: string;
+  job_title: string;
+  location: string;
+  time_posted: string;
+  num_applicants: string; // lazy parse to number later
+  job_description: string;
+  seniority_level:
+    | 'Not Applicable'
+    | 'Internship'
+    | 'Entry level'
+    | 'Associate'
+    | 'Mid-Senior level'
+    | 'Director'
+    | 'Executive';
+  job_function: string;
+  industries: string;
+  employment_type: string;
+  salary_range?: string;
 }
 
 interface JobScoringCriteria
-	extends Pick<
-		LinkedInJob,
-		| 'job_title'
-		| 'job_location'
-		| 'time_posted'
-		| 'seniority_level'
-		| 'industries'
-		| 'employment_type'
-	> {
-	job_description_cleaned: string;
-	salary: number | null; // average midpoint of min and max salary
-	applicants: number | null;
+  extends Pick<
+    LinkedInJob,
+    'job_title' | 'location' | 'time_posted' | 'seniority_level' | 'industries' | 'employment_type'
+  > {
+  job_description_cleaned: string;
+  salary: number | null; // average midpoint of min and max salary
+  applicants: number | null;
 }
 
-scoreRouter.post('/generate-embedding', async (req, res) => {
-	// parse job listing and run details from body
-	const { job }: { job: LinkedInJob } = req.body;
+jobRouter.get('/:jobId', getJobListing);
 
-	if (!job || !job.job_description || !job.num_applicants)
-		return res.status(400).json({ error: 'Invalid job listing' });
+jobRouter.post('/embed', async (req, res) => {
+  // parse job listing and run details from body
+  const { job }: { job: LinkedInJob } = req.body;
 
-	// cleanup and normalize fields
-	let applicantsCount: number | null = parseInt(
-		job.num_applicants.replace(/\D/g, ''),
-		10
-	);
-	applicantsCount = isNaN(applicantsCount) ? null : applicantsCount;
+  if (!job || !job.job_description || !job.num_applicants)
+    return res.status(400).json({ error: 'Invalid job listing' });
 
-	const normalizedSalary = normalizeSalaryRange(job.salary_range);
-	const salaryMidrange = normalizedSalary?.midpoint || null;
+  // cleanup and normalize fields
+  let applicantsCount: number | null = parseInt(job.num_applicants.replace(/\D/g, ''), 10);
+  applicantsCount = isNaN(applicantsCount) ? null : applicantsCount;
 
-	// TODO: further cleaning -> salary range, disclaimer texts,
-	const cleanedDescription = job.job_description
-		.replace(/\s*Show more\s*Show less\s*$/i, '')
-		.trim();
+  const normalizedSalary = normalizeSalaryRange(job.salary_range);
+  const salaryMidrange = normalizedSalary?.midpoint || null;
 
-	// pick fields relevant for scoring
-	const scoringCriteria = lodash.pick(job, [
-		'job_title',
-		'job_location',
-		'time_posted',
-		'seniority_level',
-		'industries', // 'Financial Services' is my industry matchup
-	]) as JobScoringCriteria;
+  // TODO: further cleaning -> salary range, disclaimer texts,
+  const cleanedDescription = job.job_description
+    .replace(/\s*Show more\s*Show less\s*$/i, '')
+    .trim();
 
-	scoringCriteria.applicants = applicantsCount;
-	scoringCriteria.salary = salaryMidrange;
-	scoringCriteria.job_description_cleaned = cleanedDescription;
+  // pick fields relevant for scoring
+  const scoringCriteria = lodash.pick(job, [
+    'job_title',
+    'job_location',
+    'time_posted',
+    'seniority_level',
+    'industries', // 'Financial Services' is my industry matchup
+  ]) as JobScoringCriteria;
 
-	console.log('scoringCriteria', scoringCriteria);
+  scoringCriteria.applicants = applicantsCount;
+  scoringCriteria.salary = salaryMidrange;
+  scoringCriteria.job_description_cleaned = cleanedDescription;
 
-	// generate embedding for the job description
-	const embedding = await generateEmbedding(cleanedDescription);
+  // console.log('scoringCriteria', scoringCriteria);
 
-	// TODO: better embedding failure handling
-	if (embedding) {
-		console.log('Ollama embedding metrics:', formatOllamaMetrics(embedding));
-		// console.log('embedding', embedding);
-	}
+  // generate embedding for the job description
+  const response = await generateEmbedding(cleanedDescription);
+  const jobEmbedding = response?.embeddings[0] || null;
+  const { job_id, job_title, company_name, location, job_url, apply_url, job_description } = job;
 
-	// fetch user profile from db
-	const userProfile = await prisma.userProfile.findFirst({
-		where: { alias: 'dingle' },
-	});
+  const newJobListing = await prisma.$executeRaw`
+    INSERT INTO job_listings (
+      id,
+      job_scrape_run_id,
+      title,
+      company,
+      listing_url,
+      description_raw,
+      description_cleaned,
+      description_embedding,
+      skills_found
+    )
+    VALUES (
+      ${1},
+      ${'random_job_scrape_run_id'},
+      ${job_title},
+      ${company_name},
+      ${job_url},
+      ${job_description},
+      ${cleanedDescription},
+      ${jobEmbedding},
+      ${['foo', 'bar']}
+    );
+  `;
 
-	// calculate a score based on matching criteria and vector similarity
-	// return the score along with breakdown of matching criteria
-	// run similarity search via pgvector cosine distance between user profile vector and job listing vectors
-	// store joblistings in the db with the embedded vectors
-
-	return res.json({ scoringCriteria, embedding });
+  console.log('Inserted new job listing:', job_id);
+  return res.status(201).json({ jobListing: newJobListing, jobId: job_id });
 });
 
 // the big cowabunga - where it all comes together
-scoreRouter.post('/run/batch', async (req, res) => {});
+jobRouter.post('/run/batch', async (req, res) => {});
 
-export { scoreRouter };
+export { jobRouter };
