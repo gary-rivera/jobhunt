@@ -3,9 +3,7 @@ import prisma from '../lib/prisma';
 import lodash from 'lodash';
 import { getJobListing } from '../controllers/JobListingController';
 import { generateEmbedding } from '../services/ollama';
-import { formatOllamaMetrics } from '../utils/time';
 import { normalizeSalaryRange } from '../utils/jobs';
-import { cosineSimilarity } from '../utils/scoring';
 
 const jobRouter = express.Router();
 
@@ -68,7 +66,7 @@ jobRouter.post('/embed', async (req, res) => {
   // pick fields relevant for scoring
   const scoringCriteria = lodash.pick(job, [
     'job_title',
-    'job_location',
+    'location',
     'time_posted',
     'seniority_level',
     'industries', // 'Financial Services' is my industry matchup

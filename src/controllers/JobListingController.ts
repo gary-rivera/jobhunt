@@ -1,7 +1,6 @@
 import prisma from '../lib/prisma';
 import { JobListing } from '@prisma/client';
 import { Request, Response } from 'express';
-import { generateUserProfileSummary } from '../services/ollama';
 import { sendBadRequestError, sendNotFoundError, sendInternalServerError } from '../utils/error';
 
 async function getJobListing(req: Request, res: Response): Promise<JobListing | Response> {

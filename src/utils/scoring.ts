@@ -10,6 +10,6 @@ function cosineSimilarity(vectorA: NomicEmbeddingVector, vectorB: NomicEmbedding
 }
 
 // TODO: implement?
-function interpretSimilarityScore(score: number): any {}
+// function interpretSimilarityScore(score: number): any {}
 
 export { cosineSimilarity };

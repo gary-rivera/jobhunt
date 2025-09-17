@@ -7,6 +7,18 @@ import { cosineSimilarity } from '../utils/scoring';
 
 const scoreRouter = Router();
 
+// interface BatchScoringResponse {
+//   ok: boolean;
+//   error: any;
+//   best_matches?: LinkedInJob[]; // TODO: update this interface to an apt one for n8n to expect/interact with
+//   total?: {
+//     scored: number;
+//     skipped: number;
+//     received: number;
+//     failed: number;
+//   };
+// }
+
 scoreRouter.get('/single-job/:alias/:jobId', async (req, res) => {
   const userProfile = (await getUser(req, res)) as UserProfile;
   const jobListing = (await getJobListing(req, res)) as JobListing;
@@ -14,9 +26,9 @@ scoreRouter.get('/single-job/:alias/:jobId', async (req, res) => {
   if (!userProfile || !jobListing)
     return sendNotFoundError(res, 'UserProfile or JobListing not found');
 
-  // @ts-ignore
+  // @ts-expect-error TODO: Fix type definition - bio_embedding may not exist on userProfile yet
   const userEmbedding = userProfile.bio_embedding;
-  // @ts-ignore
+  // @ts-expect-error TODO: Fix type definition - description_embedding may not exist on jobListing yet
   const jobEmbedding = jobListing.description_embedding;
   const cosineScore = cosineSimilarity(userEmbedding, jobEmbedding);
   return res.json({ userProfile, jobListing, cosineScore });

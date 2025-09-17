@@ -2,15 +2,15 @@ import Router from 'express';
 import prisma from '../lib/prisma';
 import path from 'path';
 import fs from 'fs/promises';
-import { generateEmbedding, generateUserProfileSummary } from '../services/ollama';
+import { generateEmbedding } from '../services/ollama';
 
 import { getUser } from '../controllers/UserProfileController';
 
 const userRouter = Router();
 
-interface userJobPreferences {
-  seniority: 'internship' | 'junior' | 'mid' | 'senior' | 'lead';
-}
+// interface userJobPreferences {
+//   seniority: 'internship' | 'junior' | 'mid' | 'senior' | 'lead';
+// }
 
 // NOTE: for now, only support fetching by alias since this is a personal project
 // In future, may add auth and fetch by user id or token
