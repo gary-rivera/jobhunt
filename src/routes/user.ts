@@ -39,18 +39,18 @@ userRouter.post('/embed', async (req, res) => {
 
   try {
     const data = await fs.readFile(resumePath, 'utf-8');
-    console.log('Loaded resume from file system: \n', `${data.substring(0, 30)}...`);
+    log.info('Loaded resume from file system: \n', `${data.substring(0, 30)}...`);
 
     resume_md = data;
   } catch (error) {
-    console.error('Error reading resume file:', error);
+    log.error('Error reading resume file:', error);
     return res.status(500).json({ error: 'Failed to read resume file from server' });
   }
 
   // generate profile embedding
   const embedResponse = await generateEmbedding(resume_md);
   const embedding = embedResponse?.embeddings[0];
-  console.log('Generating user profile summary for:', alias);
+  log.info('Generating user profile summary for:', alias);
 
   // create new user
   const newUser = await prisma.$executeRaw`

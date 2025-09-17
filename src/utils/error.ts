@@ -12,7 +12,7 @@ export const sendError = (
   message: string,
   details: string | null = null
 ): Response<ErrorResponse> => {
-  console.error(`[sendError] Error ${status}: ${message}`);
+  log.error(`[sendError] Error ${status}: ${message}`);
 
   return res.status(status).json({
     error: message,
@@ -40,7 +40,7 @@ export const sendInternalServerError = (res: Response, message = 'Internal serve
   sendError(res, 500, message);
 
 export const handlePrismaError = (error: unknown, res: Response): Response | void => {
-  console.error('Database error:', error);
+  log.error('Database error:', error);
 
   if (error instanceof Prisma.PrismaClientKnownRequestError) {
     switch (error.code) {

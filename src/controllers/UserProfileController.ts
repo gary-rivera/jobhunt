@@ -26,7 +26,7 @@ async function getUser(req: Request, res: Response): Promise<UserProfile | Respo
     }
     return user;
   } catch (err) {
-    console.error('Error fetching user profile:', err);
+    log.error('Error fetching user profile:', err);
     return sendInternalServerError(res);
   }
 }

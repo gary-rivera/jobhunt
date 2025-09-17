@@ -110,7 +110,7 @@ jobRouter.post('/embed', async (req, res) => {
     );
   `;
 
-  console.log('Inserted new job listing:', job_id);
+  log.info('Inserted new job listing:', job_id);
   return res.status(201).json({ jobListing: newJobListing, jobId: job_id });
 });
 

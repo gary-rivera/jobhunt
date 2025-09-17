@@ -13,11 +13,11 @@ export async function generateEmbedding(
 		if (response) {
 			return response;
 		}
-		return null;
 	} catch (error) {
 		console.error('Error generating embedding:', error);
 		return null;
 	}
+    log.error('Error generating embedding:', error);
 }
 
 export async function generateUserProfileSummary(
@@ -40,9 +40,9 @@ export async function generateUserProfileSummary(
 		}
 		return null;
 	} catch (error) {
-		console.error('Error generating user profile summary:', error);
 		return null;
 	}
+    log.error('Error generating user profile summary:', error);
 }
 
 function generatePrompt(resume_md: string, category: string) {
