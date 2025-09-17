@@ -11,7 +11,7 @@ export async function generateEmbedding(text: string): Promise<number[] | null> 
     });
     if (response && response.embeddings[0]?.length) {
       const embedding = response.embeddings[0];
-      log.success('[ollama] Generated embedding of length:', embedding);
+      log.success('[ollama] Generated embedding of length:', embedding.length);
       return embedding;
     }
     return null;
@@ -21,62 +21,56 @@ export async function generateEmbedding(text: string): Promise<number[] | null> 
   }
 }
 
-export async function generateUserProfileSummary(
-	resume_md: string,
-	category?: string
-): Promise<ChatResponse | null> {
-	const prompt = generatePrompt(resume_md, category || 'technical');
-	try {
-		const response = await ollama.chat({
-			model: 'llama3.1:8b',
-			messages: [
-				{
-					role: 'user',
-					content: prompt,
-				},
-			],
-		});
-		if (response) {
-			return response;
-		}
-		return null;
-	} catch (error) {
-		return null;
-	}
+export async function generateUserProfileSummary(resume_md: string, category?: string): Promise<ChatResponse | null> {
+  const prompt = generatePrompt(resume_md, category || 'technical');
+  try {
+    const response = await ollama.chat({
+      model: 'llama3.1:8b',
+      messages: [
+        {
+          role: 'user',
+          content: prompt,
+        },
+      ],
+    });
+    if (response) {
+      return response;
+    }
+    return null;
+  } catch (error) {
     log.error('Error generating user profile summary:', error);
+    return null;
+  }
 }
 
 function generatePrompt(resume_md: string, category: string) {
-	const categoryMap = {
-		technical: {
-			focusOn:
-				'representing the most important technical skills and tools I have',
-			additionalRequirements: [],
-		},
-		industry: {
-			focusOn: 'capturing what industries I have experience in',
-			additionalRequirements: [
-				'- Include that I have experience in early-stage startups with high growth',
-				'- Mention experience in both B2B and B2C environments',
-				'- Highlight working FinTech and SaaS sectors specifically, namely credit building, mortgages, banking, and developer tools',
-			],
-		},
-		tenure: {
-			focusOn: 'duration and progression of roles',
-			additionalRequirements: [],
-		},
-	};
+  const categoryMap = {
+    technical: {
+      focusOn: 'representing the most important technical skills and tools I have',
+      additionalRequirements: [],
+    },
+    industry: {
+      focusOn: 'capturing what industries I have experience in',
+      additionalRequirements: [
+        '- Include that I have experience in early-stage startups with high growth',
+        '- Mention experience in both B2B and B2C environments',
+        '- Highlight working FinTech and SaaS sectors specifically, namely credit building, mortgages, banking, and developer tools',
+      ],
+    },
+    tenure: {
+      focusOn: 'duration and progression of roles',
+      additionalRequirements: [],
+    },
+  };
 
-	return `Transform this resume markdown into a paragraph summary optimized for job matching.
+  return `Transform this resume markdown into a paragraph summary optimized for job matching.
 
 	Requirements:
 	- Use language commonly found in job descriptions (not resume language)
 	- Include specific technologies, years of experience, and quantifiable details
 	- Write in descriptive paragraphs, not bullet points
 	- Focus on ${categoryMap[category as keyof typeof categoryMap].focusOn}
-	${categoryMap[category as keyof typeof categoryMap].additionalRequirements.join(
-		'\n'
-	)}
+	${categoryMap[category as keyof typeof categoryMap].additionalRequirements.join('\n')}
 	- No additional commentary, only the summary itself
 
 	Resume as Markdown:
