@@ -20,7 +20,7 @@ export const sendError = (
   });
 };
 
-export const sendValidationError = (res: Response, message: string, details?: string) =>
+export const sendBadRequestError = (res: Response, message: string, details?: string) =>
   sendError(res, 400, message, details);
 
 export const sendNotFoundError = (res: Response, resource: string) =>
@@ -49,7 +49,7 @@ export const handlePrismaError = (error: unknown, res: Response): Response | voi
       case 'P2025':
         return sendNotFoundError(res, 'Record');
       case 'P2003':
-        return sendValidationError(res, 'Invalid reference');
+        return sendBadRequestError(res, 'Invalid reference');
       case 'P1001':
         return sendError(res, 503, 'Database unavailable');
       case 'P1008':
@@ -60,7 +60,7 @@ export const handlePrismaError = (error: unknown, res: Response): Response | voi
   }
 
   if (error instanceof Prisma.PrismaClientValidationError) {
-    return sendValidationError(res, 'Invalid data provided');
+    return sendBadRequestError(res, 'Invalid data provided');
   }
 
   if (error instanceof Prisma.PrismaClientInitializationError) {

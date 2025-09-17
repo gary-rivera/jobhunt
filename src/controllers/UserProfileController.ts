@@ -1,13 +1,13 @@
 import { Request, Response } from 'express';
 import { UserProfile } from '@prisma/client';
 import prisma from '../lib/prisma';
-import { sendValidationError, sendNotFoundError, sendInternalServerError } from '../utils/error';
+import { sendBadRequestError, sendNotFoundError, sendInternalServerError } from '../utils/error';
 
 async function getUser(req: Request, res: Response): Promise<UserProfile | Response> {
   try {
     const { alias } = req.params;
     if (!alias) {
-      return sendValidationError(res, 'Alias field is required');
+      return sendBadRequestError(res, 'Alias field is required');
     }
     const response = (await prisma.$queryRaw`
         SELECT

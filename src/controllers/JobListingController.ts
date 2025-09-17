@@ -1,8 +1,8 @@
 import prisma from '../lib/prisma';
 import { JobListing } from '@prisma/client';
 import { Request, Response } from 'express';
-import { sendValidationError, sendNotFoundError, sendInternalServerError } from '../utils/error';
 import { generateUserProfileSummary } from '../services/ollama';
+import { sendBadRequestError, sendNotFoundError, sendInternalServerError } from '../utils/error';
 
 async function getJobListing(req: Request, res: Response): Promise<JobListing | Response> {
   try {
@@ -10,7 +10,7 @@ async function getJobListing(req: Request, res: Response): Promise<JobListing | 
     const parsedJobId = parseInt(jobId, 10);
 
     if (!jobId || isNaN(parsedJobId)) {
-      return sendValidationError(res, 'Invalid jobId parameter');
+      return sendBadRequestError(res, 'Invalid jobId parameter');
     }
 
     const response = (await prisma.$queryRaw`
@@ -45,7 +45,7 @@ async function getJobListing(req: Request, res: Response): Promise<JobListing | 
 
     return job;
   } catch (err) {
-    console.error('Error fetching job listing:', err);
+    log.error('Error fetching job listing:', err);
     return sendInternalServerError(res);
   }
 }
