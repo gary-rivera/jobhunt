@@ -6,9 +6,12 @@ import { sendBadRequestError, sendNotFoundError, sendInternalServerError } from 
 async function getUser(req: Request, res: Response): Promise<UserProfile | Response> {
   try {
     const { alias } = req.params;
+
     if (!alias) {
-      return sendBadRequestError(res, 'Alias field is required');
+      return sendBadRequestError(res, '[UserProfileController] Alias field is required.');
     }
+
+    log.info('[UserProfileController] Fetching user profile for alias:', alias);
     const response = (await prisma.$queryRaw`
         SELECT
           id,
@@ -22,8 +25,13 @@ async function getUser(req: Request, res: Response): Promise<UserProfile | Respo
     const user: UserProfile | null = response[0] || null;
 
     if (!user) {
-      return sendNotFoundError(res, 'UserProfile not found');
+      return sendNotFoundError(
+        res,
+        '[UserProfileController] UserProfile record not found under provided alias.',
+      );
     }
+
+    log.success('[UserProfileController] Fetched user profile successfully.');
     return user;
   } catch (err) {
     log.error('Error fetching user profile:', err);

@@ -1,23 +1,24 @@
-import { add } from 'lodash';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { Ollama, EmbedResponse, ChatResponse } from 'ollama';
 const ollama = new Ollama({ host: 'http://localhost:11434' });
 
-export async function generateEmbedding(
-	text: string
-): Promise<EmbedResponse | null> {
-	try {
-		const response = await ollama.embed({
-			model: 'nomic-embed-text',
-			input: text,
-		});
-		if (response) {
-			return response;
-		}
-	} catch (error) {
-		console.error('Error generating embedding:', error);
-		return null;
-	}
-    log.error('Error generating embedding:', error);
+export async function generateEmbedding(text: string): Promise<number[] | null> {
+  log.info('[ollama] Attempting to generate embedding');
+  try {
+    const response = await ollama.embed({
+      model: 'nomic-embed-text',
+      input: text,
+    });
+    if (response && response.embeddings[0]?.length) {
+      const embedding = response.embeddings[0];
+      log.success('[ollama] Generated embedding of length:', embedding);
+      return embedding;
+    }
+    return null;
+  } catch (error) {
+    log.error('[ollama] Error generating embedding:', error);
+    return null;
+  }
 }
 
 export async function generateUserProfileSummary(

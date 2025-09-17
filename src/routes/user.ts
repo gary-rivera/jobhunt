@@ -18,33 +18,35 @@ userRouter.get('/:alias', getUser);
 
 // TODO: extract user creation and patch logic to controller
 userRouter.post('/embed', async (req, res) => {
+  log.info('[user/embed] Attempting to create new user profile. Checking for duplicates...');
   const { alias } = req.body as {
     alias?: string;
   };
 
   if (!alias) return res.status(400).json({ error: 'Alias field is required' });
 
-  // check if user with alias already exists
   const existingUser = await prisma.userProfile.findUnique({
     where: { alias },
   });
 
-  if (existingUser) return res.status(409).json({ error: 'User with this alias already exists' });
+  if (existingUser)
+    return res.status(409).json({ error: `User with this alias already exists: ${alias}` });
 
-  // check if resume_md is provided, if not, read from local file src/data/dingle.md
+  log.info('[user/embed] Alias provided is valid and unique:', alias);
 
-  // manually read from local file src/data/dingle.md
+  // manually read from local file src/data/dingle.md for now
   let resume_md = '';
   const resumePath = path.join(__dirname, '../data/dingle.md');
 
   try {
+    log.info('[user/embed] Reading resume from local file system:', resumePath);
     const data = await fs.readFile(resumePath, 'utf-8');
-    log.info('Loaded resume from file system: \n', `${data.substring(0, 30)}...`);
 
+    log.success('[user/embed] Loaded from file system successfully.');
     resume_md = data;
   } catch (error) {
-    log.error('Error reading resume file:', error);
-    return res.status(500).json({ error: 'Failed to read resume file from server' });
+    log.error('[user/embed] Error reading resume file from local file system:', error);
+    return res.status(500).json({ error: 'Failed to read resume file from local file system' });
   }
 
   // generate profile embedding
@@ -52,11 +54,12 @@ userRouter.post('/embed', async (req, res) => {
   const embedding = embedResponse?.embeddings[0];
   log.info('Generating user profile summary for:', alias);
 
-  // create new user
+  log.info('[user/embed] Generating user profile summary for:', alias);
   const newUser = await prisma.$executeRaw`
-			INSERT INTO user_profiles (alias, bio, bio_embedding)
-			VALUES (${alias}, ${resume_md}, ${embedding})
-		`;
+    INSERT INTO user_profiles (alias, bio, bio_embedding)
+    VALUES (${alias}, ${resume_md}, ${bioEmbedding})
+  `;
+  log.success('[user/embed] Created new user profile successfully for:', alias);
 
   return res.status(201).json({
     message: 'User created successfully (sorta)',
@@ -65,8 +68,6 @@ userRouter.post('/embed', async (req, res) => {
   });
 });
 
-userRouter.patch('/:alias/summary', async (req, res) => {
-  // TODO:
-});
+// TODO: patch user profile, primarily to update bio and recalc bio_embedding
 
 export { userRouter };

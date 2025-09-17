@@ -6,12 +6,17 @@ import { sendBadRequestError, sendNotFoundError, sendInternalServerError } from 
 async function getJobListing(req: Request, res: Response): Promise<JobListing | Response> {
   try {
     const { jobId } = req.params;
+
     const parsedJobId = parseInt(jobId, 10);
 
     if (!jobId || isNaN(parsedJobId)) {
       return sendBadRequestError(res, 'Invalid jobId parameter');
+      return sendBadRequestError(res, '[JobListingController] Invalid jobId parameter.');
     }
 
+    log.info('[JobListingController] Fetching job listing for jobId:', jobId);
+
+    // TODO: select only necessary fields once scoring is fleshed out
     const response = (await prisma.$queryRaw`
 				SELECT
 					id,
@@ -41,7 +46,9 @@ async function getJobListing(req: Request, res: Response): Promise<JobListing | 
     const job: JobListing | null = response[0] || null;
 
     if (!job) return sendNotFoundError(res, 'Job listing not found');
+    if (!job) return sendNotFoundError(res, '[JobListingController] Job listing not found');
 
+    log.success('[JobListingController] Fetched job listing successfully');
     return job;
   } catch (err) {
     log.error('Error fetching job listing:', err);
