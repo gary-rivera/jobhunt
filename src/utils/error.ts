@@ -10,62 +10,81 @@ export const sendError = (
   res: Response,
   status: number,
   message: string,
-  details: string | null = null
+  prefix = '[sendError]',
+  // details: string | null = null
 ): Response<ErrorResponse> => {
-  log.error(`[sendError] Error ${status}: ${message}`);
+  log.error(`${prefix} Error ${status}: ${message}`);
 
   return res.status(status).json({
     error: message,
-    ...(details && { details }),
+    // ...(details && { details }),
   });
 };
 
-export const sendBadRequestError = (res: Response, message: string, details?: string) =>
-  sendError(res, 400, message, details);
+export const sendBadRequestError = (
+  res: Response,
+  message: string,
+  prefix: string = '[sendBadRequestError]',
+) => sendError(res, 400, message, prefix);
 
-export const sendNotFoundError = (res: Response, resource: string) =>
-  sendError(res, 404, `${resource} not found`);
+export const sendNotFoundError = (
+  res: Response,
+  resource: string,
+  prefix: string = '[sendNotFoundError]',
+) => sendError(res, 404, `${resource} not found`, prefix);
 
-export const sendConflictError = (res: Response, message: string) => sendError(res, 409, message);
+export const sendConflictError = (
+  res: Response,
+  message: string,
+  prefix: string = '[sendConflictError]',
+) => sendError(res, 409, message, prefix);
 
 export const sendUnauthorizedError = (
   res: Response,
-  message = 'Invalid authentication credentials'
-) => sendError(res, 401, message);
+  message = 'Invalid authentication credentials',
+  prefix: string = '[sendUnauthorizedError]',
+) => sendError(res, 401, message, prefix);
 
-export const sendForbiddenError = (res: Response, message = 'Forbidden') =>
-  sendError(res, 403, message);
+export const sendForbiddenError = (
+  res: Response,
+  message = 'Forbidden',
+  prefix: string = '[sendForbiddenError]',
+) => sendError(res, 403, message, prefix);
 
-export const sendInternalServerError = (res: Response, message = 'Internal server error') =>
-  sendError(res, 500, message);
+export const sendInternalServerError = (
+  res: Response,
+  message = 'Internal server error',
+  prefix: string = '[sendInternalServerError]',
+) => sendError(res, 500, message, prefix);
 
 export const handlePrismaError = (error: unknown, res: Response): Response | void => {
-  log.error('Database error:', error);
+  const prefix = '[handlePrismaError]';
+  log.error(`${prefix} Database error:`, error);
 
   if (error instanceof Prisma.PrismaClientKnownRequestError) {
     switch (error.code) {
       case 'P2002':
-        return sendConflictError(res, 'Record already exists');
+        return sendConflictError(res, `${prefix} Record already exists`);
       case 'P2025':
-        return sendNotFoundError(res, 'Record');
+        return sendNotFoundError(res, `${prefix} Record not found`);
       case 'P2003':
-        return sendBadRequestError(res, 'Invalid reference');
+        return sendBadRequestError(res, `${prefix} Invalid reference`);
       case 'P1001':
-        return sendError(res, 503, 'Database unavailable');
+        return sendInternalServerError(res, `${prefix} Database unavailable`);
       case 'P1008':
-        return sendError(res, 408, 'Database timeout');
+        return sendError(res, 408, `${prefix} Database timeout`);
       default:
-        return sendInternalServerError(res, 'Database error');
+        return sendError(res, 500, `${prefix} Database error`);
     }
   }
 
   if (error instanceof Prisma.PrismaClientValidationError) {
-    return sendBadRequestError(res, 'Invalid data provided');
+    return sendBadRequestError(res, `${prefix} Invalid data provided`);
   }
 
   if (error instanceof Prisma.PrismaClientInitializationError) {
-    return sendError(res, 503, 'Database connection failed');
+    return sendError(res, 503, `${prefix} Database connection failed`);
   }
 
-  return sendInternalServerError(res, 'An unexpected error occurred');
+  return sendInternalServerError(res, `${prefix} An unexpected error occurred`);
 };
