@@ -3,6 +3,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 
 import { healthRouter, jobRouter, userRouter, scoreRouter } from './routes';
+import { errorHandler } from './middleware/errorHandler';
 
 const app = express();
 
@@ -15,5 +16,7 @@ app.use('/health', healthRouter);
 app.use('/user', userRouter);
 app.use('/job', jobRouter);
 app.use('/score', scoreRouter);
+
+app.use(errorHandler);
 
 export default app;
