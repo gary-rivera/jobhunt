@@ -1,5 +1,5 @@
 import { Prisma } from '@prisma/client';
-import { AppError } from './base';
+import { AppError, InternalError } from './index';
 
 export class PrismaError extends AppError {
   public readonly statusCode: number;
@@ -25,7 +25,7 @@ export class PrismaTimeoutError extends PrismaError {
     super(message, 'timeout', 408);
   }
 }
-export const convertPrismaError = (error: unknown): PrismaError => {
+export const convertPrismaError = (error: unknown): AppError => {
   if (error instanceof Prisma.PrismaClientKnownRequestError) {
     switch (error.code) {
       case 'P1001': // Can't reach database server
@@ -35,8 +35,13 @@ export const convertPrismaError = (error: unknown): PrismaError => {
         return new PrismaTimeoutError();
       case 'P2024': // Timed out fetching a new connection
         return new PrismaTimeoutError('Database connection timeout');
+      // Schema/query errors should be internal errors
+      case 'P2010': // Raw query failed
+        return new InternalError(`Database query validation error`, 'validation', 500);
+
       default:
-        return new PrismaConnectionError('Database error');
+        // Don't assume connection error for unknown codes
+        return new InternalError(`Database error (${error.code}): ${error.message}`, 'validation', 500);
     }
   }
 
