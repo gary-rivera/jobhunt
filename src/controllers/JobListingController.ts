@@ -2,6 +2,7 @@ import prisma from '../lib/prisma';
 import { JobListing } from '@prisma/client';
 import { Request, Response } from 'express';
 import { sendBadRequestError, sendNotFoundError, sendInternalServerError } from '../utils/error';
+import { LinkedInJob } from '../routes';
 
 async function getJobListing(req: Request, res: Response): Promise<JobListing | Response> {
   try {
@@ -10,7 +11,6 @@ async function getJobListing(req: Request, res: Response): Promise<JobListing | 
     const parsedJobId = parseInt(jobId, 10);
 
     if (!jobId || isNaN(parsedJobId)) {
-      return sendBadRequestError(res, 'Invalid jobId parameter');
       return sendBadRequestError(res, '[JobListingController] Invalid jobId parameter.');
     }
 
@@ -45,7 +45,6 @@ async function getJobListing(req: Request, res: Response): Promise<JobListing | 
 
     const job: JobListing | null = response[0] || null;
 
-    if (!job) return sendNotFoundError(res, 'Job listing not found');
     if (!job) return sendNotFoundError(res, '[JobListingController] Job listing not found');
 
     log.success('[JobListingController] Fetched job listing successfully');
@@ -56,4 +55,43 @@ async function getJobListing(req: Request, res: Response): Promise<JobListing | 
   }
 }
 
-export { getJobListing };
+// parse and process job data - start with **required** columns
+function cleanupScrapedJob(scrapedJob: LinkedInJob) {
+  // static, 1:1
+  const {
+    location,
+    company_name: company, // maps to company in db
+    job_title: title, // maps to title in db
+    job_url: listingUrl, // maps to listing_url in db
+    job_description: descriptionRaw, // maps to description_raw in db
+    // 'time_posted',
+    // 'apply_url', // maps to 'apply_to_url' in db
+    // 'time_posted',
+    // 'num_applicants',
+    // 'salary_range',
+    // 'job_id' // as source_id,
+    // 'job_function',
+    // 'seniority_level,
+    // 'industries,
+  } = scrapedJob;
+
+  // dynamic values
+  const descriptionCleaned = descriptionRaw?.replace(/\s*Show more\s*Show less\s*$/i, '').trim();
+  const skillsFound = ['foo', 'bar', 'baz'];
+  // TODO: applicants, salary <<<-- NOTE: NOT REQUIRED YET
+
+  return {
+    requirementsMet: !!descriptionCleaned.length, // TODO:  refactor to assert more values; for now just description is technically required for scoring
+    generated: {
+      location,
+      company,
+      title,
+      listingUrl,
+      descriptionRaw,
+      descriptionCleaned,
+      skillsFound,
+    },
+  };
+}
+
+export { getJobListing, cleanupScrapedJob };

@@ -13,7 +13,7 @@ export const sendError = (
   prefix = '[sendError]',
   // details: string | null = null
 ): Response<ErrorResponse> => {
-  log.error(`${prefix} Error ${status}: ${message}`);
+  log.error(`${prefix} ${message}`);
 
   return res.status(status).json({
     error: message,
@@ -23,19 +23,19 @@ export const sendError = (
 
 export const sendBadRequestError = (
   res: Response,
-  message: string,
+  message: string = 'Bad request',
   prefix: string = '[sendBadRequestError]',
 ) => sendError(res, 400, message, prefix);
 
 export const sendNotFoundError = (
   res: Response,
-  resource: string,
+  message: string = 'Not found',
   prefix: string = '[sendNotFoundError]',
-) => sendError(res, 404, `${resource} not found`, prefix);
+) => sendError(res, 404, message, prefix);
 
 export const sendConflictError = (
   res: Response,
-  message: string,
+  message: string = 'Conflict',
   prefix: string = '[sendConflictError]',
 ) => sendError(res, 409, message, prefix);
 
@@ -45,11 +45,8 @@ export const sendUnauthorizedError = (
   prefix: string = '[sendUnauthorizedError]',
 ) => sendError(res, 401, message, prefix);
 
-export const sendForbiddenError = (
-  res: Response,
-  message = 'Forbidden',
-  prefix: string = '[sendForbiddenError]',
-) => sendError(res, 403, message, prefix);
+export const sendForbiddenError = (res: Response, message = 'Forbidden', prefix: string = '[sendForbiddenError]') =>
+  sendError(res, 403, message, prefix);
 
 export const sendInternalServerError = (
   res: Response,
@@ -64,27 +61,33 @@ export const handlePrismaError = (error: unknown, res: Response): Response | voi
   if (error instanceof Prisma.PrismaClientKnownRequestError) {
     switch (error.code) {
       case 'P2002':
-        return sendConflictError(res, `${prefix} Record already exists`);
+        return sendConflictError(res, 'Record already exists', prefix);
+      case 'P2004':
+        return sendBadRequestError(res, 'Constraint violation', prefix);
+      case 'P2006':
+        return sendBadRequestError(res, 'Invalid query value', prefix);
+      case 'P2011':
+        return sendBadRequestError(res, 'Null constraint violation', prefix);
       case 'P2025':
-        return sendNotFoundError(res, `${prefix} Record not found`);
+        return sendNotFoundError(res, 'Record not found', prefix);
       case 'P2003':
-        return sendBadRequestError(res, `${prefix} Invalid reference`);
+        return sendBadRequestError(res, 'Invalid reference', prefix);
       case 'P1001':
-        return sendInternalServerError(res, `${prefix} Database unavailable`);
+        return sendInternalServerError(res, 'Database unavailable', prefix);
       case 'P1008':
-        return sendError(res, 408, `${prefix} Database timeout`);
+        return sendError(res, 408, 'Database timeout', prefix);
       default:
-        return sendError(res, 500, `${prefix} Database error`);
+        return sendError(res, 500, 'Database error', prefix);
     }
   }
 
   if (error instanceof Prisma.PrismaClientValidationError) {
-    return sendBadRequestError(res, `${prefix} Invalid data provided`);
+    return sendBadRequestError(res, 'Invalid data provided', prefix);
   }
 
   if (error instanceof Prisma.PrismaClientInitializationError) {
-    return sendError(res, 503, `${prefix} Database connection failed`);
+    return sendError(res, 503, 'Database connection failed', prefix);
   }
 
-  return sendInternalServerError(res, `${prefix} An unexpected error occurred`);
+  return sendInternalServerError(res, 'An unexpected error occurred', prefix);
 };

@@ -21,7 +21,7 @@ const server = app.listen(PORT, async () => {
 async function testDatabaseConnection() {
   try {
     await prisma.$connect();
-    log.success('Database connected successfully on startup.\n\n\n');
+    log.success('Database connected successfully on startup.\n');
   } catch (err) {
     log.error('Failed to connect to database on startup.', err);
   }

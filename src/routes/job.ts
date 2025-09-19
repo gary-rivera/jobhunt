@@ -59,9 +59,7 @@ jobRouter.post('/embed', async (req, res) => {
   const salaryMidrange = normalizedSalary?.midpoint || null;
 
   // TODO: further cleaning -> salary range, disclaimer texts,
-  const cleanedDescription = job.job_description
-    .replace(/\s*Show more\s*Show less\s*$/i, '')
-    .trim();
+  const cleanedDescription = job.job_description.replace(/\s*Show more\s*Show less\s*$/i, '').trim();
 
   // pick fields relevant for scoring
   const scoringCriteria = lodash.pick(job, [
@@ -79,9 +77,9 @@ jobRouter.post('/embed', async (req, res) => {
   // console.log('scoringCriteria', scoringCriteria);
 
   // generate embedding for the job description
-  const response = await generateEmbedding(cleanedDescription);
-  const jobEmbedding = response?.embeddings[0] || null;
-  const { job_id, job_title, company_name, location, job_url, apply_url, job_description } = job;
+  const jobEmbedding = await generateEmbedding(cleanedDescription);
+  // const jobEmbedding = response?.embeddings[0] || null;
+  const { job_id, job_title, company_name, job_url, job_description } = job;
 
   const newJobListing = await prisma.$executeRaw`
     INSERT INTO job_listings (
@@ -111,8 +109,5 @@ jobRouter.post('/embed', async (req, res) => {
   log.info('Inserted new job listing:', job_id);
   return res.status(201).json({ jobListing: newJobListing, jobId: job_id });
 });
-
-// the big cowabunga - where it all comes together
-jobRouter.post('/run/batch', async (req, res) => {});
 
 export { jobRouter };

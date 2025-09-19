@@ -3,8 +3,7 @@ import prisma from '../lib/prisma';
 import path from 'path';
 import fs from 'fs/promises';
 import { generateEmbedding } from '../services/ollama';
-
-import { getUser } from '../controllers/UserProfileController';
+import { getUserByAlias } from '../services/userService';
 
 const userRouter = Router();
 
@@ -14,7 +13,10 @@ const userRouter = Router();
 
 // NOTE: for now, only support fetching by alias since this is a personal project
 // In future, may add auth and fetch by user id or token
-userRouter.get('/:alias', getUser);
+userRouter.get('/:alias', async (req, res) => {
+  const user = await getUserByAlias(req.params.alias);
+  res.json(user);
+});
 
 // TODO: extract user creation and patch logic to controller
 userRouter.post('/embed', async (req, res) => {
@@ -25,12 +27,11 @@ userRouter.post('/embed', async (req, res) => {
 
   if (!alias) return res.status(400).json({ error: 'Alias field is required' });
 
-  const existingUser = await prisma.userProfile.findUnique({
+  const existingUser = await prisma.user.findUnique({
     where: { alias },
   });
 
-  if (existingUser)
-    return res.status(409).json({ error: `User with this alias already exists: ${alias}` });
+  if (existingUser) return res.status(409).json({ error: `User with this alias already exists: ${alias}` });
 
   log.info('[user/embed] Alias provided is valid and unique:', alias);
 
@@ -49,16 +50,21 @@ userRouter.post('/embed', async (req, res) => {
     return res.status(500).json({ error: 'Failed to read resume file from local file system' });
   }
 
-  // generate profile embedding
-  const embedResponse = await generateEmbedding(resume_md);
-  const embedding = embedResponse?.embeddings[0];
-  log.info('Generating user profile summary for:', alias);
+  const bioEmbedding = await generateEmbedding(resume_md);
 
   log.info('[user/embed] Generating user profile summary for:', alias);
-  const newUser = await prisma.$executeRaw`
-    INSERT INTO user_profiles (alias, bio, bio_embedding)
-    VALUES (${alias}, ${resume_md}, ${bioEmbedding})
-  `;
+  // const newUser = await prisma.$executeRaw`
+  //   INSERT INTO user_profiles (alias, bio, bio_embedding)
+  //   VALUES (${alias}, ${resume_md}, ${bioEmbedding})
+  // `;
+
+  const newUser = await prisma.user.create({
+    data: {
+      alias,
+      bio: resume_md,
+      bioEmbedding,
+    },
+  });
   log.success('[user/embed] Created new user profile successfully for:', alias);
 
   return res.status(201).json({

@@ -10,57 +10,52 @@ datasource db {
 }
 
 model JobListing {
-  id                   String                 @id @default(cuid())
-  jobScrapeRunId       String                 @map("job_scrape_run_id")
-  title                String
-  company              String
-  source               String?                @unique
-  location             String?
-  salaryRange          String?                @map("salary_range")
-  listingUrl           String                 @map("listing_url")
-  applyToUrl           String?                @map("apply_to_url")
-  descriptionRaw       String                 @map("description_raw")
-  descriptionCleaned   String                 @map("description_cleaned")
-  descriptionEmbedding Unsupported("vector")? @map("description_embedding")
-  skillsFound          String[]               @map("skills_found")
-  seniority            String?
-  overallScore         Float?                 @map("overall_score")
-  technicalMatch       Float?                 @map("technical_match")
-  experienceMatch      Float?                 @map("experience_match")
-  industryMatch        Float?                 @map("industry_match")
-  scrapedAt            DateTime               @default(now()) @map("scraped_at")
-  createdAt            DateTime               @default(now()) @map("created_at")
-  jobScrapeRun         JobScrapeRun           @relation(fields: [jobScrapeRunId], references: [id])
+  id Int @id @default(autoincrement())
+
+  title             String
+  company           String
+  location          String
+  salaryMidpointUsd Int    @map("salary_midpoint_usd")
+  listingUrl        String @map("listing_url") @db.Text
+  applyToUrl        String @map("apply_to_url") @db.Text
+
+  descriptionRaw       String  @map("description_raw") @db.Text
+  descriptionCleaned   String  @map("description_cleaned") @db.Text
+  descriptionEmbedding Float[] @map("description_embedding")
+
+  score Float
+
+  scrapedAt DateTime @default(now()) @map("scraped_at")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
 
   @@map("job_listings")
 }
 
-model JobScrapeRun {
-  id             String             @id @default(cuid())
-  startedAt      DateTime           @default(now()) @map("started_at")
-  completedAt    DateTime?          @map("completed_at")
-  totalScraped   Int?               @map("total_scraped")
-  afterFiltering Int?               @map("after_filtering")
-  status         JobScrapeRunStatus @default(RUNNING) @map("status")
-  errorMessage   String?            @map("error_message")
-  jobListings    JobListing[]
-
-  @@map("job_scrape_runs")
-}
-
-model UserProfile {
-  alias        String                 @unique
+model User {
+  id           Int      @id @default(autoincrement())
+  alias        String   @unique
   bio          String?
-  bioEmbedding Unsupported("vector")? @map("bio_embedding")
-  createdAt    DateTime               @default(now()) @map("created_at")
-  updatedAt    DateTime               @default(now()) @updatedAt @map("updated_at")
-  id           Int                    @id @default(autoincrement())
+  bioEmbedding Float[]  @map("bio_embedding")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @default(now()) @updatedAt @map("updated_at")
 
-  @@map("user_profiles")
+  @@map("users")
 }
 
-enum JobScrapeRunStatus {
-  RUNNING
-  COMPLETED
-  FAILED
-}
+// enum JobScrapeRunStatus {
+//   RUNNING
+//   COMPLETED
+//   FAILED
+// }
+// model JobScrapeRun {
+//   id             String             @id @default(cuid())
+//   startedAt      DateTime           @default(now())
+//   completedAt    DateTime?
+//   totalScraped   Int?
+//   afterFiltering Int?
+//   status         JobScrapeRunStatus @default(RUNNING)
+//   errorMessage   String?
+//   jobListings    JobListing[]
+
+// }

@@ -1,27 +1,31 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { Ollama, EmbedResponse, ChatResponse } from 'ollama';
-const ollama = new Ollama({ host: 'http://localhost:11434' });
+import { OllamaConnectionError, OllamaModelError } from '../lib/errors/ollama';
 
-export async function generateEmbedding(text: string): Promise<number[] | null> {
+const ollama = new Ollama({ host: 'http://localhost:11434' });
+export async function generateEmbedding(text: string): Promise<number[]> {
   log.info('[ollama] Attempting to generate embedding');
   try {
     const response = await ollama.embed({
       model: 'nomic-embed-text',
       input: text,
     });
-    if (response && response.embeddings[0]?.length) {
-      const embedding = response.embeddings[0];
-      log.success('[ollama] Generated embedding of length:', embedding.length);
-      return embedding;
-    }
-    return null;
+
+    if (!response) throw new OllamaConnectionError();
+
+    const embedding = response.embeddings[0];
+
+    if (!embedding) throw new OllamaModelError('No embedding returned from Ollama API');
+
+    log.success('[ollama] Generated embedding of length:', embedding.length);
+    return embedding;
   } catch (error) {
     log.error('[ollama] Error generating embedding:', error);
-    return null;
+    throw error;
   }
 }
 
-export async function generateUserProfileSummary(resume_md: string, category?: string): Promise<ChatResponse | null> {
+export async function generateUserBioSummary(resume_md: string, category?: string): Promise<ChatResponse | null> {
   const prompt = generatePrompt(resume_md, category || 'technical');
   try {
     const response = await ollama.chat({
