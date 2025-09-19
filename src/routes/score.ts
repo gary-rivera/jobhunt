@@ -1,7 +1,7 @@
 import Router from 'express';
 import { User, JobListing } from '@prisma/client';
 import { getUserByAlias } from '../services/userService';
-import { getJobListing, cleanupScrapedJob } from '../controllers/JobListingController';
+import { getJobListing, transformScrapedJob } from '../services/jobListingService';
 import { cosineSimilarity } from '../utils/scoring';
 
 import { generateEmbedding } from '../services/ollama';
@@ -58,8 +58,8 @@ scoreRouter.post('/batch/:alias', async (req, res) => {
 
   for (const scrapedJob of scrapedJobs) {
     // parse and process job data - start with **required** columns first
-    const response = cleanupScrapedJob(scrapedJob);
-    const cleaned = response.generated;
+    const response = transformScrapedJob(scrapedJob);
+    const cleaned = response.partialJobListing;
     // generate an embedding for the processed job data description
     const jobEmbedding = await generateEmbedding(cleaned.descriptionCleaned);
 
