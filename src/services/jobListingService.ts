@@ -1,9 +1,12 @@
 import prisma from '../lib/prisma';
+import { Prisma } from '@prisma/client';
+import { ValidationError, NotFoundError } from '../lib/errors';
+import { generateEmbedding } from './ollama';
+
 import { JobListing } from '@prisma/client';
 import { normalizeSalaryRange } from '../utils/jobs';
 import { parseISODateString, parseRelativeTime } from '../utils/time';
 import { validateRequiredFields } from '../utils/validation';
-import { ValidationError, NotFoundError } from '../lib/errors';
 
 export interface LinkedInJob {
   job_id: string;
@@ -31,11 +34,6 @@ export interface LinkedInJob {
   scraped_at: string;
 }
 
-interface ScrapedJobParsingResult {
-  requirementsMet: boolean;
-  partialJobListing: Omit<JobListing, 'id' | 'createdAt' | 'updatedAt' | 'descriptionEmbedding' | 'score'>;
-}
-
 async function getJobListing(jobId: string): Promise<JobListing> {
   log.info('[getJobListing] job listing fetch invoked');
 
@@ -50,7 +48,7 @@ async function getJobListing(jobId: string): Promise<JobListing> {
 
   log.info('[getJobListing] Fetching job listing for jobId:', jobId);
 
-  const jobListing = await prisma.jobListing.findUnique({
+  const jobListing = await prisma.jobListing.findUniqueOrThrow({
     where: { id: parsedJobId },
   });
 
@@ -62,10 +60,12 @@ async function getJobListing(jobId: string): Promise<JobListing> {
   return jobListing;
 }
 
+// TODO: add try catch, akin to ollama service
 // given a scraped job from LinkedIn, parse and generate a partial JobListing object
-function transformScrapedJob(scrapedJob: LinkedInJob): ScrapedJobParsingResult {
+function transformScrapedJob(scrapedJob: LinkedInJob): Prisma.JobListingCreateInput {
   log.info('[transformScrapedJob] transforming externally scraped job');
   const {
+    job_id: externalJobId,
     job_description: descriptionRaw,
     salary_range: salaryRange,
     num_applicants: numApplicantsStr,
@@ -73,6 +73,10 @@ function transformScrapedJob(scrapedJob: LinkedInJob): ScrapedJobParsingResult {
     time_posted: timePosted,
     // skills_found: skillsFound, // TODO: extract from description using NLP
   } = scrapedJob;
+
+  if (!descriptionRaw || !salaryRange || !numApplicantsStr) {
+    log.warn('[transformScrapedJob] missing essential field(s) from external job listing id: ', externalJobId);
+  }
 
   const descriptionCleaned = descriptionRaw?.replace(/\s*Show more\s*Show less\s*$/i, '').trim();
 
@@ -86,6 +90,7 @@ function transformScrapedJob(scrapedJob: LinkedInJob): ScrapedJobParsingResult {
   const postedAt = parseRelativeTime(timePosted);
 
   const partialJobListing = {
+    externalId: `n8n/linkedin-${externalJobId}`,
     title: scrapedJob.job_title,
     company: scrapedJob.company_name,
     location: scrapedJob.location,
@@ -101,15 +106,33 @@ function transformScrapedJob(scrapedJob: LinkedInJob): ScrapedJobParsingResult {
     scrapedAt,
   };
 
-  const { requirementsMet, missing } = validateRequiredFields(partialJobListing);
-  if (!requirementsMet) {
-    log.error('[parseScrapedJob] Failed to parse required fields: ', missing);
-  }
+  return partialJobListing;
+}
+
+async function processScrapedJob(scrapedJob: LinkedInJob): Promise<Prisma.JobListingCreateInput> {
+  const transformed = transformScrapedJob(scrapedJob);
+  const descriptionEmbedding = await generateEmbedding(transformed.descriptionCleaned);
 
   return {
-    requirementsMet,
-    partialJobListing,
+    ...transformed,
+    descriptionEmbedding,
   };
 }
 
-export { getJobListing, transformScrapedJob };
+async function saveJobListing(jobListing: Prisma.JobListingCreateInput) {
+  const { valid, missing } = validateRequiredFields(jobListing, 'JobListing');
+  if (!valid) {
+    log.error('[saveJobListing] refused to create job listing. Missing the following fields: ', missing);
+    throw new ValidationError('Cannot save job listing as its missing required fields');
+  }
+  return await prisma.jobListing.create({
+    data: jobListing,
+  });
+}
+
+async function processAndSaveJob(job: LinkedInJob): Promise<JobListing> {
+  const processed = await processScrapedJob(job);
+  return await saveJobListing(processed);
+}
+
+export { getJobListing, transformScrapedJob, processScrapedJob, saveJobListing, processAndSaveJob };
