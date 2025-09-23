@@ -1,5 +1,5 @@
 import { Prisma } from '@prisma/client';
-import { AppError, InternalError } from './index';
+import { AppError, InternalError, NotFoundError, ValidationError, ConflictError } from './index';
 
 export class PrismaError extends AppError {
   public readonly statusCode: number;
@@ -35,9 +35,33 @@ export const convertPrismaError = (error: unknown): AppError => {
         return new PrismaTimeoutError();
       case 'P2024': // Timed out fetching a new connection
         return new PrismaTimeoutError('Database connection timeout');
-      // Schema/query errors should be internal errors
+
+      case 'P2002': // Unique constraint violation
+        return new ConflictError('Record already exists');
+      case 'P2003': // Foreign key constraint violation
+        return new ValidationError('Invalid reference - related record not found');
+      case 'P2004': // Constraint failed on database
+        return new ValidationError('Data violates database constraints');
+      case 'P2025':
+        return new NotFoundError('Record not found');
+
+      // Data Issues
+      case 'P2005': // Invalid value for field type
+      case 'P2006': // Provided value invalid for field type
+      case 'P2007': // Data validation error
+        return new ValidationError('Invalid data provided');
+
+      // Query Issues
       case 'P2010': // Raw query failed
-        return new InternalError(`Database query validation error`, 'validation', 500);
+      case 'P2012': // Missing required value
+      case 'P2013': // Missing required argument
+      case 'P2014': // Required relation missing
+        return new ValidationError(`Query error: ${error.message}`);
+
+      // Table/Column Issues (should be rare in production)
+      case 'P2021': // Table does not exist
+      case 'P2022': // Column does not exist
+        return new InternalError('Database schema error', 'validation', 500);
 
       default:
         // Don't assume connection error for unknown codes
