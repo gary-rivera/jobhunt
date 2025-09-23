@@ -18,7 +18,7 @@ userRouter.get('/:alias', async (req, res) => {
   res.json(user);
 });
 
-// TODO: extract user creation and patch logic to controller
+// TODO: extract user creation and patch logic to service
 userRouter.post('/embed', async (req, res) => {
   log.info('[user/embed] Attempting to create new user profile. Checking for duplicates...');
   const { alias } = req.body as {
@@ -53,10 +53,6 @@ userRouter.post('/embed', async (req, res) => {
   const bioEmbedding = await generateEmbedding(resume_md);
 
   log.info('[user/embed] Generating user profile summary for:', alias);
-  // const newUser = await prisma.$executeRaw`
-  //   INSERT INTO user_profiles (alias, bio, bio_embedding)
-  //   VALUES (${alias}, ${resume_md}, ${bioEmbedding})
-  // `;
 
   const newUser = await prisma.user.create({
     data: {
