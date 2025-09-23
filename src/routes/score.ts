@@ -1,10 +1,8 @@
 import Router from 'express';
-import { User, JobListing } from '@prisma/client';
 import { getUserByAlias } from '../services/userService';
-import { getJobListing, transformScrapedJob } from '../services/jobListingService';
-import { cosineSimilarity } from '../utils/scoring';
-
-import { generateEmbedding } from '../services/ollama';
+import { processScoring } from '../services/scoringService';
+import prisma from '../lib/prisma';
+import { ValidationError } from '../lib/errors';
 
 const scoreRouter = Router();
 
@@ -20,60 +18,72 @@ const scoreRouter = Router();
 //   };
 // }
 
-// scoreRouter.get('/single-job/:alias/:jobId', async (req, res) => {
-//   log.info('[score/single-job] Starting scoring process for user and single job listing...');
-//   // const User = (await getUser(req, res)) as User;
-//   const jobListing = (await getJobListing(req, res)) as JobListing;
+scoreRouter.post('/single', async (req, res) => {
+  const { alias, job } = req.body;
+  log.info('[score/single] Starting scoring process for user and single job listing...');
+  const user = await getUserByAlias(alias);
+  const { jobListing, similarityScore } = await processScoring(user, job);
 
-//   if (!User || !jobListing)
-//     return sendNotFoundError(res, '[score/single-job] User or JobListing not found');
-
-//   // @ts-expect-error TODO: Fix type definition - bio_embedding may not exist on User yet
-//   const userEmbedding = User.bio_embedding;
-//   // @ts-expect-error TODO: Fix type definition - description_embedding may not exist on jobListing yet
-//   const jobEmbedding = jobListing.description_embedding;
-//   const cosineScore = cosineSimilarity(userEmbedding, jobEmbedding);
-
-//   return res.json({ User, jobListing, cosineScore });
-// });
+  return res.json({
+    success: {
+      fetching_user: !!user,
+      creating_listing_record: !!jobListing,
+      scoring: !!similarityScore,
+    },
+    similarity_score: similarityScore,
+  });
+});
 
 // TODO: parallelize so that multiple can be processed at once (maybe 3?)
-scoreRouter.post('/batch/:alias', async (req, res) => {
-  // const response = {
-  //   ok: false,
-  // };
+// TODO: timer module to track how long a given job listing takes to process (use extra benchmark util?)
+scoreRouter.post('/batch', async (req, res) => {
   log.info('[score/batch] Starting batch scoring process for user and scraped jobs...');
-  const User = await getUserByAlias(req.params.alias);
+  const { alias, scraped_jobs: scrapedJobs } = req.body;
+  // source: n8n/linkedin
 
-  // @ts-expect-error TODO: Fix type definition - bio_embedding may not exist on User yet
-  const userEmbedding = User.bio_embedding;
-
-  const { scraped_jobs: scrapedJobs } = req.body; // verify this key is right from n8n
+  const user = await getUserByAlias(alias);
 
   if (!scrapedJobs.length) {
-    // NOTE: throw error for now while in alpha, but eventually just log and move on
-    // (could just be a bad day for the initial filtering done on n8n)
-    // return sendBadRequestError(res, 'No scraped jobs provided for scoring');
+    throw new ValidationError('No scraped jobs were passed in to batch processor');
   }
 
+  const summary = {
+    scored: 0,
+    skipped: 0,
+    received: scrapedJobs.length,
+    failed: 0,
+  };
+  log.info(`starting batch process of ${scrapedJobs.length} scraped jobs`);
   for (const scrapedJob of scrapedJobs) {
-    // parse and process job data - start with **required** columns first
-    const response = transformScrapedJob(scrapedJob);
-    const cleaned = response.partialJobListing;
-    // generate an embedding for the processed job data description
-    const jobEmbedding = await generateEmbedding(cleaned.descriptionCleaned);
-
-    // compare the job embed with the userp embed
-
-    // @ts-expect-error TODO: Fix type definition - description_embedding may not exist on jobListing yet
-    const cosineScore = cosineSimilarity(userEmbedding, jobEmbedding);
-    log.info('Cosine similarity score for job:', cleaned.title, 'is', cosineScore);
-    // write jobListing to db
+    try {
+      await processScoring(user, scrapedJob);
+      summary.scored++;
+    } catch (err) {
+      log.error(err);
+      summary.failed++;
+    }
   }
-  // respond with summary of job
+
+  // once all done with assigning scores
+  // query every jobListing created from the current run
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const newJobListings = await prisma.jobListing.findMany({
+    where: { createdAt: { gte: today }, score: { not: null } },
+  });
+
+  const jobListingsSortedByScores = newJobListings.sort((a, b) => {
+    // Since score is guaranteed to be non-null from your query
+    return (b.score || 0) - (a.score || 0);
+  });
+
+  const top3Scores = jobListingsSortedByScores.slice(0, 3);
+
   return res.json({
     message: 'batch process complete',
     score: 'todo',
+    summary,
+    top3: top3Scores,
   });
 });
 
