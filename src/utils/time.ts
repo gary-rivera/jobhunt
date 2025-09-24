@@ -78,3 +78,10 @@ export function formatOllamaMetrics(response: {
     `Tokens utilized: ${response.prompt_eval_count}`
   );
 }
+
+export function generateTimestampTodayStart() {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  return today;
+}

@@ -3,20 +3,11 @@ import { getUserByAlias } from '../services/userService';
 import { processScoring } from '../services/scoringService';
 import prisma from '../lib/prisma';
 import { ValidationError } from '../lib/errors';
+import { generateTimestampTodayStart } from '../utils/time';
 
 const scoreRouter = Router();
 
-// interface BatchScoringResponse {
-//   ok: boolean;
-//   error: any;
-//   best_matches?: LinkedInJob[]; // TODO: update this interface to an apt one for n8n to expect/interact with
-//   total?: {
-//     scored: number;
-//     skipped: number;
-//     received: number;
-//     failed: number;
-//   };
-// }
+// TODO: typing for batcher response
 
 scoreRouter.post('/single', async (req, res) => {
   const { alias, job } = req.body;
@@ -77,13 +68,37 @@ scoreRouter.post('/batch', async (req, res) => {
   });
 
   const top3 = jobListingsSortedByScores.slice(0, 3);
-  const top3Scores = top3.map((jl) => jl.score || null);
+  const top3Scores = top3.map((jl) => ({ score: jl.score || null, jobListingId: jl.id }));
 
   return res.json({
-    message: 'batch process complete',
-    score: 'todo',
+    success: summary.scored > 0,
     summary,
     top3: top3Scores,
+  });
+});
+
+// TODO: query could contain specifics such as daily, weekly, alltime, default to daily
+scoreRouter.get('/top-candidates', async (req, res) => {
+  // NOTE: for now, just counting any scores above 60, but liable to change
+  const jobListings = await prisma.jobListing.findMany({
+    where: {
+      createdAt: { gte: generateTimestampTodayStart() },
+      score: { gte: 0.6 },
+    },
+    select: {
+      id: true,
+      score: true,
+      createdAt: true,
+      applyToUrl: true,
+    },
+    orderBy: {
+      createdAt: 'desc',
+    },
+  });
+
+  return res.status(200).json({
+    total: jobListings.length,
+    data: jobListings,
   });
 });
 

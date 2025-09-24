@@ -129,6 +129,8 @@ async function saveJobListing(jobListing: Prisma.JobListingCreateInput) {
     log.error('[saveJobListing] refused to create job listing. Missing the following fields: ', missing);
     throw new ValidationError('Cannot save job listing as its missing required fields');
   }
+
+  log.info('[saveJobListing] creating job listing for externalId:', jobListing.externalId);
   return await prisma.jobListing.create({
     data: jobListing,
   });
