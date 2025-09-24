@@ -1,4 +1,3 @@
-import './types';
 import 'dotenv/config';
 import app from './app';
 import prisma from './lib/prisma';
@@ -27,7 +26,7 @@ async function testDatabaseConnection() {
   }
 }
 
-// NOTE: only here because my local pg connection pools were intitially persisting after closing.
+// NOTE: only here because my local pg connection pools were persisting after closing.
 process.on('SIGTERM', gracefulShutdown);
 process.on('SIGINT', gracefulShutdown);
 

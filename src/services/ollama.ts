@@ -1,5 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { Ollama, EmbedResponse, ChatResponse } from 'ollama';
+import { Ollama, ChatResponse } from 'ollama';
 import { OllamaConnectionError, OllamaModelError } from '../lib/errors/ollama';
 
 const ollama = new Ollama({ host: 'http://localhost:11434' });

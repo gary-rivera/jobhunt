@@ -1,6 +1,6 @@
 {
   "name": "jobhunt-server",
-  "version": "0.0.9",
+  "version": "1.0.0",
   "main": "index.js",
   "scripts": {
     "build": "tsc",

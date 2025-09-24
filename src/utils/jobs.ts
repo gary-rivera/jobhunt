@@ -6,7 +6,6 @@ function normalizeSalaryRange(salaryString: string | undefined | null): {
 } | null {
   if (!salaryString || typeof salaryString !== 'string') return null;
 
-  // cleanup
   const cleaned = salaryString.trim().toLowerCase();
 
   const numberRegex = /\$?([0-9,]+(?:\.[0-9]{2})?)/g;

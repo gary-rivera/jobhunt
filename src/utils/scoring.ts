@@ -8,7 +8,4 @@ function cosineSimilarity(vectorA: number[], vectorB: number[]): number {
   return dotProduct / (magnitudeA * magnitudeB);
 }
 
-// TODO: implement?
-// function interpretSimilarityScore(score: number): any {}
-
 export { cosineSimilarity };

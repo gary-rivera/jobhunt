@@ -8,10 +8,9 @@ declare global {
 }
 global.log = logUtil;
 async function main() {
-  // Delete existing data (optional, for development)
+  // delete existing data
   await prisma.user.deleteMany();
 
-  // Create seed data
   await createDefaultUser();
 }
 

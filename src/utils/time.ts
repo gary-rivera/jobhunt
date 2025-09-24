@@ -79,7 +79,7 @@ export function formatOllamaMetrics(response: {
   );
 }
 
-export function generateTimestampTodayStart() {
+export function generateTimestampTodayStart(): Date {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 

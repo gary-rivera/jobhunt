@@ -8,5 +8,4 @@ const log = {
   success: (...msg: unknown[]) => console.log(chalk.green('[SUCCESS]'), ...msg),
 };
 
-// export default log;
 export { log };

@@ -11,7 +11,6 @@ jobRouter.get('/:id', async (req, res) => {
 });
 
 jobRouter.post('/embed', async (req, res) => {
-  // parse job listing and run details from body
   const { job }: { job: LinkedInJob } = req.body;
 
   const newJobListing = processAndSaveJob(job);

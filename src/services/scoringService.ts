@@ -25,5 +25,4 @@ async function processScoring(user: User, scrapedJob: LinkedInJob) {
   };
 }
 
-// batch processing of multiple jobs to a user bio
 export { generateJobListingToUserSimilarityScore, processScoring };
