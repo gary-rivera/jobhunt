@@ -1,9 +1,5 @@
 import { PrismaClient } from '@prisma/client';
 
-const basePrisma = new PrismaClient({
-  log: ['info', 'error'],
-});
-
 interface RuntimeField {
   name: string;
   isOptional: boolean;
@@ -21,6 +17,7 @@ interface RuntimeModel {
 interface RuntimeDataModel {
   models: Record<string, RuntimeModel>;
 }
+const basePrisma = new PrismaClient();
 
 function getRequiredFieldsForModel(modelName: string): string[] {
   const runtimeDataModel = (basePrisma as unknown as { _runtimeDataModel: RuntimeDataModel })._runtimeDataModel;
