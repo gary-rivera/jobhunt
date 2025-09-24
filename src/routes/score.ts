@@ -90,9 +90,10 @@ scoreRouter.get('/top-candidates', async (req, res) => {
       score: true,
       createdAt: true,
       applyToUrl: true,
+      listingUrl: true,
     },
     orderBy: {
-      createdAt: 'desc',
+      score: 'desc',
     },
   });
 
