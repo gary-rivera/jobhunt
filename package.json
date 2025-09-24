@@ -12,7 +12,9 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "check-all": "npm run lint && npm run format:check",
-    "prisma:reset-migrations": "rm -rf prisma/migrations && prisma migrate reset --force && prisma migrate dev --name init && prisma generate"
+    "prisma:reset-migrations": "rm -rf prisma/migrations && prisma migrate reset --force && prisma migrate dev --name init && prisma generate",
+    "prisma:seed": "ts-node prisma/seed.ts",
+    "prisma:clean-start": "npm run prisma:reset-migrations && npm run prisma:seed"
   },
   "keywords": [],
   "author": "",
