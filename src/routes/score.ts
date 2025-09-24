@@ -64,8 +64,7 @@ scoreRouter.post('/batch', async (req, res) => {
     }
   }
 
-  // once all done with assigning scores
-  // query every jobListing created from the current run
+  // TODO: make a JobRun table relationship to track these runs and avoid these types of queries
   const today = new Date();
   today.setHours(0, 0, 0, 0);
   const newJobListings = await prisma.jobListing.findMany({
@@ -73,11 +72,11 @@ scoreRouter.post('/batch', async (req, res) => {
   });
 
   const jobListingsSortedByScores = newJobListings.sort((a, b) => {
-    // Since score is guaranteed to be non-null from your query
     return (b.score || 0) - (a.score || 0);
   });
 
-  const top3Scores = jobListingsSortedByScores.slice(0, 3);
+  const top3 = jobListingsSortedByScores.slice(0, 3);
+  const top3Scores = top3.map((jl) => jl.score || null);
 
   return res.json({
     message: 'batch process complete',
