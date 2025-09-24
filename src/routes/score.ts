@@ -63,8 +63,9 @@ scoreRouter.post('/batch', async (req, res) => {
       summary.failed++;
     }
   }
-
+  log.info('batch processing complete, summary: ', summary);
   // TODO: make a JobRun table relationship to track these runs and avoid these types of queries
+  log.info("fetching today's job listings to determine top 3 scores");
   const today = new Date();
   today.setHours(0, 0, 0, 0);
   const newJobListings = await prisma.jobListing.findMany({

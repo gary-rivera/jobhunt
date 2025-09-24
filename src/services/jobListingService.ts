@@ -63,7 +63,6 @@ async function getJobListing(jobId: string): Promise<JobListing> {
 // TODO: add try catch, akin to ollama service
 // given a scraped job from LinkedIn, parse and generate a partial JobListing object
 function transformScrapedJob(scrapedJob: LinkedInJob): Prisma.JobListingCreateInput {
-  log.info('[transformScrapedJob] transforming externally scraped job');
   const {
     job_id: externalJobId,
     job_description: descriptionRaw,
@@ -73,9 +72,14 @@ function transformScrapedJob(scrapedJob: LinkedInJob): Prisma.JobListingCreateIn
     time_posted: timePosted,
     // skills_found: skillsFound, // TODO: extract from description using NLP
   } = scrapedJob;
+  log.info('[transformScrapedJob] starting on external job: ', externalJobId);
 
   if (!descriptionRaw || !salaryRange || !numApplicantsStr) {
-    log.warn('[transformScrapedJob] missing essential field(s) from external job listing id: ', externalJobId);
+    log.warn('[transformScrapedJob] missing field(s) from external job listing id: ', externalJobId, {
+      hasDescriptionRaw: !!descriptionRaw,
+      hasSalaryRange: !!salaryRange,
+      hasApplicants: !!numApplicantsStr,
+    });
   }
 
   const descriptionCleaned = descriptionRaw?.replace(/\s*Show more\s*Show less\s*$/i, '').trim();

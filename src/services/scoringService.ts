@@ -16,7 +16,7 @@ async function processScoring(user: User, scrapedJob: LinkedInJob) {
 
   const newJobListing = await saveJobListing({ ...transformed, score: similarityScore });
   log.info(
-    `[scoringService][processScoring] user ${user.alias} scored simliarity of ${similarityScore} to job ${newJobListing.id}\n`,
+    `[scoringService][processScoring] user ${user.alias} scored simliarity of ${similarityScore} to jobId ${newJobListing.id}\n`,
   );
 
   return {
