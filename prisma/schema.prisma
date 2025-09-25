@@ -11,7 +11,7 @@ datasource db {
 
 model JobListing {
   id Int @id @default(autoincrement())
-  externalId       String  @unique @map("external_id")
+  externalEmployerId       String  @unique @map("external_employer_id")
 
   title             String
   company           String

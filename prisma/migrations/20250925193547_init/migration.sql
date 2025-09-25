@@ -4,7 +4,7 @@ CREATE EXTENSION IF NOT EXISTS "vector";
 -- CreateTable
 CREATE TABLE "public"."job_listings" (
     "id" SERIAL NOT NULL,
-    "external_id" TEXT NOT NULL,
+    "external_employer_id" TEXT NOT NULL,
     "title" TEXT NOT NULL,
     "company" TEXT NOT NULL,
     "location" TEXT NOT NULL,
@@ -37,7 +37,7 @@ CREATE TABLE "public"."users" (
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "job_listings_external_id_key" ON "public"."job_listings"("external_id");
+CREATE UNIQUE INDEX "job_listings_external_employer_id_key" ON "public"."job_listings"("external_employer_id");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "users_alias_key" ON "public"."users"("alias");
