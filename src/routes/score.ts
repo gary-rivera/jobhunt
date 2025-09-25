@@ -38,11 +38,18 @@ scoreRouter.post('/batch', async (req, res) => {
     throw new ValidationError('No scraped jobs were passed in to batch processor');
   }
 
-  const summary = {
+  const summary: {
+    scored: number;
+    skipped: number;
+    received: number;
+    failed: number;
+    failedExternalIds: string[];
+  } = {
     scored: 0,
     skipped: 0,
     received: scrapedJobs.length,
     failed: 0,
+    failedExternalIds: [],
   };
   log.info(`starting batch process of ${scrapedJobs.length} scraped jobs`);
   for (const scrapedJob of scrapedJobs) {
@@ -50,11 +57,23 @@ scoreRouter.post('/batch', async (req, res) => {
       await processScoring(user, scrapedJob);
       summary.scored++;
     } catch (err) {
-      log.error(err);
+      log.error(
+        '[Batch Processing] Failed to process job',
+        {
+          jobId: scrapedJob.job_id,
+          jobTitle: scrapedJob.title,
+          error: err instanceof Error ? err.message : String(err),
+          stack: err instanceof Error ? err.stack : undefined,
+        },
+        '\n',
+      );
+
+      summary.failedExternalIds.push(scrapedJob.job_id);
       summary.failed++;
     }
   }
   log.info('batch processing complete, summary: ', summary);
+
   // TODO: make a JobRun table relationship to track these runs and avoid these types of queries
   log.info("fetching today's job listings to determine top 3 scores");
   const today = new Date();

@@ -64,7 +64,7 @@ async function getJobListing(jobId: string): Promise<JobListing> {
 // given a scraped job from LinkedIn, parse and generate a partial JobListing object
 function transformScrapedJob(scrapedJob: LinkedInJob): Prisma.JobListingCreateInput {
   const {
-    job_id: externalJobId,
+    job_id: externalEmployerId,
     job_description: descriptionRaw,
     salary_range: salaryRange,
     num_applicants: numApplicantsStr,
@@ -72,10 +72,10 @@ function transformScrapedJob(scrapedJob: LinkedInJob): Prisma.JobListingCreateIn
     time_posted: timePosted,
     // skills_found: skillsFound, // TODO: extract from description using NLP
   } = scrapedJob;
-  log.info('[transformScrapedJob] starting on external job: ', externalJobId);
+  log.info('[transformScrapedJob] starting on external job: ', externalEmployerId);
 
   if (!descriptionRaw || !salaryRange || !numApplicantsStr) {
-    log.warn('[transformScrapedJob] missing field(s) from external job listing id: ', externalJobId, {
+    log.warn('[transformScrapedJob] missing field(s) from external job listing id: ', externalEmployerId, {
       hasDescriptionRaw: !!descriptionRaw,
       hasSalaryRange: !!salaryRange,
       hasApplicants: !!numApplicantsStr,
@@ -94,7 +94,7 @@ function transformScrapedJob(scrapedJob: LinkedInJob): Prisma.JobListingCreateIn
   const postedAt = parseRelativeTime(timePosted);
 
   const partialJobListing = {
-    externalId: `n8n/linkedin-${externalJobId}`,
+    externalEmployerId: `n8n/linkedin-${externalEmployerId}`,
     title: scrapedJob.job_title,
     company: scrapedJob.company_name,
     location: scrapedJob.location,
@@ -130,10 +130,13 @@ async function saveJobListing(jobListing: Prisma.JobListingCreateInput) {
     throw new ValidationError('Cannot save job listing as its missing required fields');
   }
 
-  log.info('[saveJobListing] creating job listing for externalId:', jobListing.externalId);
-  return await prisma.jobListing.create({
+  log.info('[saveJobListing] creating job listing for externalEmployerId:', jobListing.externalEmployerId);
+
+  const newJobListing = await prisma.jobListing.create({
     data: jobListing,
   });
+
+  return newJobListing;
 }
 
 async function processAndSaveJob(job: LinkedInJob): Promise<JobListing> {
