@@ -6,6 +6,7 @@
     "build": "tsc",
     "start": "node dist/index.js",
     "dev": "nodemon",
+    "debug": "nodemon --inspect=0.0.0.0:9230",
     "type-check": "tsc --noEmit",
     "lint": "eslint src/",
     "lint:fix": "eslint src/ --fix",

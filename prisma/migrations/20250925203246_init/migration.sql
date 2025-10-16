@@ -37,7 +37,4 @@ CREATE TABLE "public"."users" (
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "job_listings_external_employer_id_key" ON "public"."job_listings"("external_employer_id");
-
--- CreateIndex
 CREATE UNIQUE INDEX "users_alias_key" ON "public"."users"("alias");

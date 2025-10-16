@@ -1,17 +1,19 @@
 import express from 'express';
 import prisma from '../lib/prisma';
 import { checkOllamaConnection } from '../services/ollama';
+import { HealthCheckError } from '../lib/errors';
 
 const healthRouter = express.Router();
 
 healthRouter.get('/', async (req, res) => {
   log.info('📝 Health Check');
   try {
-    const prismaStatusOk = await prisma.$queryRaw`SELECT 1`;
-    if (!prismaStatusOk) throw new Error('Prisma/DB connection failed');
+    const databaseOk = (await prisma.$queryRaw`SELECT 1` as unknown[]).length > 0
+    const ollamaOk = await checkOllamaConnection()
 
-    const ollamaStatusOk = await checkOllamaConnection();
-    if (!ollamaStatusOk) throw new Error('Ollama connection failed -> missing required models');
+    if (!databaseOk || !ollamaOk) {
+      throw new HealthCheckError('Health check found connection errors', !databaseOk, !ollamaOk)
+    }
 
     res.json({
       status: 'ok',
@@ -22,8 +24,11 @@ healthRouter.get('/', async (req, res) => {
   } catch (err) {
     res.status(503).json({
       status: 'error',
-      database: 'disconnected',
-      error: (err as Error).message || 'Database connection failed',
+      error: (err as Error).message || 'Unknown error',
+      ...(err instanceof HealthCheckError && {
+        databaseFailed: err.databaseFailed,
+        llmFailed: err.llmFailed,
+      })
     });
   }
 });

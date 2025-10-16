@@ -29,12 +29,11 @@ const ollamaLocalConfig: {
 };
 export async function checkOllamaConnection(): Promise<boolean> {
   log.info('[ollama] Checking Ollama connection health');
-  // check if expected models are running
-  // we're just checking so no need to manaully spin up if not running,
+
   const resp: ListResponse = await ollama.ps();
   const modelsCurrentlyRunning: string[] = resp.models.map((model) => model.name);
 
-  return modelsCurrentlyRunning.every((model) => ollamaLocalConfig.requiredModels.includes(model));
+  return ollamaLocalConfig.requiredModels.every(requiredModel => modelsCurrentlyRunning.includes(requiredModel))
 }
 
 export async function generateEmbedding(text: string): Promise<number[]> {

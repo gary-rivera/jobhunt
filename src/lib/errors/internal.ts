@@ -5,7 +5,7 @@ export class InternalError extends AppError {
 
   constructor(
     message: string,
-    public readonly type: 'validation' | 'not_found' | 'conflict' | 'unauthorized' | 'forbidden',
+    public readonly type: 'validation' | 'not_found' | 'conflict' | 'unauthorized' | 'forbidden' | 'connection',
     statusCode = 400,
   ) {
     super(message);
@@ -47,5 +47,15 @@ export class UnauthorizedError extends InternalError {
 export class ForbiddenError extends InternalError {
   constructor(message: string = 'Forbidden') {
     super(message, 'forbidden', 403);
+  }
+}
+
+export class HealthCheckError extends InternalError {
+  constructor(
+    message: string = 'Health check failed',
+    public databaseFailed: boolean,
+    public llmFailed:boolean
+  ) {
+    super(message, 'connection', 503)
   }
 }
