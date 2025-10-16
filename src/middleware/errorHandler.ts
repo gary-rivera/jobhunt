@@ -7,7 +7,14 @@ export const errorHandler = (error: Error, req: Request, res: Response, next: Ne
   if (res.headersSent) {
     return next(error);
   }
-
+  log.error('[errorHandler] error occurred of type : ', {
+    type: typeof error,
+    instanceofPrismaClientKnownRequestError: error instanceof Prisma.PrismaClientKnownRequestError,
+    instanceofPrismaClientInitializationError: error instanceof Prisma.PrismaClientInitializationError,
+    instanceofPrismaClientUnknownRequestError: error instanceof Prisma.PrismaClientUnknownRequestError,
+    instanceofInternalError: error instanceof InternalError,
+    instanceofOllamaError: error instanceof OllamaError,
+  });
   if (
     error instanceof Prisma.PrismaClientKnownRequestError ||
     error instanceof Prisma.PrismaClientInitializationError ||

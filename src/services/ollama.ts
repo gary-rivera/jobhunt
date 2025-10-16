@@ -1,7 +1,42 @@
-import { Ollama, ChatResponse } from 'ollama';
+import { Ollama, ChatResponse, ListResponse } from 'ollama';
 import { OllamaConnectionError, OllamaModelError } from '../lib/errors/ollama';
 
-const ollama = new Ollama({ host: 'http://localhost:11434' });
+const OLLAMA_LOCAL_URL = `http://localhost:${process.env.OLLAMA_PORT}`;
+const ollama = new Ollama({ host: OLLAMA_LOCAL_URL });
+interface OllamaModelConfig {
+  name: string;
+  required: boolean;
+}
+const ollamaLocalConfig: {
+  models: Record<'embedding' | 'chat', OllamaModelConfig>;
+  readonly requiredModels: string[];
+} = {
+  models: {
+    embedding: {
+      name: 'nomic-embed-text',
+      required: true,
+    },
+    chat: {
+      name: 'llama3.1:8b',
+      required: false,
+    },
+  },
+  get requiredModels(): string[] {
+    return Object.values(this.models)
+      .filter((model) => model.required)
+      .map((model) => model.name);
+  },
+};
+export async function checkOllamaConnection(): Promise<boolean> {
+  log.info('[ollama] Checking Ollama connection health');
+  // check if expected models are running
+  // we're just checking so no need to manaully spin up if not running,
+  const resp: ListResponse = await ollama.ps();
+  const modelsCurrentlyRunning: string[] = resp.models.map((model) => model.name);
+
+  return modelsCurrentlyRunning.every((model) => ollamaLocalConfig.requiredModels.includes(model));
+}
+
 export async function generateEmbedding(text: string): Promise<number[]> {
   log.info('[ollama] Attempting to generate embedding');
   try {

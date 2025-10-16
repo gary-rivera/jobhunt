@@ -1,11 +1,17 @@
 import express from 'express';
 import prisma from '../lib/prisma';
+import { checkOllamaConnection } from '../services/ollama';
+
 const healthRouter = express.Router();
 
 healthRouter.get('/', async (req, res) => {
   log.info('📝 Health Check');
   try {
-    await prisma.$queryRaw`SELECT 1`;
+    const prismaStatusOk = await prisma.$queryRaw`SELECT 1`;
+    if (!prismaStatusOk) throw new Error('Prisma/DB connection failed');
+
+    const ollamaStatusOk = await checkOllamaConnection();
+    if (!ollamaStatusOk) throw new Error('Ollama connection failed -> missing required models');
 
     res.json({
       status: 'ok',
