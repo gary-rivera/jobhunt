@@ -8,11 +8,14 @@ const healthRouter = express.Router();
 healthRouter.get('/', async (req, res) => {
   log.info('📝 Health Check');
   try {
-    const databaseOk = (await prisma.$queryRaw`SELECT 1` as unknown[]).length > 0
-    const ollamaOk = await checkOllamaConnection()
+    log.info('Checking database connection');
+    const databaseOk = ((await prisma.$queryRaw`SELECT 1`) as unknown[]).length > 0;
+    log.info('Checking llm connection');
+    const ollamaOk = await checkOllamaConnection();
 
     if (!databaseOk || !ollamaOk) {
-      throw new HealthCheckError('Health check found connection errors', !databaseOk, !ollamaOk)
+      log.error('Required connection is failing: ', { databaseOk, ollamaOk });
+      throw new HealthCheckError('Health check found connection errors', !databaseOk, !ollamaOk);
     }
 
     res.json({
@@ -28,7 +31,7 @@ healthRouter.get('/', async (req, res) => {
       ...(err instanceof HealthCheckError && {
         databaseFailed: err.databaseFailed,
         llmFailed: err.llmFailed,
-      })
+      }),
     });
   }
 });

@@ -28,12 +28,15 @@ const ollamaLocalConfig: {
   },
 };
 export async function checkOllamaConnection(): Promise<boolean> {
-  log.info('[ollama] Checking Ollama connection health');
-
+  log.info('[ollama] fetching models currently running');
   const resp: ListResponse = await ollama.ps();
   const modelsCurrentlyRunning: string[] = resp.models.map((model) => model.name);
 
-  return ollamaLocalConfig.requiredModels.every(requiredModel => modelsCurrentlyRunning.includes(requiredModel))
+  const requiredModelsAreRunning = ollamaLocalConfig.requiredModels.every((requiredModel) =>
+    modelsCurrentlyRunning.includes(requiredModel),
+  );
+  log.info('[ollama] required models are running: ', requiredModelsAreRunning);
+  return requiredModelsAreRunning;
 }
 
 export async function generateEmbedding(text: string): Promise<number[]> {
