@@ -3,6 +3,10 @@ import { OllamaConnectionError, OllamaModelError } from '../lib/errors/ollama';
 
 const OLLAMA_LOCAL_URL = `http://localhost:${process.env.OLLAMA_PORT}`;
 const ollama = new Ollama({ host: OLLAMA_LOCAL_URL });
+
+const EMBEDDING_MODEL = process.env.OLLAMA_EMBEDDING_MODEL || 'nomic-embed-text';
+const CHAT_MODEL = process.env.OLLAMA_CHAT_MODEL || 'llama3.1:8b';
+
 interface OllamaModelConfig {
   name: string;
   required: boolean;
@@ -13,49 +17,102 @@ const ollamaLocalConfig: {
 } = {
   models: {
     embedding: {
-      name: 'nomic-embed-text',
+      name: EMBEDDING_MODEL,
       required: true,
     },
     chat: {
-      name: 'llama3.1:8b',
+      name: CHAT_MODEL,
       required: false,
     },
   },
   get requiredModels(): string[] {
     return Object.values(this.models)
       .filter((model) => model.required)
-      .map((model) => model.name);
+      .map((model) => model.name.split(':')[0]);
   },
 };
-export async function checkOllamaConnection(): Promise<boolean> {
-  log.info('[ollama] fetching models currently running');
-  const resp: ListResponse = await ollama.ps();
-  const modelsCurrentlyRunning: string[] = resp.models.map((model) => model.name);
+export type OllamaModelStatus = 'not_installed' | 'installed_not_running' | 'running';
 
-  const requiredModelsAreRunning = ollamaLocalConfig.requiredModels.every((requiredModel) =>
-    modelsCurrentlyRunning.includes(requiredModel),
-  );
-  log.info('[ollama] required models are running: ', requiredModelsAreRunning);
-  return requiredModelsAreRunning;
+export interface OllamaHealth {
+  ok: boolean;
+  models: Record<string, OllamaModelStatus>;
+  missingRequired: string[];
+}
+
+async function listModelNames(fetcher: () => Promise<ListResponse>): Promise<Set<string>> {
+  const resp = await fetcher();
+  return new Set(resp.models.map((model) => model.name.split(':')[0]));
+}
+
+export async function checkOllamaConnection(): Promise<OllamaHealth> {
+  log.info('[ollama] checking installed + running models');
+  const [installed, running] = await Promise.all([
+    listModelNames(() => ollama.list()),
+    listModelNames(() => ollama.ps()),
+  ]);
+
+  const allConfigured = Object.values(ollamaLocalConfig.models).map((m) => m.name.split(':')[0]);
+  const models: Record<string, OllamaModelStatus> = {};
+  for (const name of allConfigured) {
+    if (running.has(name)) models[name] = 'running';
+    else if (installed.has(name)) models[name] = 'installed_not_running';
+    else models[name] = 'not_installed';
+  }
+
+  const missingRequired = ollamaLocalConfig.requiredModels.filter((name) => !installed.has(name));
+  const ok = missingRequired.length === 0;
+
+  log.info('[ollama] health', { ok, models, missingRequired });
+  return { ok, models, missingRequired };
+}
+
+const EMBEDDING_NUM_CTX = parseInt(process.env.OLLAMA_EMBEDDING_NUM_CTX || '8192', 10);
+const EMBEDDING_TRUNCATE_FALLBACK_CHARS = parseInt(
+  process.env.OLLAMA_EMBEDDING_TRUNCATE_FALLBACK_CHARS || '7000',
+  10,
+);
+
+function isContextLengthError(err: unknown): boolean {
+  if (!(err instanceof Error)) return false;
+  return /context length|input length/i.test(err.message);
+}
+
+async function embedOnce(text: string, numCtx?: number): Promise<number[]> {
+  const response = await ollama.embed({
+    model: EMBEDDING_MODEL,
+    input: text,
+    ...(numCtx ? { options: { num_ctx: numCtx } } : {}),
+  });
+  if (!response) throw new OllamaConnectionError();
+  const embedding = response.embeddings[0];
+  if (!embedding) throw new OllamaModelError('No embedding returned from Ollama API');
+  return embedding;
 }
 
 export async function generateEmbedding(text: string): Promise<number[]> {
-  log.info('[ollama] Attempting to generate embedding');
+  log.info('[ollama] Attempting to generate embedding', { inputLen: text.length });
   try {
-    const response = await ollama.embed({
-      model: 'nomic-embed-text',
-      input: text,
-    });
-
-    if (!response) throw new OllamaConnectionError();
-
-    const embedding = response.embeddings[0];
-
-    if (!embedding) throw new OllamaModelError('No embedding returned from Ollama API');
-
+    const embedding = await embedOnce(text, EMBEDDING_NUM_CTX);
     log.success('[ollama] Generated embedding of length:', embedding.length);
     return embedding;
   } catch (error) {
+    if (isContextLengthError(error)) {
+      log.warn('[ollama] context length exceeded; retrying with truncated input', {
+        originalLen: text.length,
+        truncatedTo: EMBEDDING_TRUNCATE_FALLBACK_CHARS,
+      });
+      try {
+        const embedding = await embedOnce(
+          text.slice(0, EMBEDDING_TRUNCATE_FALLBACK_CHARS),
+          EMBEDDING_NUM_CTX,
+        );
+        log.success('[ollama] Generated embedding (truncated) of length:', embedding.length);
+        return embedding;
+      } catch (retryErr) {
+        log.error('[ollama] Truncated embedding also failed:', retryErr);
+        throw retryErr;
+      }
+    }
     log.error('[ollama] Error generating embedding:', error);
     throw error;
   }
@@ -65,7 +122,7 @@ export async function generateUserBioSummary(resume_md: string, category?: strin
   const prompt = generatePrompt(resume_md, category || 'technical');
   try {
     const response = await ollama.chat({
-      model: 'llama3.1:8b',
+      model: CHAT_MODEL,
       messages: [
         {
           role: 'user',

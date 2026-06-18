@@ -15,7 +15,10 @@
     "check-all": "npm run lint && npm run format:check",
     "prisma:reset-migrations": "rm -rf prisma/migrations && prisma migrate reset --force && prisma migrate dev --name init && prisma generate",
     "prisma:seed": "ts-node prisma/seed.ts",
-    "prisma:clean-start": "npm run prisma:reset-migrations && npm run prisma:seed"
+    "prisma:clean-start": "npm run prisma:reset-migrations && npm run prisma:seed",
+    "linkedin:recon": "ts-node scripts/linkedin-recon.ts",
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   "keywords": [],
   "author": "",
@@ -63,6 +66,7 @@
     "lodash": "^4.17.21",
     "ollama": "^0.5.17",
     "pg": "^8.16.3",
+    "playwright": "^1.60.0",
     "validator": "^13.15.15"
   }
 }

@@ -9,15 +9,36 @@ datasource db {
   extensions = [vector]
 }
 
+enum JobSource {
+  WTTJ
+  LINKEDIN_APIFY
+  BUILT_IN
+  INDEED
+  LINKEDIN
+
+  @@map("job_source")
+}
+
+enum JobScrapeRunStatus {
+  RUNNING
+  COMPLETED
+  FAILED
+
+  @@map("job_scrape_run_status")
+}
+
 model JobListing {
   id Int @id @default(autoincrement())
-  externalEmployerId       String @map("external_employer_id")
+
+  source      JobSource
+  sourceJobId String  @map("source_job_id")
+  dedupeKey   String? @map("dedupe_key")
 
   title             String
   company           String
   location          String
   listingUrl        String @map("listing_url") @db.Text
-  applyToUrl        String @map("apply_to_url") @db.Text
+  applyToUrl        String? @map("apply_to_url") @db.Text
 
   salaryMidpointUsd Int?    @map("salary_midpoint_usd")
   totalApplicants   Int?    @map("total_applicants")
@@ -28,12 +49,41 @@ model JobListing {
 
   score Float?
 
-  postedAt DateTime? @map("posted_at")
-  scrapedAt DateTime @map("scraped_at")
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+  jobScrapeRunId Int?           @map("job_scrape_run_id")
+  jobScrapeRun   JobScrapeRun?  @relation(fields: [jobScrapeRunId], references: [id], onDelete: SetNull)
 
+  postedAt  DateTime? @map("posted_at")
+  scrapedAt DateTime  @map("scraped_at")
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @default(now()) @updatedAt @map("updated_at")
+
+  @@unique([source, sourceJobId])
+  @@index([dedupeKey])
+  @@index([createdAt, score])
+  @@index([source, createdAt])
   @@map("job_listings")
+}
+
+model JobScrapeRun {
+  id Int @id @default(autoincrement())
+
+  source JobSource
+  status JobScrapeRunStatus @default(RUNNING)
+
+  startedAt   DateTime  @default(now()) @map("started_at")
+  completedAt DateTime? @map("completed_at")
+
+  totalFetched   Int? @map("total_fetched")
+  totalExtracted Int? @map("total_extracted")
+  totalSaved     Int? @map("total_saved")
+  totalSkipped   Int? @map("total_skipped")
+  totalFailed    Int? @map("total_failed")
+  errorMessage   String? @map("error_message") @db.Text
+
+  jobListings JobListing[]
+
+  @@index([source, startedAt])
+  @@map("job_scrape_runs")
 }
 
 model User {
@@ -47,19 +97,3 @@ model User {
   @@map("users")
 }
 
-// enum JobScrapeRunStatus {
-//   RUNNING
-//   COMPLETED
-//   FAILED
-// }
-// model JobScrapeRun {
-//   id             String             @id @default(cuid())
-//   startedAt      DateTime           @default(now())
-//   completedAt    DateTime?
-//   totalScraped   Int?
-//   afterFiltering Int?
-//   status         JobScrapeRunStatus @default(RUNNING)
-//   errorMessage   String?
-//   jobListings    JobListing[]
-
-// }

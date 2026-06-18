@@ -7,6 +7,7 @@ import { JobListing } from '@prisma/client';
 import { normalizeSalaryRange } from '../utils/jobs';
 import { parseISODateString, parseRelativeTime } from '../utils/time';
 import { validateRequiredFields } from '../utils/validation';
+import { computeDedupeKey } from '../pipeline/dedupe';
 
 export interface LinkedInJob {
   job_id: string;
@@ -64,7 +65,7 @@ async function getJobListing(jobId: string): Promise<JobListing> {
 // given a scraped job from LinkedIn, parse and generate a partial JobListing object
 function transformScrapedJob(scrapedJob: LinkedInJob): Prisma.JobListingCreateInput {
   const {
-    job_id: externalEmployerId,
+    job_id: sourceJobId,
     job_description: descriptionRaw,
     salary_range: salaryRange,
     num_applicants: numApplicantsStr,
@@ -72,10 +73,10 @@ function transformScrapedJob(scrapedJob: LinkedInJob): Prisma.JobListingCreateIn
     time_posted: timePosted,
     // skills_found: skillsFound, // TODO: extract from description using NLP
   } = scrapedJob;
-  log.info('[transformScrapedJob] starting on external job: ', externalEmployerId);
+  log.info('[transformScrapedJob] starting on external job: ', sourceJobId);
 
   if (!descriptionRaw || !salaryRange || !numApplicantsStr) {
-    log.warn('[transformScrapedJob] missing field(s) from external job listing id: ', externalEmployerId, {
+    log.warn('[transformScrapedJob] missing field(s) from external job listing id: ', sourceJobId, {
       hasDescriptionRaw: !!descriptionRaw,
       hasSalaryRange: !!salaryRange,
       hasApplicants: !!numApplicantsStr,
@@ -93,8 +94,10 @@ function transformScrapedJob(scrapedJob: LinkedInJob): Prisma.JobListingCreateIn
   const scrapedAt = parseISODateString(scrapedAtISOString);
   const postedAt = parseRelativeTime(timePosted);
 
-  const partialJobListing = {
-    externalEmployerId: `n8n/linkedin-${externalEmployerId}`,
+  const partialJobListing: Prisma.JobListingCreateInput = {
+    source: 'LINKEDIN_APIFY',
+    sourceJobId,
+    dedupeKey: computeDedupeKey(scrapedJob.job_title, scrapedJob.company_name, scrapedJob.location),
     title: scrapedJob.job_title,
     company: scrapedJob.company_name,
     location: scrapedJob.location,
@@ -130,7 +133,10 @@ async function saveJobListing(jobListing: Prisma.JobListingCreateInput) {
     throw new ValidationError('Cannot save job listing as its missing required fields');
   }
 
-  log.info('[saveJobListing] creating job listing for externalEmployerId:', jobListing.externalEmployerId);
+  log.info('[saveJobListing] creating job listing', {
+    source: jobListing.source,
+    sourceJobId: jobListing.sourceJobId,
+  });
 
   const newJobListing = await prisma.jobListing.create({
     data: jobListing,

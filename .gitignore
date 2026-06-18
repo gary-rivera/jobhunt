@@ -7,3 +7,7 @@ dist/
 braindump.txt
 
 *.tsbuildinfo
+data/wttj-creds.json
+
+# Local-only project docs (specs, plans, notes)
+docs/

@@ -1,0 +1,1233 @@
+{
+  "results": [
+    {
+      "hits": [
+        {
+          "slug": "software-engineer_la-defense_SG_qxxA6pr",
+          "name": "Software Engineer",
+          "promoted": false,
+          "profile": "",
+          "language": "fr",
+          "published_at": "2026-05-21T00:00:00.000+02:00",
+          "website": {
+            "reference": "wttj_fr"
+          },
+          "reference": "SG_qxxA6pr",
+          "organization": {
+            "name": "Société Générale",
+            "slug": "societe-generale",
+            "descriptions": {
+              "fr": "Le 4 mai 1864, un décret donnait naissance à Société Générale, avec pour mission de « favoriser le développement du commerce et de l’industrie ». Cette raison d’être originelle, nous l’avons perpétuée et sans cesse renouvelée de génération en génération, au service de nos clients et de la société.\n\nL’ambition de nos fondateurs, un groupe d’industriels et de financiers portés par des idéaux de progrès, continue de nous animer, avec le même esprit d’entreprendre au service, aujourd’hui, de plus de 27 millions de clients dans 58 pays.\n\nDepuis 160 ans, nous faisons grandir les idées de nos clients. Façonné par des générations de collaborateurs et de clients, notre Groupe a toujours soutenu le développement économique : hier, en accompagnant la révolution industrielle, aujourd’hui et demain, en s’engageant résolument à relever les défis de notre temps pour un développement durable et une transition responsable. La force de cet héritage laissé par les générations précédentes permet au groupe Société Générale de se projeter vers l’avenir avec audace, détermination et confiance.\n\nMais notre engagement n’est pas tourné uniquement vers nos clients. Il s’adresse aussi à vous, nos collaborateurs, présents et futurs, et à tout ce que vous pourrez entreprendre à nos côtés. Chacun a son histoire, ses envies, ses idées, ses forces et ses faiblesses. Que vous nous rejoigniez pour quelques mois, quelques années ou toute votre carrière, il y a suffisamment de champs d’expertises, de défis à relever, de technologies à maîtriser pour que chacun trouve sa place. Où sera la vôtre ? C’est à vous de le décider !"
+            },
+            "reference": "K2r7aw0",
+            "size": {
+              "fr": "> 2000 salariés",
+              "en": "> 2,000 employees",
+              "es": "> 2000 empleados",
+              "cs": "> 2 000 zaměstnanců",
+              "sk": "> 2 000 zamestnancov"
+            },
+            "nb_employees": 110000,
+            "logo": {
+              "url": "https://cdn-images.welcometothejungle.com/9d-7HS8Dr_vygrkjEU6l4NRdHlagtF8RWTkyFON86Pw/w:200/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy9vcmdhbml6/YXRpb24vbG9nby85/OTU4LzE1MTkyMC8z/ZjFhODY5OS0wY2Iz/LTQxNDEtOWEzMi0z/YmNjYzViOTdhYWQu/cG5n",
+              "thumb": {
+                "url": "https://cdn-images.welcometothejungle.com/fQhhRqqlYRHNl7mZCPVLIt57XtpK7HSnGzSZnJ-5_tA/w:70/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy9vcmdhbml6/YXRpb24vbG9nby85/OTU4LzE1MTkyMC8z/ZjFhODY5OS0wY2Iz/LTQxNDEtOWEzMi0z/YmNjYzViOTdhYWQu/cG5n"
+              }
+            },
+            "labels": [
+              "happy-trainees"
+            ],
+            "cover_image": {
+              "fr": {
+                "url": "https://cdn-images.welcometothejungle.com/-RNcKLvx2F8-X_tCq4GHuH2jwfQimQ6q3MA7XkfPZIg/w:2000/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy93ZWJzaXRl/X29yZ2FuaXphdGlv/bi9jb3Zlcl9pbWFn/ZS93dHRqX2ZyL2Zy/LTQyYjM5YTkyLWNj/ZmEtNDUyNi05MTk3/LTI5YmEzMGQzNjdl/NC5qcGc",
+                "thumb": {
+                  "url": "https://cdn-images.welcometothejungle.com/QbIu0rZkRlnicEJ1wzVOfqmXmm7a13ry7R1SEGaMx6U/w:200/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy93ZWJzaXRl/X29yZ2FuaXphdGlv/bi9jb3Zlcl9pbWFn/ZS93dHRqX2ZyL2Zy/LTQyYjM5YTkyLWNj/ZmEtNDUyNi05MTk3/LTI5YmEzMGQzNjdl/NC5qcGc"
+                },
+                "small": {
+                  "url": "https://cdn-images.welcometothejungle.com/eysSetZHdYsQTdOWajy_wCbOzn6WHiHlncDHYqoqYSE/w:640/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy93ZWJzaXRl/X29yZ2FuaXphdGlv/bi9jb3Zlcl9pbWFn/ZS93dHRqX2ZyL2Zy/LTQyYjM5YTkyLWNj/ZmEtNDUyNi05MTk3/LTI5YmEzMGQzNjdl/NC5qcGc"
+                },
+                "medium": {
+                  "url": "https://cdn-images.welcometothejungle.com/-MZMZTiQKfLT09T6j8_dLmlblhFfvJ7JIkPKHGTzczs/w:900/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy93ZWJzaXRl/X29yZ2FuaXphdGlv/bi9jb3Zlcl9pbWFn/ZS93dHRqX2ZyL2Zy/LTQyYjM5YTkyLWNj/ZmEtNDUyNi05MTk3/LTI5YmEzMGQzNjdl/NC5qcGc"
+                },
+                "large": {
+                  "url": "https://cdn-images.welcometothejungle.com/WQnlKDqRtT8M6pUjFSAG5aFNzyjlsE-Hk9WFoM2Ju2c/w:1500/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy93ZWJzaXRl/X29yZ2FuaXphdGlv/bi9jb3Zlcl9pbWFn/ZS93dHRqX2ZyL2Zy/LTQyYjM5YTkyLWNj/ZmEtNDUyNi05MTk3/LTI5YmEzMGQzNjdl/NC5qcGc"
+                }
+              },
+              "en": {
+                "url": "https://cdn-images.welcometothejungle.com/-RNcKLvx2F8-X_tCq4GHuH2jwfQimQ6q3MA7XkfPZIg/w:2000/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy93ZWJzaXRl/X29yZ2FuaXphdGlv/bi9jb3Zlcl9pbWFn/ZS93dHRqX2ZyL2Zy/LTQyYjM5YTkyLWNj/ZmEtNDUyNi05MTk3/LTI5YmEzMGQzNjdl/NC5qcGc",
+                "thumb": {
+                  "url": "https://cdn-images.welcometothejungle.com/QbIu0rZkRlnicEJ1wzVOfqmXmm7a13ry7R1SEGaMx6U/w:200/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy93ZWJzaXRl/X29yZ2FuaXphdGlv/bi9jb3Zlcl9pbWFn/ZS93dHRqX2ZyL2Zy/LTQyYjM5YTkyLWNj/ZmEtNDUyNi05MTk3/LTI5YmEzMGQzNjdl/NC5qcGc"
+                },
+                "small": {
+                  "url": "https://cdn-images.welcometothejungle.com/eysSetZHdYsQTdOWajy_wCbOzn6WHiHlncDHYqoqYSE/w:640/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy93ZWJzaXRl/X29yZ2FuaXphdGlv/bi9jb3Zlcl9pbWFn/ZS93dHRqX2ZyL2Zy/LTQyYjM5YTkyLWNj/ZmEtNDUyNi05MTk3/LTI5YmEzMGQzNjdl/NC5qcGc"
+                },
+                "medium": {
+                  "url": "https://cdn-images.welcometothejungle.com/-MZMZTiQKfLT09T6j8_dLmlblhFfvJ7JIkPKHGTzczs/w:900/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy93ZWJzaXRl/X29yZ2FuaXphdGlv/bi9jb3Zlcl9pbWFn/ZS93dHRqX2ZyL2Zy/LTQyYjM5YTkyLWNj/ZmEtNDUyNi05MTk3/LTI5YmEzMGQzNjdl/NC5qcGc"
+                },
+                "large": {
+                  "url": "https://cdn-images.welcometothejungle.com/WQnlKDqRtT8M6pUjFSAG5aFNzyjlsE-Hk9WFoM2Ju2c/w:1500/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy93ZWJzaXRl/X29yZ2FuaXphdGlv/bi9jb3Zlcl9pbWFn/ZS93dHRqX2ZyL2Zy/LTQyYjM5YTkyLWNj/ZmEtNDUyNi05MTk3/LTI5YmEzMGQzNjdl/NC5qcGc"
+                }
+              },
+              "es": {
+                "url": "https://cdn-images.welcometothejungle.com/-RNcKLvx2F8-X_tCq4GHuH2jwfQimQ6q3MA7XkfPZIg/w:2000/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy93ZWJzaXRl/X29yZ2FuaXphdGlv/bi9jb3Zlcl9pbWFn/ZS93dHRqX2ZyL2Zy/LTQyYjM5YTkyLWNj/ZmEtNDUyNi05MTk3/LTI5YmEzMGQzNjdl/NC5qcGc",
+                "thumb": {
+                  "url": "https://cdn-images.welcometothejungle.com/QbIu0rZkRlnicEJ1wzVOfqmXmm7a13ry7R1SEGaMx6U/w:200/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy93ZWJzaXRl/X29yZ2FuaXphdGlv/bi9jb3Zlcl9pbWFn/ZS93dHRqX2ZyL2Zy/LTQyYjM5YTkyLWNj/ZmEtNDUyNi05MTk3/LTI5YmEzMGQzNjdl/NC5qcGc"
+                },
+                "small": {
+                  "url": "https://cdn-images.welcometothejungle.com/eysSetZHdYsQTdOWajy_wCbOzn6WHiHlncDHYqoqYSE/w:640/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy93ZWJzaXRl/X29yZ2FuaXphdGlv/bi9jb3Zlcl9pbWFn/ZS93dHRqX2ZyL2Zy/LTQyYjM5YTkyLWNj/ZmEtNDUyNi05MTk3/LTI5YmEzMGQzNjdl/NC5qcGc"
+                },
+                "medium": {
+                  "url": "https://cdn-images.welcometothejungle.com/-MZMZTiQKfLT09T6j8_dLmlblhFfvJ7JIkPKHGTzczs/w:900/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy93ZWJzaXRl/X29yZ2FuaXphdGlv/bi9jb3Zlcl9pbWFn/ZS93dHRqX2ZyL2Zy/LTQyYjM5YTkyLWNj/ZmEtNDUyNi05MTk3/LTI5YmEzMGQzNjdl/NC5qcGc"
+                },
+                "large": {
+                  "url": "https://cdn-images.welcometothejungle.com/WQnlKDqRtT8M6pUjFSAG5aFNzyjlsE-Hk9WFoM2Ju2c/w:1500/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy93ZWJzaXRl/X29yZ2FuaXphdGlv/bi9jb3Zlcl9pbWFn/ZS93dHRqX2ZyL2Zy/LTQyYjM5YTkyLWNj/ZmEtNDUyNi05MTk3/LTI5YmEzMGQzNjdl/NC5qcGc"
+                }
+              },
+              "cs": {
+                "url": "https://cdn-images.welcometothejungle.com/-RNcKLvx2F8-X_tCq4GHuH2jwfQimQ6q3MA7XkfPZIg/w:2000/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy93ZWJzaXRl/X29yZ2FuaXphdGlv/bi9jb3Zlcl9pbWFn/ZS93dHRqX2ZyL2Zy/LTQyYjM5YTkyLWNj/ZmEtNDUyNi05MTk3/LTI5YmEzMGQzNjdl/NC5qcGc",
+                "thumb": {
+                  "url": "https://cdn-images.welcometothejungle.com/QbIu0rZkRlnicEJ1wzVOfqmXmm7a13ry7R1SEGaMx6U/w:200/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy93ZWJzaXRl/X29yZ2FuaXphdGlv/bi9jb3Zlcl9pbWFn/ZS93dHRqX2ZyL2Zy/LTQyYjM5YTkyLWNj/ZmEtNDUyNi05MTk3/LTI5YmEzMGQzNjdl/NC5qcGc"
+                },
+                "small": {
+                  "url": "https://cdn-images.welcometothejungle.com/eysSetZHdYsQTdOWajy_wCbOzn6WHiHlncDHYqoqYSE/w:640/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy93ZWJzaXRl/X29yZ2FuaXphdGlv/bi9jb3Zlcl9pbWFn/ZS93dHRqX2ZyL2Zy/LTQyYjM5YTkyLWNj/ZmEtNDUyNi05MTk3/LTI5YmEzMGQzNjdl/NC5qcGc"
+                },
+                "medium": {
+                  "url": "https://cdn-images.welcometothejungle.com/-MZMZTiQKfLT09T6j8_dLmlblhFfvJ7JIkPKHGTzczs/w:900/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy93ZWJzaXRl/X29yZ2FuaXphdGlv/bi9jb3Zlcl9pbWFn/ZS93dHRqX2ZyL2Zy/LTQyYjM5YTkyLWNj/ZmEtNDUyNi05MTk3/LTI5YmEzMGQzNjdl/NC5qcGc"
+                },
+                "large": {
+                  "url": "https://cdn-images.welcometothejungle.com/WQnlKDqRtT8M6pUjFSAG5aFNzyjlsE-Hk9WFoM2Ju2c/w:1500/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy93ZWJzaXRl/X29yZ2FuaXphdGlv/bi9jb3Zlcl9pbWFn/ZS93dHRqX2ZyL2Zy/LTQyYjM5YTkyLWNj/ZmEtNDUyNi05MTk3/LTI5YmEzMGQzNjdl/NC5qcGc"
+                }
+              },
+              "sk": {
+                "url": "https://cdn-images.welcometothejungle.com/-RNcKLvx2F8-X_tCq4GHuH2jwfQimQ6q3MA7XkfPZIg/w:2000/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy93ZWJzaXRl/X29yZ2FuaXphdGlv/bi9jb3Zlcl9pbWFn/ZS93dHRqX2ZyL2Zy/LTQyYjM5YTkyLWNj/ZmEtNDUyNi05MTk3/LTI5YmEzMGQzNjdl/NC5qcGc",
+                "thumb": {
+                  "url": "https://cdn-images.welcometothejungle.com/QbIu0rZkRlnicEJ1wzVOfqmXmm7a13ry7R1SEGaMx6U/w:200/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy93ZWJzaXRl/X29yZ2FuaXphdGlv/bi9jb3Zlcl9pbWFn/ZS93dHRqX2ZyL2Zy/LTQyYjM5YTkyLWNj/ZmEtNDUyNi05MTk3/LTI5YmEzMGQzNjdl/NC5qcGc"
+                },
+                "small": {
+                  "url": "https://cdn-images.welcometothejungle.com/eysSetZHdYsQTdOWajy_wCbOzn6WHiHlncDHYqoqYSE/w:640/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy93ZWJzaXRl/X29yZ2FuaXphdGlv/bi9jb3Zlcl9pbWFn/ZS93dHRqX2ZyL2Zy/LTQyYjM5YTkyLWNj/ZmEtNDUyNi05MTk3/LTI5YmEzMGQzNjdl/NC5qcGc"
+                },
+                "medium": {
+                  "url": "https://cdn-images.welcometothejungle.com/-MZMZTiQKfLT09T6j8_dLmlblhFfvJ7JIkPKHGTzczs/w:900/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy93ZWJzaXRl/X29yZ2FuaXphdGlv/bi9jb3Zlcl9pbWFn/ZS93dHRqX2ZyL2Zy/LTQyYjM5YTkyLWNj/ZmEtNDUyNi05MTk3/LTI5YmEzMGQzNjdl/NC5qcGc"
+                },
+                "large": {
+                  "url": "https://cdn-images.welcometothejungle.com/WQnlKDqRtT8M6pUjFSAG5aFNzyjlsE-Hk9WFoM2Ju2c/w:1500/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy93ZWJzaXRl/X29yZ2FuaXphdGlv/bi9jb3Zlcl9pbWFn/ZS93dHRqX2ZyL2Zy/LTQyYjM5YTkyLWNj/ZmEtNDUyNi05MTk3/LTI5YmEzMGQzNjdl/NC5qcGc"
+                }
+              }
+            },
+            "has_default_job": false,
+            "website_organization": {
+              "slug": "societe-generale"
+            }
+          },
+          "sectors": [
+            {
+              "name": {
+                "fr": "Banque",
+                "en": "Banking",
+                "es": "Banca",
+                "cs": "Bankovnictví",
+                "sk": "Bankovníctvo"
+              },
+              "parent": {
+                "fr": "Banques / Assurances / Finance",
+                "en": "Banking / Insurance / Finance",
+                "es": "Banca/Seguros/Finanzas",
+                "cs": "Bankovnictví / Pojišťovnictví / Finance",
+                "sk": "Bankovníctvo / Poisťovníctvo / Financie"
+              },
+              "id": 93
+            },
+            {
+              "name": {
+                "fr": "FinTech / InsurTech",
+                "en": "FinTech / InsurTech",
+                "es": "FinTech/InsurTech",
+                "cs": "FinTech/InsurTech",
+                "sk": "FinTech/InsurTech"
+              },
+              "parent": {
+                "fr": "Banques / Assurances / Finance",
+                "en": "Banking / Insurance / Finance",
+                "es": "Banca/Seguros/Finanzas",
+                "cs": "Bankovnictví / Pojišťovnictví / Finance",
+                "sk": "Bankovníctvo / Poisťovníctvo / Financie"
+              },
+              "id": 95
+            },
+            {
+              "name": {
+                "fr": "Finance",
+                "en": "Finance",
+                "es": "Finanzas",
+                "cs": "Finance",
+                "sk": "Financie"
+              },
+              "parent": {
+                "fr": "Banques / Assurances / Finance",
+                "en": "Banking / Insurance / Finance",
+                "es": "Banca/Seguros/Finanzas",
+                "cs": "Bankovnictví / Pojišťovnictví / Finance",
+                "sk": "Bankovníctvo / Poisťovníctvo / Financie"
+              },
+              "id": 175
+            }
+          ],
+          "sectors_name": {
+            "fr": [
+              {
+                "Banques / Assurances / Finance": "Banque"
+              },
+              {
+                "Banques / Assurances / Finance": "FinTech / InsurTech"
+              },
+              {
+                "Banques / Assurances / Finance": "Finance"
+              }
+            ],
+            "en": [
+              {
+                "Banking / Insurance / Finance": "Banking"
+              },
+              {
+                "Banking / Insurance / Finance": "FinTech / InsurTech"
+              },
+              {
+                "Banking / Insurance / Finance": "Finance"
+              }
+            ],
+            "es": [
+              {
+                "Banca/Seguros/Finanzas": "Banca"
+              },
+              {
+                "Banca/Seguros/Finanzas": "FinTech/InsurTech"
+              },
+              {
+                "Banca/Seguros/Finanzas": "Finanzas"
+              }
+            ],
+            "cs": [
+              {
+                "Bankovnictví / Pojišťovnictví / Finance": "Bankovnictví"
+              },
+              {
+                "Bankovnictví / Pojišťovnictví / Finance": "FinTech/InsurTech"
+              },
+              {
+                "Bankovnictví / Pojišťovnictví / Finance": "Finance"
+              }
+            ],
+            "sk": [
+              {
+                "Bankovníctvo / Poisťovníctvo / Financie": "Bankovníctvo"
+              },
+              {
+                "Bankovníctvo / Poisťovníctvo / Financie": "FinTech/InsurTech"
+              },
+              {
+                "Bankovníctvo / Poisťovníctvo / Financie": "Financie"
+              }
+            ]
+          },
+          "contract_type": "APPRENTICESHIP",
+          "contract_type_names": {
+            "fr": "Alternance",
+            "en": "Apprenticeship",
+            "es": "Profesionalización",
+            "cs": "Work-Study",
+            "sk": "Odborná prax"
+          },
+          "contract_duration_minimum": null,
+          "contract_duration_maximum": null,
+          "has_contract_duration": false,
+          "experience_level_minimum": null,
+          "has_experience_level_minimum": false,
+          "education_level": null,
+          "has_education_level": false,
+          "salary_currency": null,
+          "salary_minimum": null,
+          "salary_maximum": null,
+          "salary_period": "none",
+          "salary_yearly_minimum": null,
+          "has_salary_yearly_minimum": false,
+          "office": {
+            "city": "La Défense",
+            "district": "Hauts-de-Seine",
+            "state": "Ile-de-France",
+            "country": "France",
+            "country_code": "FR"
+          },
+          "offices": [
+            {
+              "city": "La Défense",
+              "district": "Hauts-de-Seine",
+              "state": "Ile-de-France",
+              "country": "France",
+              "country_code": "FR"
+            }
+          ],
+          "department": null,
+          "profession": {
+            "name": {
+              "fr": null,
+              "en": null,
+              "es": null,
+              "cs": null,
+              "sk": null
+            },
+            "category": {
+              "fr": null,
+              "en": null,
+              "es": null,
+              "cs": null,
+              "sk": null
+            },
+            "id": null
+          },
+          "profession_name": {
+            "fr": {
+              "": null
+            },
+            "en": {
+              "": null
+            },
+            "es": {
+              "": null
+            },
+            "cs": {
+              "": null
+            },
+            "sk": {
+              "": null
+            }
+          },
+          "remote": "partial",
+          "_geoloc": [
+            {
+              "lat": 48.89268,
+              "lng": 2.23488
+            }
+          ],
+          "objectID": "4081381",
+          "_snippetResult": {
+            "profile": {
+              "value": "",
+              "matchLevel": "none"
+            }
+          },
+          "_highlightResult": {
+            "name": {
+              "value": "<em>Software</em> <em>Engineer</em>",
+              "matchLevel": "full",
+              "fullyHighlighted": true,
+              "matchedWords": [
+                "software",
+                "engineer"
+              ]
+            },
+            "profile": {
+              "value": "",
+              "matchLevel": "none",
+              "matchedWords": []
+            },
+            "organization": {
+              "name": {
+                "value": "Société Générale",
+                "matchLevel": "none",
+                "matchedWords": []
+              }
+            },
+            "contract_type_names": {
+              "fr": {
+                "value": "Alternance",
+                "matchLevel": "none",
+                "matchedWords": []
+              },
+              "en": {
+                "value": "Apprenticeship",
+                "matchLevel": "none",
+                "matchedWords": []
+              },
+              "es": {
+                "value": "Profesionalización",
+                "matchLevel": "none",
+                "matchedWords": []
+              },
+              "cs": {
+                "value": "Work-Study",
+                "matchLevel": "none",
+                "matchedWords": []
+              },
+              "sk": {
+                "value": "Odborná prax",
+                "matchLevel": "none",
+                "matchedWords": []
+              }
+            },
+            "office": {
+              "city": {
+                "value": "La Défense",
+                "matchLevel": "none",
+                "matchedWords": []
+              },
+              "district": {
+                "value": "Hauts-de-Seine",
+                "matchLevel": "none",
+                "matchedWords": []
+              },
+              "state": {
+                "value": "Ile-de-France",
+                "matchLevel": "none",
+                "matchedWords": []
+              },
+              "country": {
+                "value": "France",
+                "matchLevel": "none",
+                "matchedWords": []
+              },
+              "country_code": {
+                "value": "FR",
+                "matchLevel": "none",
+                "matchedWords": []
+              }
+            },
+            "offices": [
+              {
+                "city": {
+                  "value": "La Défense",
+                  "matchLevel": "none",
+                  "matchedWords": []
+                },
+                "district": {
+                  "value": "Hauts-de-Seine",
+                  "matchLevel": "none",
+                  "matchedWords": []
+                },
+                "state": {
+                  "value": "Ile-de-France",
+                  "matchLevel": "none",
+                  "matchedWords": []
+                },
+                "country": {
+                  "value": "France",
+                  "matchLevel": "none",
+                  "matchedWords": []
+                },
+                "country_code": {
+                  "value": "FR",
+                  "matchLevel": "none",
+                  "matchedWords": []
+                }
+              }
+            ]
+          }
+        },
+        {
+          "slug": "senior-software-engineer-ios_krakow",
+          "name": "Senior Software Engineer (iOS)",
+          "promoted": false,
+          "profile": "",
+          "language": "en",
+          "published_at": "2026-05-21T00:00:00.000+02:00",
+          "website": {
+            "reference": "wttj_fr"
+          },
+          "reference": "KINGF_zN190dN",
+          "organization": {
+            "name": "Kingfisher",
+            "slug": "kingfisher-france",
+            "descriptions": {
+              "en": "Kingfisher plc is an international home improvement company, operating in eight countries across Europe under it's retail banners including **B&Q, Castorama, Brico Dépôt, Screwfix, TradePoint & Koçtaş** and offering home improvement products and services to consumers and trade professionals who shop in their stores & via their e-commerce channels. \r\n\r\n\r\nBetter Homes. Better Lives. For Everyone. At Kingfisher, their belief is that a better world starts with better homes.",
+              "fr": "Kingfisher est une entreprise internationale spécialisée dans l’amélioration de l’habitat, opérant dans 8 pays en Europe avec : B&Q, Castorama, Brico Dépôt, Screwfix, TradePoint et Koçtaş.\r\nElle propose des produits et services destinés aux consommateurs et aux professionnels du bâtiment, via ses magasins et ses plateformes de commerce en ligne.\r\n\r\nBetter Homes. Better Lives. For Everyone.\r\nChez Kingfisher, la conviction est qu’un monde meilleur commence par de meilleurs foyers."
+            },
+            "reference": "Oe97MN",
+            "size": {
+              "fr": "> 2000 salariés",
+              "en": "> 2,000 employees",
+              "es": "> 2000 empleados",
+              "cs": "> 2 000 zaměstnanců",
+              "sk": "> 2 000 zamestnancov"
+            },
+            "nb_employees": 74000,
+            "logo": {
+              "url": "https://cdn-images.welcometothejungle.com/ik2QywKzwCaMSIhcdJLMjJ-RFfscBmY2oBfD4N-XXPQ/w:200/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy9vcmdhbml6/YXRpb24vbG9nby83/NjI3LzE3MjM0Ni9i/ZTRiN2QwYS1mMzY0/LTQ4MDgtYjM4OC1i/MTU5ODU5ZDQ5NGYu/cG5n",
+              "thumb": {
+                "url": "https://cdn-images.welcometothejungle.com/2aD6UukklKPCvTXeUu_sMiqGxeA9GuFm5XO1Rku9TE4/w:70/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy9vcmdhbml6/YXRpb24vbG9nby83/NjI3LzE3MjM0Ni9i/ZTRiN2QwYS1mMzY0/LTQ4MDgtYjM4OC1i/MTU5ODU5ZDQ5NGYu/cG5n"
+              }
+            },
+            "labels": [],
+            "cover_image": {
+              "fr": {
+                "url": "https://cdn-images.welcometothejungle.com/Rw64t_QundLRXLf7KfujfVNzL51v3i2hfYa_xmmlwrQ/w:2000/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy93ZWJzaXRl/X29yZ2FuaXphdGlv/bi9jb3Zlcl9pbWFn/ZS93dHRqX2ZyL2Vu/LWY4ZDllMGRjLTFj/YjgtNDBlOS05MjA2/LTM5MDdmMDVkZDcw/OC5qcGc",
+                "thumb": {
+                  "url": "https://cdn-images.welcometothejungle.com/S0DTkTMxzotmKMssJ43ezZHD3eHTnBZ6xY5E4UQtxRo/w:200/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy93ZWJzaXRl/X29yZ2FuaXphdGlv/bi9jb3Zlcl9pbWFn/ZS93dHRqX2ZyL2Vu/LWY4ZDllMGRjLTFj/YjgtNDBlOS05MjA2/LTM5MDdmMDVkZDcw/OC5qcGc"
+                },
+                "small": {
+                  "url": "https://cdn-images.welcometothejungle.com/EU5TeDipz3CJKXpwMN4vU7-InPIzG7tdZiK7Z4uPVgA/w:640/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy93ZWJzaXRl/X29yZ2FuaXphdGlv/bi9jb3Zlcl9pbWFn/ZS93dHRqX2ZyL2Vu/LWY4ZDllMGRjLTFj/YjgtNDBlOS05MjA2/LTM5MDdmMDVkZDcw/OC5qcGc"
+                },
+                "medium": {
+                  "url": "https://cdn-images.welcometothejungle.com/NThhxKMqP3nejI9Tkv8IxATGauScBjb8fOKgagG6dX4/w:900/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy93ZWJzaXRl/X29yZ2FuaXphdGlv/bi9jb3Zlcl9pbWFn/ZS93dHRqX2ZyL2Vu/LWY4ZDllMGRjLTFj/YjgtNDBlOS05MjA2/LTM5MDdmMDVkZDcw/OC5qcGc"
+                },
+                "large": {
+                  "url": "https://cdn-images.welcometothejungle.com/iiTQyeKDIpNZJocRs5qCN31A7pXgzMD8TaK91JiyNU4/w:1500/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy93ZWJzaXRl/X29yZ2FuaXphdGlv/bi9jb3Zlcl9pbWFn/ZS93dHRqX2ZyL2Vu/LWY4ZDllMGRjLTFj/YjgtNDBlOS05MjA2/LTM5MDdmMDVkZDcw/OC5qcGc"
+                }
+              },
+              "en": {
+                "url": "https://cdn-images.welcometothejungle.com/Rw64t_QundLRXLf7KfujfVNzL51v3i2hfYa_xmmlwrQ/w:2000/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy93ZWJzaXRl/X29yZ2FuaXphdGlv/bi9jb3Zlcl9pbWFn/ZS93dHRqX2ZyL2Vu/LWY4ZDllMGRjLTFj/YjgtNDBlOS05MjA2/LTM5MDdmMDVkZDcw/OC5qcGc",
+                "thumb": {
+                  "url": "https://cdn-images.welcometothejungle.com/S0DTkTMxzotmKMssJ43ezZHD3eHTnBZ6xY5E4UQtxRo/w:200/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy93ZWJzaXRl/X29yZ2FuaXphdGlv/bi9jb3Zlcl9pbWFn/ZS93dHRqX2ZyL2Vu/LWY4ZDllMGRjLTFj/YjgtNDBlOS05MjA2/LTM5MDdmMDVkZDcw/OC5qcGc"
+                },
+                "small": {
+                  "url": "https://cdn-images.welcometothejungle.com/EU5TeDipz3CJKXpwMN4vU7-InPIzG7tdZiK7Z4uPVgA/w:640/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy93ZWJzaXRl/X29yZ2FuaXphdGlv/bi9jb3Zlcl9pbWFn/ZS93dHRqX2ZyL2Vu/LWY4ZDllMGRjLTFj/YjgtNDBlOS05MjA2/LTM5MDdmMDVkZDcw/OC5qcGc"
+                },
+                "medium": {
+                  "url": "https://cdn-images.welcometothejungle.com/NThhxKMqP3nejI9Tkv8IxATGauScBjb8fOKgagG6dX4/w:900/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy93ZWJzaXRl/X29yZ2FuaXphdGlv/bi9jb3Zlcl9pbWFn/ZS93dHRqX2ZyL2Vu/LWY4ZDllMGRjLTFj/YjgtNDBlOS05MjA2/LTM5MDdmMDVkZDcw/OC5qcGc"
+                },
+                "large": {
+                  "url": "https://cdn-images.welcometothejungle.com/iiTQyeKDIpNZJocRs5qCN31A7pXgzMD8TaK91JiyNU4/w:1500/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy93ZWJzaXRl/X29yZ2FuaXphdGlv/bi9jb3Zlcl9pbWFn/ZS93dHRqX2ZyL2Vu/LWY4ZDllMGRjLTFj/YjgtNDBlOS05MjA2/LTM5MDdmMDVkZDcw/OC5qcGc"
+                }
+              },
+              "es": {
+                "url": "https://cdn-images.welcometothejungle.com/Rw64t_QundLRXLf7KfujfVNzL51v3i2hfYa_xmmlwrQ/w:2000/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy93ZWJzaXRl/X29yZ2FuaXphdGlv/bi9jb3Zlcl9pbWFn/ZS93dHRqX2ZyL2Vu/LWY4ZDllMGRjLTFj/YjgtNDBlOS05MjA2/LTM5MDdmMDVkZDcw/OC5qcGc",
+                "thumb": {
+                  "url": "https://cdn-images.welcometothejungle.com/S0DTkTMxzotmKMssJ43ezZHD3eHTnBZ6xY5E4UQtxRo/w:200/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy93ZWJzaXRl/X29yZ2FuaXphdGlv/bi9jb3Zlcl9pbWFn/ZS93dHRqX2ZyL2Vu/LWY4ZDllMGRjLTFj/YjgtNDBlOS05MjA2/LTM5MDdmMDVkZDcw/OC5qcGc"
+                },
+                "small": {
+                  "url": "https://cdn-images.welcometothejungle.com/EU5TeDipz3CJKXpwMN4vU7-InPIzG7tdZiK7Z4uPVgA/w:640/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy93ZWJzaXRl/X29yZ2FuaXphdGlv/bi9jb3Zlcl9pbWFn/ZS93dHRqX2ZyL2Vu/LWY4ZDllMGRjLTFj/YjgtNDBlOS05MjA2/LTM5MDdmMDVkZDcw/OC5qcGc"
+                },
+                "medium": {
+                  "url": "https://cdn-images.welcometothejungle.com/NThhxKMqP3nejI9Tkv8IxATGauScBjb8fOKgagG6dX4/w:900/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy93ZWJzaXRl/X29yZ2FuaXphdGlv/bi9jb3Zlcl9pbWFn/ZS93dHRqX2ZyL2Vu/LWY4ZDllMGRjLTFj/YjgtNDBlOS05MjA2/LTM5MDdmMDVkZDcw/OC5qcGc"
+                },
+                "large": {
+                  "url": "https://cdn-images.welcometothejungle.com/iiTQyeKDIpNZJocRs5qCN31A7pXgzMD8TaK91JiyNU4/w:1500/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy93ZWJzaXRl/X29yZ2FuaXphdGlv/bi9jb3Zlcl9pbWFn/ZS93dHRqX2ZyL2Vu/LWY4ZDllMGRjLTFj/YjgtNDBlOS05MjA2/LTM5MDdmMDVkZDcw/OC5qcGc"
+                }
+              },
+              "cs": {
+                "url": "https://cdn-images.welcometothejungle.com/Rw64t_QundLRXLf7KfujfVNzL51v3i2hfYa_xmmlwrQ/w:2000/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy93ZWJzaXRl/X29yZ2FuaXphdGlv/bi9jb3Zlcl9pbWFn/ZS93dHRqX2ZyL2Vu/LWY4ZDllMGRjLTFj/YjgtNDBlOS05MjA2/LTM5MDdmMDVkZDcw/OC5qcGc",
+                "thumb": {
+                  "url": "https://cdn-images.welcometothejungle.com/S0DTkTMxzotmKMssJ43ezZHD3eHTnBZ6xY5E4UQtxRo/w:200/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy93ZWJzaXRl/X29yZ2FuaXphdGlv/bi9jb3Zlcl9pbWFn/ZS93dHRqX2ZyL2Vu/LWY4ZDllMGRjLTFj/YjgtNDBlOS05MjA2/LTM5MDdmMDVkZDcw/OC5qcGc"
+                },
+                "small": {
+                  "url": "https://cdn-images.welcometothejungle.com/EU5TeDipz3CJKXpwMN4vU7-InPIzG7tdZiK7Z4uPVgA/w:640/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy93ZWJzaXRl/X29yZ2FuaXphdGlv/bi9jb3Zlcl9pbWFn/ZS93dHRqX2ZyL2Vu/LWY4ZDllMGRjLTFj/YjgtNDBlOS05MjA2/LTM5MDdmMDVkZDcw/OC5qcGc"
+                },
+                "medium": {
+                  "url": "https://cdn-images.welcometothejungle.com/NThhxKMqP3nejI9Tkv8IxATGauScBjb8fOKgagG6dX4/w:900/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy93ZWJzaXRl/X29yZ2FuaXphdGlv/bi9jb3Zlcl9pbWFn/ZS93dHRqX2ZyL2Vu/LWY4ZDllMGRjLTFj/YjgtNDBlOS05MjA2/LTM5MDdmMDVkZDcw/OC5qcGc"
+                },
+                "large": {
+                  "url": "https://cdn-images.welcometothejungle.com/iiTQyeKDIpNZJocRs5qCN31A7pXgzMD8TaK91JiyNU4/w:1500/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy93ZWJzaXRl/X29yZ2FuaXphdGlv/bi9jb3Zlcl9pbWFn/ZS93dHRqX2ZyL2Vu/LWY4ZDllMGRjLTFj/YjgtNDBlOS05MjA2/LTM5MDdmMDVkZDcw/OC5qcGc"
+                }
+              },
+              "sk": {
+                "url": "https://cdn-images.welcometothejungle.com/Rw64t_QundLRXLf7KfujfVNzL51v3i2hfYa_xmmlwrQ/w:2000/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy93ZWJzaXRl/X29yZ2FuaXphdGlv/bi9jb3Zlcl9pbWFn/ZS93dHRqX2ZyL2Vu/LWY4ZDllMGRjLTFj/YjgtNDBlOS05MjA2/LTM5MDdmMDVkZDcw/OC5qcGc",
+                "thumb": {
+                  "url": "https://cdn-images.welcometothejungle.com/S0DTkTMxzotmKMssJ43ezZHD3eHTnBZ6xY5E4UQtxRo/w:200/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy93ZWJzaXRl/X29yZ2FuaXphdGlv/bi9jb3Zlcl9pbWFn/ZS93dHRqX2ZyL2Vu/LWY4ZDllMGRjLTFj/YjgtNDBlOS05MjA2/LTM5MDdmMDVkZDcw/OC5qcGc"
+                },
+                "small": {
+                  "url": "https://cdn-images.welcometothejungle.com/EU5TeDipz3CJKXpwMN4vU7-InPIzG7tdZiK7Z4uPVgA/w:640/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy93ZWJzaXRl/X29yZ2FuaXphdGlv/bi9jb3Zlcl9pbWFn/ZS93dHRqX2ZyL2Vu/LWY4ZDllMGRjLTFj/YjgtNDBlOS05MjA2/LTM5MDdmMDVkZDcw/OC5qcGc"
+                },
+                "medium": {
+                  "url": "https://cdn-images.welcometothejungle.com/NThhxKMqP3nejI9Tkv8IxATGauScBjb8fOKgagG6dX4/w:900/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy93ZWJzaXRl/X29yZ2FuaXphdGlv/bi9jb3Zlcl9pbWFn/ZS93dHRqX2ZyL2Vu/LWY4ZDllMGRjLTFj/YjgtNDBlOS05MjA2/LTM5MDdmMDVkZDcw/OC5qcGc"
+                },
+                "large": {
+                  "url": "https://cdn-images.welcometothejungle.com/iiTQyeKDIpNZJocRs5qCN31A7pXgzMD8TaK91JiyNU4/w:1500/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy93ZWJzaXRl/X29yZ2FuaXphdGlv/bi9jb3Zlcl9pbWFn/ZS93dHRqX2ZyL2Vu/LWY4ZDllMGRjLTFj/YjgtNDBlOS05MjA2/LTM5MDdmMDVkZDcw/OC5qcGc"
+                }
+              }
+            },
+            "has_default_job": false,
+            "website_organization": {
+              "slug": "kingfisher-france"
+            }
+          },
+          "sectors": [
+            {
+              "name": {
+                "fr": "Grande distribution",
+                "en": "Mass Distribution",
+                "es": "Gran distribución",
+                "cs": "Hromadná distribuce",
+                "sk": "Hromadná distribúcia"
+              },
+              "parent": {
+                "fr": "Distribution",
+                "en": "Distribution",
+                "es": "Distribución",
+                "cs": "Distribuce",
+                "sk": "Distribúcia"
+              },
+              "id": 142
+            },
+            {
+              "name": {
+                "fr": "Distribution sélective",
+                "en": "Selective Distribution",
+                "es": "Distribución selectiva",
+                "cs": "Selektivní distribuce",
+                "sk": "Selektívna distribúcia"
+              },
+              "parent": {
+                "fr": "Distribution",
+                "en": "Distribution",
+                "es": "Distribución",
+                "cs": "Distribuce",
+                "sk": "Distribúcia"
+              },
+              "id": 143
+            }
+          ],
+          "sectors_name": {
+            "fr": [
+              {
+                "Distribution": "Grande distribution"
+              },
+              {
+                "Distribution": "Distribution sélective"
+              }
+            ],
+            "en": [
+              {
+                "Distribution": "Mass Distribution"
+              },
+              {
+                "Distribution": "Selective Distribution"
+              }
+            ],
+            "es": [
+              {
+                "Distribución": "Gran distribución"
+              },
+              {
+                "Distribución": "Distribución selectiva"
+              }
+            ],
+            "cs": [
+              {
+                "Distribuce": "Hromadná distribuce"
+              },
+              {
+                "Distribuce": "Selektivní distribuce"
+              }
+            ],
+            "sk": [
+              {
+                "Distribúcia": "Hromadná distribúcia"
+              },
+              {
+                "Distribúcia": "Selektívna distribúcia"
+              }
+            ]
+          },
+          "contract_type": "FULL_TIME",
+          "contract_type_names": {
+            "fr": "CDI",
+            "en": "Full-Time",
+            "es": "Contrato indefinido",
+            "cs": "Plný úvazek",
+            "sk": "Zmluva na dobu neurčitú"
+          },
+          "contract_duration_minimum": null,
+          "contract_duration_maximum": null,
+          "has_contract_duration": false,
+          "experience_level_minimum": null,
+          "has_experience_level_minimum": false,
+          "education_level": null,
+          "has_education_level": false,
+          "salary_currency": null,
+          "salary_minimum": null,
+          "salary_maximum": null,
+          "salary_period": "none",
+          "salary_yearly_minimum": null,
+          "has_salary_yearly_minimum": false,
+          "office": {
+            "city": "Kraków",
+            "district": "Cracow",
+            "state": "Lesser Poland Voivodeship",
+            "country": "Poland",
+            "country_code": "PL"
+          },
+          "offices": [
+            {
+              "city": "Kraków",
+              "district": "Cracow",
+              "state": "Lesser Poland Voivodeship",
+              "country": "Poland",
+              "country_code": "PL"
+            }
+          ],
+          "department": null,
+          "profession": {
+            "name": {
+              "fr": null,
+              "en": null,
+              "es": null,
+              "cs": null,
+              "sk": null
+            },
+            "category": {
+              "fr": null,
+              "en": null,
+              "es": null,
+              "cs": null,
+              "sk": null
+            },
+            "id": null
+          },
+          "profession_name": {
+            "fr": {
+              "": null
+            },
+            "en": {
+              "": null
+            },
+            "es": {
+              "": null
+            },
+            "cs": {
+              "": null
+            },
+            "sk": {
+              "": null
+            }
+          },
+          "remote": "unknown",
+          "_geoloc": [
+            {
+              "lat": 50.05619,
+              "lng": 19.99651
+            }
+          ],
+          "objectID": "4081156",
+          "_snippetResult": {
+            "profile": {
+              "value": "",
+              "matchLevel": "none"
+            }
+          },
+          "_highlightResult": {
+            "name": {
+              "value": "Senior <em>Software</em> <em>Engineer</em> (iOS)",
+              "matchLevel": "full",
+              "fullyHighlighted": false,
+              "matchedWords": [
+                "software",
+                "engineer"
+              ]
+            },
+            "profile": {
+              "value": "",
+              "matchLevel": "none",
+              "matchedWords": []
+            },
+            "organization": {
+              "name": {
+                "value": "Kingfisher",
+                "matchLevel": "none",
+                "matchedWords": []
+              }
+            },
+            "contract_type_names": {
+              "fr": {
+                "value": "CDI",
+                "matchLevel": "none",
+                "matchedWords": []
+              },
+              "en": {
+                "value": "Full-Time",
+                "matchLevel": "none",
+                "matchedWords": []
+              },
+              "es": {
+                "value": "Contrato indefinido",
+                "matchLevel": "none",
+                "matchedWords": []
+              },
+              "cs": {
+                "value": "Plný úvazek",
+                "matchLevel": "none",
+                "matchedWords": []
+              },
+              "sk": {
+                "value": "Zmluva na dobu neurčitú",
+                "matchLevel": "none",
+                "matchedWords": []
+              }
+            },
+            "office": {
+              "city": {
+                "value": "Kraków",
+                "matchLevel": "none",
+                "matchedWords": []
+              },
+              "district": {
+                "value": "Cracow",
+                "matchLevel": "none",
+                "matchedWords": []
+              },
+              "state": {
+                "value": "Lesser Poland Voivodeship",
+                "matchLevel": "none",
+                "matchedWords": []
+              },
+              "country": {
+                "value": "Poland",
+                "matchLevel": "none",
+                "matchedWords": []
+              },
+              "country_code": {
+                "value": "PL",
+                "matchLevel": "none",
+                "matchedWords": []
+              }
+            },
+            "offices": [
+              {
+                "city": {
+                  "value": "Kraków",
+                  "matchLevel": "none",
+                  "matchedWords": []
+                },
+                "district": {
+                  "value": "Cracow",
+                  "matchLevel": "none",
+                  "matchedWords": []
+                },
+                "state": {
+                  "value": "Lesser Poland Voivodeship",
+                  "matchLevel": "none",
+                  "matchedWords": []
+                },
+                "country": {
+                  "value": "Poland",
+                  "matchLevel": "none",
+                  "matchedWords": []
+                },
+                "country_code": {
+                  "value": "PL",
+                  "matchLevel": "none",
+                  "matchedWords": []
+                }
+              }
+            ]
+          }
+        },
+        {
+          "slug": "software-engineer-iii_paris",
+          "name": "Backend Software Engineer ",
+          "promoted": false,
+          "profile": "**What you will need:**\n\n* Ability to read, write, speak and understand English.\n    \n* 4+ years of experience as a developer\n    \n* 1+ year of experience as a devops/SRE\n    \n* Solid, hands-on experience in developing APIs, especially in python and flask\n    \n* Solid knowledge in Kubernetes.\n    \n* Understanding how ORM works\n    \n* Experience with an agile methodology\n    \n* Experience with GCP and in particular GKE, Terraform and/or Helm is preferred\n    \n* Knowledge of SQLAlchemy, Pika, Unittest/Pytest is preferred\n    \n\nWe want you to feel comfortable being yourself at work every day. We accept you for who you are and consider everybody, on an equal opportunity basis, regardless of race, color, religion, gender, gender identity or expression, sexual orientation, pregnancy, national origin, genetics, state of health, disability, age, marital status, political opinions, or military status or any other characteristic protected by law. If you have a disability or special need that requires reasonable accommodation, please let us know.\n\nIf you submit an application, Monk collects your personal data for the purposes of managing Monk's recruitment related activities. Consequently, Monk may use your personal data in relation to the evaluation and selection of applicants. Your information will be accessible to Monk and its affiliated entities across the world. By submitting your application, you expressly give your consent to this use and processing of your personal data.",
+          "language": "en",
+          "published_at": "2026-05-21T00:00:00.000+02:00",
+          "website": {
+            "reference": "wttj_fr"
+          },
+          "reference": "MA_RzV9Ryz",
+          "organization": {
+            "name": "Monk AI",
+            "slug": "monk-ai",
+            "descriptions": {
+              "en": "MONK is a subsidiary of ACV (NASDAQ: ACVA). ACV is transforming the automotive industry by building the most trusted and efficient digital marketplace and data solutions for sourcing, selling and managing used vehicles.\r\n\r\nMONK is a leading AI powered vehicle inspection technology that instantaneously provides condition reporting for a multitude of use cases including identifying and classifying damage, reducing inspection time, streamlining processes and providing collision damage estimates.",
+              "fr": "MONK is a subsidiary of ACV (NASDAQ: ACVA). ACV is transforming the automotive industry by building the most trusted and efficient digital marketplace and data solutions for sourcing, selling and managing used vehicles.\r\n\r\n\r\n\r\n\r\nMONK is a leading AI powered vehicle inspection technology that instantaneously provides condition reporting for a multitude of use cases including identifying and classifying damage, reducing inspection time, streamlining processes and providing collision damage estimates."
+            },
+            "reference": "HMJ65c",
+            "size": {},
+            "nb_employees": null,
+            "logo": {
+              "url": "https://cdn-images.welcometothejungle.com/K9eHEtDzyx6293PiMqrp0gbuf_2S1EgHXg4B9Sx-PXY/w:200/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy9vcmdhbml6/YXRpb24vbG9nby83/NDMzLzE2ODEyMi9l/NzczMGFlMi02NWYy/LTRmNTktOTUzZC0x/ODBkMDJjMzdjZGIu/cG5n",
+              "thumb": {
+                "url": "https://cdn-images.welcometothejungle.com/Mbm4UiwkeZqc6X_H0HWUki99cJxqYmH1xGw5LVBxrLI/w:70/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy9vcmdhbml6/YXRpb24vbG9nby83/NDMzLzE2ODEyMi9l/NzczMGFlMi02NWYy/LTRmNTktOTUzZC0x/ODBkMDJjMzdjZGIu/cG5n"
+              }
+            },
+            "labels": [],
+            "cover_image": {
+              "fr": {
+                "url": "https://cdn-images.welcometothejungle.com/2rxkoY2IckdlAIj0rFjhCg9tcg-cq1cAph9SCUVSfiU/w:2000/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy93ZWJzaXRl/X29yZ2FuaXphdGlv/bi9jb3Zlcl9pbWFn/ZS93dHRqX2ZyL2Zy/LTkxNjM2ZTg3LWEz/MjktNDNhYy1hZDcw/LWM1ODBkZDNhYjk3/Zi5qcGc",
+                "thumb": {
+                  "url": "https://cdn-images.welcometothejungle.com/FZP2Xes8IchZv6PeJTTL7DBWS6Nv_bgvYOCSHJmkRU8/w:200/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy93ZWJzaXRl/X29yZ2FuaXphdGlv/bi9jb3Zlcl9pbWFn/ZS93dHRqX2ZyL2Zy/LTkxNjM2ZTg3LWEz/MjktNDNhYy1hZDcw/LWM1ODBkZDNhYjk3/Zi5qcGc"
+                },
+                "small": {
+                  "url": "https://cdn-images.welcometothejungle.com/D4pnF7ddPZRyJL1aBRT3z97f_ir3MYKq3YzMiXwOl7A/w:640/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy93ZWJzaXRl/X29yZ2FuaXphdGlv/bi9jb3Zlcl9pbWFn/ZS93dHRqX2ZyL2Zy/LTkxNjM2ZTg3LWEz/MjktNDNhYy1hZDcw/LWM1ODBkZDNhYjk3/Zi5qcGc"
+                },
+                "medium": {
+                  "url": "https://cdn-images.welcometothejungle.com/fccdY3ytX9TRyS1goO33TBIkwZHBjNIxGspy1FkE5zQ/w:900/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy93ZWJzaXRl/X29yZ2FuaXphdGlv/bi9jb3Zlcl9pbWFn/ZS93dHRqX2ZyL2Zy/LTkxNjM2ZTg3LWEz/MjktNDNhYy1hZDcw/LWM1ODBkZDNhYjk3/Zi5qcGc"
+                },
+                "large": {
+                  "url": "https://cdn-images.welcometothejungle.com/2wTBR51nQr9tPjkwhGCTrvYFVCZ_YTpNXcl6uF9raPM/w:1500/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy93ZWJzaXRl/X29yZ2FuaXphdGlv/bi9jb3Zlcl9pbWFn/ZS93dHRqX2ZyL2Zy/LTkxNjM2ZTg3LWEz/MjktNDNhYy1hZDcw/LWM1ODBkZDNhYjk3/Zi5qcGc"
+                }
+              },
+              "en": {
+                "url": "https://cdn-images.welcometothejungle.com/7E50CdIlN0XhlFid_170i0pUgXcXnWfehAeQe05iz8w/w:2000/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy93ZWJzaXRl/X29yZ2FuaXphdGlv/bi9jb3Zlcl9pbWFn/ZS93dHRqX2ZyL2Vu/LTY3NzkyYTg5LTY2/MDUtNGI5OS05NGQy/LWFjZTgwNmEwOTc4/Yy5qcGc",
+                "thumb": {
+                  "url": "https://cdn-images.welcometothejungle.com/o1gswpB7i72XkL-jHVBxs98lFvqZWH5nQXCx5afr1uo/w:200/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy93ZWJzaXRl/X29yZ2FuaXphdGlv/bi9jb3Zlcl9pbWFn/ZS93dHRqX2ZyL2Vu/LTY3NzkyYTg5LTY2/MDUtNGI5OS05NGQy/LWFjZTgwNmEwOTc4/Yy5qcGc"
+                },
+                "small": {
+                  "url": "https://cdn-images.welcometothejungle.com/9CeEDYzC6cqyOIFu5d7g-O2CorQAL4IqCxLeE5R9kFA/w:640/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy93ZWJzaXRl/X29yZ2FuaXphdGlv/bi9jb3Zlcl9pbWFn/ZS93dHRqX2ZyL2Vu/LTY3NzkyYTg5LTY2/MDUtNGI5OS05NGQy/LWFjZTgwNmEwOTc4/Yy5qcGc"
+                },
+                "medium": {
+                  "url": "https://cdn-images.welcometothejungle.com/1A6QXs716-j-4podD9hfQKKhzPSgXwBJcRMF1lqNTt0/w:900/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy93ZWJzaXRl/X29yZ2FuaXphdGlv/bi9jb3Zlcl9pbWFn/ZS93dHRqX2ZyL2Vu/LTY3NzkyYTg5LTY2/MDUtNGI5OS05NGQy/LWFjZTgwNmEwOTc4/Yy5qcGc"
+                },
+                "large": {
+                  "url": "https://cdn-images.welcometothejungle.com/LQshWHiKsYsHGeGRDhvcOM4jMLbyelDTfJstpe8lVBw/w:1500/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy93ZWJzaXRl/X29yZ2FuaXphdGlv/bi9jb3Zlcl9pbWFn/ZS93dHRqX2ZyL2Vu/LTY3NzkyYTg5LTY2/MDUtNGI5OS05NGQy/LWFjZTgwNmEwOTc4/Yy5qcGc"
+                }
+              },
+              "es": {
+                "url": "https://cdn-images.welcometothejungle.com/7E50CdIlN0XhlFid_170i0pUgXcXnWfehAeQe05iz8w/w:2000/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy93ZWJzaXRl/X29yZ2FuaXphdGlv/bi9jb3Zlcl9pbWFn/ZS93dHRqX2ZyL2Vu/LTY3NzkyYTg5LTY2/MDUtNGI5OS05NGQy/LWFjZTgwNmEwOTc4/Yy5qcGc",
+                "thumb": {
+                  "url": "https://cdn-images.welcometothejungle.com/o1gswpB7i72XkL-jHVBxs98lFvqZWH5nQXCx5afr1uo/w:200/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy93ZWJzaXRl/X29yZ2FuaXphdGlv/bi9jb3Zlcl9pbWFn/ZS93dHRqX2ZyL2Vu/LTY3NzkyYTg5LTY2/MDUtNGI5OS05NGQy/LWFjZTgwNmEwOTc4/Yy5qcGc"
+                },
+                "small": {
+                  "url": "https://cdn-images.welcometothejungle.com/9CeEDYzC6cqyOIFu5d7g-O2CorQAL4IqCxLeE5R9kFA/w:640/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy93ZWJzaXRl/X29yZ2FuaXphdGlv/bi9jb3Zlcl9pbWFn/ZS93dHRqX2ZyL2Vu/LTY3NzkyYTg5LTY2/MDUtNGI5OS05NGQy/LWFjZTgwNmEwOTc4/Yy5qcGc"
+                },
+                "medium": {
+                  "url": "https://cdn-images.welcometothejungle.com/1A6QXs716-j-4podD9hfQKKhzPSgXwBJcRMF1lqNTt0/w:900/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy93ZWJzaXRl/X29yZ2FuaXphdGlv/bi9jb3Zlcl9pbWFn/ZS93dHRqX2ZyL2Vu/LTY3NzkyYTg5LTY2/MDUtNGI5OS05NGQy/LWFjZTgwNmEwOTc4/Yy5qcGc"
+                },
+                "large": {
+                  "url": "https://cdn-images.welcometothejungle.com/LQshWHiKsYsHGeGRDhvcOM4jMLbyelDTfJstpe8lVBw/w:1500/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy93ZWJzaXRl/X29yZ2FuaXphdGlv/bi9jb3Zlcl9pbWFn/ZS93dHRqX2ZyL2Vu/LTY3NzkyYTg5LTY2/MDUtNGI5OS05NGQy/LWFjZTgwNmEwOTc4/Yy5qcGc"
+                }
+              },
+              "cs": {
+                "url": "https://cdn-images.welcometothejungle.com/7E50CdIlN0XhlFid_170i0pUgXcXnWfehAeQe05iz8w/w:2000/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy93ZWJzaXRl/X29yZ2FuaXphdGlv/bi9jb3Zlcl9pbWFn/ZS93dHRqX2ZyL2Vu/LTY3NzkyYTg5LTY2/MDUtNGI5OS05NGQy/LWFjZTgwNmEwOTc4/Yy5qcGc",
+                "thumb": {
+                  "url": "https://cdn-images.welcometothejungle.com/o1gswpB7i72XkL-jHVBxs98lFvqZWH5nQXCx5afr1uo/w:200/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy93ZWJzaXRl/X29yZ2FuaXphdGlv/bi9jb3Zlcl9pbWFn/ZS93dHRqX2ZyL2Vu/LTY3NzkyYTg5LTY2/MDUtNGI5OS05NGQy/LWFjZTgwNmEwOTc4/Yy5qcGc"
+                },
+                "small": {
+                  "url": "https://cdn-images.welcometothejungle.com/9CeEDYzC6cqyOIFu5d7g-O2CorQAL4IqCxLeE5R9kFA/w:640/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy93ZWJzaXRl/X29yZ2FuaXphdGlv/bi9jb3Zlcl9pbWFn/ZS93dHRqX2ZyL2Vu/LTY3NzkyYTg5LTY2/MDUtNGI5OS05NGQy/LWFjZTgwNmEwOTc4/Yy5qcGc"
+                },
+                "medium": {
+                  "url": "https://cdn-images.welcometothejungle.com/1A6QXs716-j-4podD9hfQKKhzPSgXwBJcRMF1lqNTt0/w:900/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy93ZWJzaXRl/X29yZ2FuaXphdGlv/bi9jb3Zlcl9pbWFn/ZS93dHRqX2ZyL2Vu/LTY3NzkyYTg5LTY2/MDUtNGI5OS05NGQy/LWFjZTgwNmEwOTc4/Yy5qcGc"
+                },
+                "large": {
+                  "url": "https://cdn-images.welcometothejungle.com/LQshWHiKsYsHGeGRDhvcOM4jMLbyelDTfJstpe8lVBw/w:1500/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy93ZWJzaXRl/X29yZ2FuaXphdGlv/bi9jb3Zlcl9pbWFn/ZS93dHRqX2ZyL2Vu/LTY3NzkyYTg5LTY2/MDUtNGI5OS05NGQy/LWFjZTgwNmEwOTc4/Yy5qcGc"
+                }
+              },
+              "sk": {
+                "url": "https://cdn-images.welcometothejungle.com/7E50CdIlN0XhlFid_170i0pUgXcXnWfehAeQe05iz8w/w:2000/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy93ZWJzaXRl/X29yZ2FuaXphdGlv/bi9jb3Zlcl9pbWFn/ZS93dHRqX2ZyL2Vu/LTY3NzkyYTg5LTY2/MDUtNGI5OS05NGQy/LWFjZTgwNmEwOTc4/Yy5qcGc",
+                "thumb": {
+                  "url": "https://cdn-images.welcometothejungle.com/o1gswpB7i72XkL-jHVBxs98lFvqZWH5nQXCx5afr1uo/w:200/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy93ZWJzaXRl/X29yZ2FuaXphdGlv/bi9jb3Zlcl9pbWFn/ZS93dHRqX2ZyL2Vu/LTY3NzkyYTg5LTY2/MDUtNGI5OS05NGQy/LWFjZTgwNmEwOTc4/Yy5qcGc"
+                },
+                "small": {
+                  "url": "https://cdn-images.welcometothejungle.com/9CeEDYzC6cqyOIFu5d7g-O2CorQAL4IqCxLeE5R9kFA/w:640/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy93ZWJzaXRl/X29yZ2FuaXphdGlv/bi9jb3Zlcl9pbWFn/ZS93dHRqX2ZyL2Vu/LTY3NzkyYTg5LTY2/MDUtNGI5OS05NGQy/LWFjZTgwNmEwOTc4/Yy5qcGc"
+                },
+                "medium": {
+                  "url": "https://cdn-images.welcometothejungle.com/1A6QXs716-j-4podD9hfQKKhzPSgXwBJcRMF1lqNTt0/w:900/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy93ZWJzaXRl/X29yZ2FuaXphdGlv/bi9jb3Zlcl9pbWFn/ZS93dHRqX2ZyL2Vu/LTY3NzkyYTg5LTY2/MDUtNGI5OS05NGQy/LWFjZTgwNmEwOTc4/Yy5qcGc"
+                },
+                "large": {
+                  "url": "https://cdn-images.welcometothejungle.com/LQshWHiKsYsHGeGRDhvcOM4jMLbyelDTfJstpe8lVBw/w:1500/q:85/czM6Ly93dHRqLXBy/b2R1Y3Rpb24vdXBs/b2Fkcy93ZWJzaXRl/X29yZ2FuaXphdGlv/bi9jb3Zlcl9pbWFn/ZS93dHRqX2ZyL2Vu/LTY3NzkyYTg5LTY2/MDUtNGI5OS05NGQy/LWFjZTgwNmEwOTc4/Yy5qcGc"
+                }
+              }
+            },
+            "has_default_job": false,
+            "website_organization": {
+              "slug": "monk-ai"
+            }
+          },
+          "sectors": [
+            {
+              "name": {
+                "fr": "Logiciels",
+                "en": "Software",
+                "es": "Software",
+                "cs": "Software",
+                "sk": "Softvér"
+              },
+              "parent": {
+                "fr": "Tech",
+                "en": "Tech",
+                "es": "Tecnología",
+                "cs": "Tech",
+                "sk": "Technológie"
+              },
+              "id": 97
+            },
+            {
+              "name": {
+                "fr": "Intelligence artificielle / Machine Learning",
+                "en": "Artificial Intelligence / Machine Learning",
+                "es": "Inteligencia artificial/Aprendizaje automático",
+                "cs": "Artificial Intelligence / Machine Learning",
+                "sk": "Umelá inteligencia / Machine Learning"
+              },
+              "parent": {
+                "fr": "Tech",
+                "en": "Tech",
+                "es": "Tecnología",
+                "cs": "Tech",
+                "sk": "Technológie"
+              },
+              "id": 100
+            },
+            {
+              "name": {
+                "fr": "SaaS / Cloud Services",
+                "en": "SaaS / Cloud Services",
+                "es": "SaaS/Servicios en la nube",
+                "cs": "SaaS / Cloud Services",
+                "sk": "SaaS / Cloudové služby"
+              },
+              "parent": {
+                "fr": "Tech",
+                "en": "Tech",
+                "es": "Tecnología",
+                "cs": "Tech",
+                "sk": "Technológie"
+              },
+              "id": 98
+            }
+          ],
+          "sectors_name": {
+            "fr": [
+              {
+                "Tech": "Logiciels"
+              },
+              {
+                "Tech": "Intelligence artificielle / Machine Learning"
+              },
+              {
+                "Tech": "SaaS / Cloud Services"
+              }
+            ],
+            "en": [
+              {
+                "Tech": "Software"
+              },
+              {
+                "Tech": "Artificial Intelligence / Machine Learning"
+              },
+              {
+                "Tech": "SaaS / Cloud Services"
+              }
+            ],
+            "es": [
+              {
+                "Tecnología": "Software"
+              },
+              {
+                "Tecnología": "Inteligencia artificial/Aprendizaje automático"
+              },
+              {
+                "Tecnología": "SaaS/Servicios en la nube"
+              }
+            ],
+            "cs": [
+              {
+                "Tech": "Software"
+              },
+              {
+                "Tech": "Artificial Intelligence / Machine Learning"
+              },
+              {
+                "Tech": "SaaS / Cloud Services"
+              }
+            ],
+            "sk": [
+              {
+                "Technológie": "Softvér"
+              },
+              {
+                "Technológie": "Umelá inteligencia / Machine Learning"
+              },
+              {
+                "Technológie": "SaaS / Cloudové služby"
+              }
+            ]
+          },
+          "contract_type": "FULL_TIME",
+          "contract_type_names": {
+            "fr": "CDI",
+            "en": "Full-Time",
+            "es": "Contrato indefinido",
+            "cs": "Plný úvazek",
+            "sk": "Zmluva na dobu neurčitú"
+          },
+          "contract_duration_minimum": null,
+          "contract_duration_maximum": null,
+          "has_contract_duration": false,
+          "experience_level_minimum": 4,
+          "has_experience_level_minimum": true,
+          "education_level": null,
+          "has_education_level": false,
+          "salary_currency": "EUR",
+          "salary_minimum": null,
+          "salary_maximum": null,
+          "salary_period": "yearly",
+          "salary_yearly_minimum": null,
+          "has_salary_yearly_minimum": false,
+          "office": {
+            "city": "Paris",
+            "district": "Paris",
+            "state": "Ile-de-France",
+            "country": "France",
+            "country_code": "FR"
+          },
+          "offices": [
+            {
+              "city": "Paris",
+              "district": "Paris",
+              "state": "Ile-de-France",
+              "country": "France",
+              "country_code": "FR"
+            }
+          ],
+          "department": null,
+          "profession": {
+            "name": {
+              "fr": null,
+              "en": null,
+              "es": null,
+              "cs": null,
+              "sk": null
+            },
+            "category": {
+              "fr": null,
+              "en": null,
+              "es": null,
+              "cs": null,
+              "sk": null
+            },
+            "id": null
+          },
+          "profession_name": {
+            "fr": {
+              "": null
+            },
+            "en": {
+              "": null
+            },
+            "es": {
+              "": null
+            },
+            "cs": {
+              "": null
+            },
+            "sk": {
+              "": null
+            }
+          },
+          "remote": "partial",
+          "_geoloc": [
+            {
+              "lat": 48.86162,
+              "lng": 2.35876
+            }
+          ],
+          "objectID": "3936903",
+          "_snippetResult": {
+            "profile": {
+              "value": "**What you will need:**\n\n* Ability to read, write, speak",
+              "matchLevel": "none"
+            }
+          },
+          "_highlightResult": {
+            "name": {
+              "value": "Backend <em>Software</em> <em>Engineer</em> ",
+              "matchLevel": "full",
+              "fullyHighlighted": false,
+              "matchedWords": [
+                "software",
+                "engineer"
+              ]
+            },
+            "profile": {
+              "value": "**What you will need:**\n\n* Ability to read, write, speak and understand English.\n    \n* 4+ years of experience as a developer\n    \n* 1+ year of experience as a devops/SRE\n    \n* Solid, hands-on experience in developing APIs, especially in python and flask\n    \n* Solid knowledge in Kubernetes.\n    \n* Understanding how ORM works\n    \n* Experience with an agile methodology\n    \n* Experience with GCP and in particular GKE, Terraform and/or Helm is preferred\n    \n* Knowledge of SQLAlchemy, Pika, Unittest/Pytest is preferred\n    \n\nWe want you to feel comfortable being yourself at work every day. We accept you for who you are and consider everybody, on an equal opportunity basis, regardless of race, color, religion, gender, gender identity or expression, sexual orientation, pregnancy, national origin, genetics, state of health, disability, age, marital status, political opinions, or military status or any other characteristic protected by law. If you have a disability or special need that requires reasonable accommodation, please let us know.\n\nIf you submit an application, Monk collects your personal data for the purposes of managing Monk's recruitment related activities. Consequently, Monk may use your personal data in relation to the evaluation and selection of applicants. Your information will be accessible to Monk and its affiliated entities across the world. By submitting your application, you expressly give your consent to this use and processing of your personal data.",
+              "matchLevel": "none",
+              "matchedWords": []
+            },
+            "organization": {
+              "name": {
+                "value": "Monk AI",
+                "matchLevel": "none",
+                "matchedWords": []
+              }
+            },
+            "contract_type_names": {
+              "fr": {
+                "value": "CDI",
+                "matchLevel": "none",
+                "matchedWords": []
+              },
+              "en": {
+                "value": "Full-Time",
+                "matchLevel": "none",
+                "matchedWords": []
+              },
+              "es": {
+                "value": "Contrato indefinido",
+                "matchLevel": "none",
+                "matchedWords": []
+              },
+              "cs": {
+                "value": "Plný úvazek",
+                "matchLevel": "none",
+                "matchedWords": []
+              },
+              "sk": {
+                "value": "Zmluva na dobu neurčitú",
+                "matchLevel": "none",
+                "matchedWords": []
+              }
+            },
+            "office": {
+              "city": {
+                "value": "Paris",
+                "matchLevel": "none",
+                "matchedWords": []
+              },
+              "district": {
+                "value": "Paris",
+                "matchLevel": "none",
+                "matchedWords": []
+              },
+              "state": {
+                "value": "Ile-de-France",
+                "matchLevel": "none",
+                "matchedWords": []
+              },
+              "country": {
+                "value": "France",
+                "matchLevel": "none",
+                "matchedWords": []
+              },
+              "country_code": {
+                "value": "FR",
+                "matchLevel": "none",
+                "matchedWords": []
+              }
+            },
+            "offices": [
+              {
+                "city": {
+                  "value": "Paris",
+                  "matchLevel": "none",
+                  "matchedWords": []
+                },
+                "district": {
+                  "value": "Paris",
+                  "matchLevel": "none",
+                  "matchedWords": []
+                },
+                "state": {
+                  "value": "Ile-de-France",
+                  "matchLevel": "none",
+                  "matchedWords": []
+                },
+                "country": {
+                  "value": "France",
+                  "matchLevel": "none",
+                  "matchedWords": []
+                },
+                "country_code": {
+                  "value": "FR",
+                  "matchLevel": "none",
+                  "matchedWords": []
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "nbHits": 1068,
+      "nbPages": 334,
+      "page": 0,
+      "hitsPerPage": 3,
+      "index": "wk_cms_jobs_production"
+    }
+  ]
+}
