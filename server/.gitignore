@@ -1,0 +1,16 @@
+node_modules/
+dist/
+.env
+.env.development
+.env.production
+/certs/
+braindump.txt
+
+*.tsbuildinfo
+data/wttj-creds.json
+
+# Local-only project docs (specs, plans, notes)
+docs/
+
+# Vite dashboard build output (run: cd dashboard && npm run build)
+public/

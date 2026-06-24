@@ -292,7 +292,7 @@
     },
     {
       "parameters": {
-        "url": "http://10.0.0.23:3000/score/top-candidates",
+        "url": "http://express-api:3000/score/top-candidates",
         "options": {}
       },
       "type": "n8n-nodes-base.httpRequest",
@@ -307,7 +307,7 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "http://10.0.0.23:3000/score/batch",
+        "url": "http://express-api:3000/score/batch",
         "sendBody": true,
         "bodyParameters": {
           "parameters": [
@@ -425,9 +425,10 @@
     {
       "parameters": {
         "chatId": "5651295221",
-        "text": "=Uh-oh, something went wrong when generating scores :/\ntimestamp: {{ new Date().toLocaleString() }}\nmessage: {{ $json.message }}\n\n// scrape\njobhunt api received: {{ $json.summary.received }} scraped jobs\n\n// batch scoring\njobhunt api scored: {{ $json.summary.scored }} jobs\njobhunt api failed: {{ $json.summary.failed }} jobs\n========================================================",
+        "text": "=⚠️ <b>jobhunt workflow error</b>\n{{\n  (() => {\n    const esc = (s) => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');\n    const ts = new Date().toLocaleString('en-US', { timeZone: 'America/Los_Angeles', dateStyle: 'full', timeStyle: 'short' });\n    const ex = $json.execution || {};\n    const err = ex.error || {};\n    const node = ex.lastNodeExecuted || 'unknown';\n    const msg = err.message || $json.message || 'no error message captured';\n    const desc = err.description ? (' — ' + err.description) : '';\n    const ref = ex.url || ex.id || 'n/a';\n    const wf = ($json.workflow && $json.workflow.name) || 'jobhunt';\n    return [\n      'timestamp: ' + ts,\n      'workflow: ' + esc(wf),\n      'failed at node: ' + esc(node),\n      'error: ' + esc(msg + desc),\n      '',\n      'execution: ' + esc(ref)\n    ].join('\\n');\n  })()\n}}",
         "additionalFields": {
-          "appendAttribution": false
+          "appendAttribution": false,
+          "parse_mode": "HTML"
         }
       },
       "type": "n8n-nodes-base.telegram",
@@ -471,6 +472,152 @@
           "name": "Apify account"
         }
       }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://express-api:3000/sources/wttj/run",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"query\": \"software engineer\",\n  \"locations\": [\n    \"san francisco\",\n    \"remote\"\n  ],\n  \"hitsPerPage\": 30,\n  \"maxPages\": 2\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        704,
+        720
+      ],
+      "id": "a1111111-1111-4111-8111-111111111111",
+      "name": "Run WTTJ source"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://express-api:3000/sources/built-in/run",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"query\": \"software engineer\",\n  \"locations\": [\n    \"san francisco\",\n    \"remote\"\n  ],\n  \"hitsPerPage\": 25,\n  \"maxPages\": 1\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        960,
+        720
+      ],
+      "id": "a2222222-2222-4222-8222-222222222222",
+      "name": "Run Built-in source"
+    },
+    {
+      "parameters": {
+        "unit": "seconds",
+        "amount": 20
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1216,
+        720
+      ],
+      "id": "a3333333-3333-4333-8333-333333333333",
+      "name": "Wait for in-app runs",
+      "webhookId": "a3333333-3333-4333-8333-333333333333"
+    },
+    {
+      "parameters": {
+        "url": "http://express-api:3000/digest/today?minScore=0.6&limit=25",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1808,
+        820
+      ],
+      "id": "a4444444-4444-4444-8444-444444444444",
+      "name": "Fetch daily digest"
+    },
+    {
+      "parameters": {
+        "chatId": "5651295221",
+        "text": "=<b>In-app pipeline digest (wttj + built-in)</b>\nDate: {{ $json.date }}\nCandidates (score ≥ 0.6): {{ $json.totals.candidates }}\nBy source: {{ JSON.stringify($json.totals.bySource) }}\n\n{{\n  (() => {\n    const esc = (s) => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');\n    const rows = ($json.listings || []).slice(0, 5).map(l =>\n      `• ${esc(l.title)} @ ${esc(l.company)} — ${l.score ? l.score.toFixed(3) : 'n/a'} <a href=\"${esc(l.listingUrl)}\">listing</a>`\n    );\n    return rows.length ? rows.join('\\n') : 'No candidates today.';\n  })()\n}}",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2016,
+        820
+      ],
+      "id": "a5555555-5555-4555-8555-555555555555",
+      "name": "Summarize in-app digest",
+      "webhookId": "a5555555-5555-4555-8555-555555555555",
+      "credentials": {
+        "telegramApi": {
+          "id": "MOl4hUz3memSul0W",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "=http://express-api:3000/runs/{{ $('Run Built-in source').item.json.runId }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1408,
+        720
+      ],
+      "id": "a6666666-6666-4666-8666-666666666666",
+      "name": "Check run status"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "cond-status",
+              "leftValue": "={{ $json.status }}",
+              "rightValue": "RUNNING",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            },
+            {
+              "id": "cond-cap",
+              "leftValue": "={{ $runIndex }}",
+              "rightValue": 60,
+              "operator": {
+                "type": "number",
+                "operation": "lt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        1600,
+        720
+      ],
+      "id": "a7777777-7777-4777-8777-777777777777",
+      "name": "Run still running?"
     }
   ],
   "pinData": {
@@ -553,6 +700,11 @@
         [
           {
             "node": "Run an Actor",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Run WTTJ source",
             "type": "main",
             "index": 0
           }
@@ -647,6 +799,79 @@
         [
           {
             "node": "Get dataset items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Run WTTJ source": {
+      "main": [
+        [
+          {
+            "node": "Run Built-in source",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Run Built-in source": {
+      "main": [
+        [
+          {
+            "node": "Wait for in-app runs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait for in-app runs": {
+      "main": [
+        [
+          {
+            "node": "Check run status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch daily digest": {
+      "main": [
+        [
+          {
+            "node": "Summarize in-app digest",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check run status": {
+      "main": [
+        [
+          {
+            "node": "Run still running?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Run still running?": {
+      "main": [
+        [
+          {
+            "node": "Wait for in-app runs",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Fetch daily digest",
             "type": "main",
             "index": 0
           }

@@ -5,3 +5,5 @@ export * from './score';
 export * from './sources';
 export * from './runs';
 export * from './digest';
+export * from './metrics';
+export * from './dashboard';

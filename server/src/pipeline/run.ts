@@ -7,6 +7,7 @@ import { cosineSimilarity } from '../utils/scoring';
 import { computeDedupeKey } from './dedupe';
 import { getLocationAllowlist, matchesLocation } from './locationFilter';
 import { completeRun, failRun, RunTotals } from '../services/jobScrapeRunService';
+import { summarizeSince } from '../services/ollamaMetrics';
 
 export async function runSource(
   runId: number,
@@ -95,11 +96,21 @@ export async function runSource(
     }
 
     await completeRun(runId, totals);
+    const ollamaStats = summarizeSince(startedAt);
+    if (ollamaStats.reloads > 0) {
+      log.warn('[pipeline] ollama reloaded model mid-run — possible memory pressure', {
+        runId,
+        sourceId,
+        reloads: ollamaStats.reloads,
+        loadMsMax: ollamaStats.loadMsMax,
+      });
+    }
     log.success('[pipeline] run completed', {
       runId,
       sourceId,
       totals,
       durationMs: Date.now() - startedAt,
+      ollama: ollamaStats,
     });
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);

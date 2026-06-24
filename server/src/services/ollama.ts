@@ -1,7 +1,9 @@
 import { Ollama, ChatResponse, ListResponse } from 'ollama';
 import { OllamaConnectionError, OllamaModelError } from '../lib/errors/ollama';
+import { nsToMs, recordSample, RELOAD_THRESHOLD_MS } from './ollamaMetrics';
 
-const OLLAMA_LOCAL_URL = `http://localhost:${process.env.OLLAMA_PORT}`;
+const OLLAMA_HOST = process.env.OLLAMA_HOST || 'localhost';
+const OLLAMA_LOCAL_URL = `http://${OLLAMA_HOST}:${process.env.OLLAMA_PORT || '11434'}`;
 const ollama = new Ollama({ host: OLLAMA_LOCAL_URL });
 
 const EMBEDDING_MODEL = process.env.OLLAMA_EMBEDDING_MODEL || 'nomic-embed-text';
@@ -78,15 +80,41 @@ function isContextLengthError(err: unknown): boolean {
 }
 
 async function embedOnce(text: string, numCtx?: number): Promise<number[]> {
-  const response = await ollama.embed({
-    model: EMBEDDING_MODEL,
-    input: text,
-    ...(numCtx ? { options: { num_ctx: numCtx } } : {}),
-  });
-  if (!response) throw new OllamaConnectionError();
-  const embedding = response.embeddings[0];
-  if (!embedding) throw new OllamaModelError('No embedding returned from Ollama API');
-  return embedding;
+  const startedAt = Date.now();
+  try {
+    const response = await ollama.embed({
+      model: EMBEDDING_MODEL,
+      input: text,
+      ...(numCtx ? { options: { num_ctx: numCtx } } : {}),
+    });
+    if (!response) throw new OllamaConnectionError();
+    const embedding = response.embeddings[0];
+    if (!embedding) throw new OllamaModelError('No embedding returned from Ollama API');
+    const loadMs = nsToMs(response.load_duration);
+    recordSample({
+      ts: Date.now(),
+      model: EMBEDDING_MODEL,
+      kind: 'embed',
+      wallMs: Date.now() - startedAt,
+      totalMs: nsToMs(response.total_duration),
+      loadMs,
+      promptTokens: response.prompt_eval_count,
+      reload: (loadMs ?? 0) >= RELOAD_THRESHOLD_MS,
+      ok: true,
+    });
+    return embedding;
+  } catch (err) {
+    recordSample({
+      ts: Date.now(),
+      model: EMBEDDING_MODEL,
+      kind: 'embed',
+      wallMs: Date.now() - startedAt,
+      reload: false,
+      ok: false,
+      error: err instanceof Error ? err.message : String(err),
+    });
+    throw err;
+  }
 }
 
 export async function generateEmbedding(text: string): Promise<number[]> {
@@ -120,6 +148,7 @@ export async function generateEmbedding(text: string): Promise<number[]> {
 
 export async function generateUserBioSummary(resume_md: string, category?: string): Promise<ChatResponse | null> {
   const prompt = generatePrompt(resume_md, category || 'technical');
+  const startedAt = Date.now();
   try {
     const response = await ollama.chat({
       model: CHAT_MODEL,
@@ -131,13 +160,80 @@ export async function generateUserBioSummary(resume_md: string, category?: strin
       ],
     });
     if (response) {
+      const loadMs = nsToMs(response.load_duration);
+      recordSample({
+        ts: Date.now(),
+        model: CHAT_MODEL,
+        kind: 'chat',
+        wallMs: Date.now() - startedAt,
+        totalMs: nsToMs(response.total_duration),
+        loadMs,
+        promptTokens: response.prompt_eval_count,
+        evalTokens: response.eval_count,
+        evalMs: nsToMs(response.eval_duration),
+        reload: (loadMs ?? 0) >= RELOAD_THRESHOLD_MS,
+        ok: true,
+      });
       return response;
     }
     return null;
   } catch (error) {
+    recordSample({
+      ts: Date.now(),
+      model: CHAT_MODEL,
+      kind: 'chat',
+      wallMs: Date.now() - startedAt,
+      reload: false,
+      ok: false,
+      error: error instanceof Error ? error.message : String(error),
+    });
     log.error('Error generating user profile summary:', error);
     return null;
   }
+}
+
+/**
+ * Snapshot of what Ollama currently holds in memory (via `ollama.ps()`), plus a
+ * crude memory-pressure flag. On an 8 GB CPU-only box, `size` is the RAM footprint
+ * of each loaded model; if the configured models can't all stay resident they get
+ * evicted and reloaded (see reload tracking in ollamaMetrics). size_vram > 0 only
+ * if a GPU is in play (expected 0 here).
+ */
+export interface OllamaRuntimeModel {
+  name: string;
+  sizeBytes: number;
+  sizeVramBytes: number;
+  expiresAt: Date;
+}
+export interface OllamaRuntimeSnapshot {
+  loadedModels: OllamaRuntimeModel[];
+  totalResidentBytes: number;
+  memoryBudgetBytes: number;
+  memoryPressure: boolean;
+}
+
+const MEMORY_BUDGET_BYTES = parseInt(
+  process.env.OLLAMA_MEMORY_BUDGET_BYTES || String(8 * 1024 * 1024 * 1024),
+  10,
+);
+// Fraction of the budget above which we flag pressure (room for OS + node + postgres).
+const MEMORY_PRESSURE_RATIO = parseFloat(process.env.OLLAMA_MEMORY_PRESSURE_RATIO || '0.7');
+
+export async function getOllamaRuntimeSnapshot(): Promise<OllamaRuntimeSnapshot> {
+  const ps = await ollama.ps();
+  const loadedModels: OllamaRuntimeModel[] = ps.models.map((m) => ({
+    name: m.name,
+    sizeBytes: m.size,
+    sizeVramBytes: m.size_vram,
+    expiresAt: m.expires_at,
+  }));
+  const totalResidentBytes = loadedModels.reduce((acc, m) => acc + m.sizeBytes, 0);
+  return {
+    loadedModels,
+    totalResidentBytes,
+    memoryBudgetBytes: MEMORY_BUDGET_BYTES,
+    memoryPressure: totalResidentBytes > MEMORY_BUDGET_BYTES * MEMORY_PRESSURE_RATIO,
+  };
 }
 
 function generatePrompt(resume_md: string, category: string) {
