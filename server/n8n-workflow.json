@@ -7,7 +7,7 @@
           "__rl": true,
           "value": "JkfTWxtpgfvcRQn3p",
           "mode": "list",
-          "cachedResultName": "⚡️Rapid Linkedin Jobs Scraper (No Cookies) | Free Jobs Scraper (worldunboxer/rapid-linkedin-scraper)",
+          "cachedResultName": "\u26a1\ufe0fRapid Linkedin Jobs Scraper (No Cookies) | Free Jobs Scraper (worldunboxer/rapid-linkedin-scraper)",
           "cachedResultUrl": "https://console.apify.com/actors/JkfTWxtpgfvcRQn3p/input"
         },
         "customBody": "{\n    \"job_post_time\": \"r86400\",\n    \"job_title\": \"Software Engineer\",\n    \"job_type\": \"F\",\n    \"jobs_entries\": 400,\n    \"location\": \"San Francisco, CA\",\n    \"start_jobs\": 0\n}"
@@ -425,7 +425,7 @@
     {
       "parameters": {
         "chatId": "5651295221",
-        "text": "=⚠️ <b>jobhunt workflow error</b>\n{{\n  (() => {\n    const esc = (s) => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');\n    const ts = new Date().toLocaleString('en-US', { timeZone: 'America/Los_Angeles', dateStyle: 'full', timeStyle: 'short' });\n    const ex = $json.execution || {};\n    const err = ex.error || {};\n    const node = ex.lastNodeExecuted || 'unknown';\n    const msg = err.message || $json.message || 'no error message captured';\n    const desc = err.description ? (' — ' + err.description) : '';\n    const ref = ex.url || ex.id || 'n/a';\n    const wf = ($json.workflow && $json.workflow.name) || 'jobhunt';\n    return [\n      'timestamp: ' + ts,\n      'workflow: ' + esc(wf),\n      'failed at node: ' + esc(node),\n      'error: ' + esc(msg + desc),\n      '',\n      'execution: ' + esc(ref)\n    ].join('\\n');\n  })()\n}}",
+        "text": "=\u26a0\ufe0f <b>jobhunt workflow error</b>\n{{\n  (() => {\n    const esc = (s) => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');\n    const ts = new Date().toLocaleString('en-US', { timeZone: 'America/Los_Angeles', dateStyle: 'full', timeStyle: 'short' });\n    const ex = $json.execution || {};\n    const err = ex.error || {};\n    const node = ex.lastNodeExecuted || 'unknown';\n    const msg = err.message || $json.message || 'no error message captured';\n    const desc = err.description ? (' \u2014 ' + err.description) : '';\n    const ref = ex.url || ex.id || 'n/a';\n    const wf = ($json.workflow && $json.workflow.name) || 'jobhunt';\n    return [\n      'timestamp: ' + ts,\n      'workflow: ' + esc(wf),\n      'failed at node: ' + esc(node),\n      'error: ' + esc(msg + desc),\n      '',\n      'execution: ' + esc(ref)\n    ].join('\\n');\n  })()\n}}",
         "additionalFields": {
           "appendAttribution": false,
           "parse_mode": "HTML"
@@ -454,7 +454,7 @@
           "__rl": true,
           "value": "JkfTWxtpgfvcRQn3p",
           "mode": "list",
-          "cachedResultName": "⚡️Rapid Linkedin Jobs Scraper (No Cookies) | Free Jobs Scraper (worldunboxer/rapid-linkedin-scraper)",
+          "cachedResultName": "\u26a1\ufe0fRapid Linkedin Jobs Scraper (No Cookies) | Free Jobs Scraper (worldunboxer/rapid-linkedin-scraper)",
           "cachedResultUrl": "https://console.apify.com/actors/JkfTWxtpgfvcRQn3p/input"
         }
       },
@@ -541,7 +541,7 @@
     {
       "parameters": {
         "chatId": "5651295221",
-        "text": "=<b>In-app pipeline digest (wttj + built-in)</b>\nDate: {{ $json.date }}\nCandidates (score ≥ 0.6): {{ $json.totals.candidates }}\nBy source: {{ JSON.stringify($json.totals.bySource) }}\n\n{{\n  (() => {\n    const esc = (s) => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');\n    const rows = ($json.listings || []).slice(0, 5).map(l =>\n      `• ${esc(l.title)} @ ${esc(l.company)} — ${l.score ? l.score.toFixed(3) : 'n/a'} <a href=\"${esc(l.listingUrl)}\">listing</a>`\n    );\n    return rows.length ? rows.join('\\n') : 'No candidates today.';\n  })()\n}}",
+        "text": "=<b>In-app pipeline digest (wttj + built-in)</b>\nDate: {{ $json.date }}\nCandidates (score \u2265 0.6): {{ $json.totals.candidates }}\nBy source: {{ JSON.stringify($json.totals.bySource) }}\n\n{{\n  (() => {\n    const esc = (s) => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');\n    const rows = ($json.listings || []).slice(0, 5).map(l =>\n      `\u2022 ${esc(l.title)} @ ${esc(l.company)} \u2014 ${l.score ? l.score.toFixed(3) : 'n/a'} <a href=\"${esc(l.listingUrl)}\">listing</a>`\n    );\n    return rows.length ? rows.join('\\n') : 'No candidates today.';\n  })()\n}}",
         "additionalFields": {
           "appendAttribution": false,
           "parse_mode": "HTML"
@@ -618,6 +618,79 @@
       ],
       "id": "a7777777-7777-4777-8777-777777777777",
       "name": "Run still running?"
+    },
+    {
+      "parameters": {
+        "url": "http://express-api:3000/dashboard/summary",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1808,
+        1040
+      ],
+      "id": "b1111111-1111-4111-8111-111111111111",
+      "name": "Fetch dashboard summary"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "cond-health",
+              "leftValue": "={{ (() => { const h = $json.health || {}; const m = (h.metrics && h.metrics.overall) || {}; const chat = (h.metrics && h.metrics.byKind && h.metrics.byKind.chat) || {}; const srcs = Array.isArray($json.sources) ? $json.sources : []; const badRun = srcs.some(s => s.lastRun && (s.lastRun.status === 'FAILED' || s.lastRun.orphaned)); return Boolean((h.ollama && h.ollama.ok === false) || (h.database && h.database.ok === false) || (m.reloads || 0) > 0 || (chat.errors || 0) > 0 || badRun); })() }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        2016,
+        1040
+      ],
+      "id": "b2222222-2222-4222-8222-222222222222",
+      "name": "Health needs attention?"
+    },
+    {
+      "parameters": {
+        "chatId": "5651295221",
+        "text": "=<b>\u26a0 Job hunter health alert</b>\n{{\n  (() => {\n    const esc = (s) => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');\n    const h = $json.health || {};\n    const lines = [];\n    if (h.database && h.database.ok === false) lines.push('\u2022 Database: DOWN');\n    if (h.ollama && h.ollama.ok === false) lines.push('\u2022 Ollama: NOT OK' + (h.ollama.missingRequired && h.ollama.missingRequired.length ? ' (missing: ' + h.ollama.missingRequired.join(', ') + ')' : ''));\n    const m = (h.metrics && h.metrics.overall) || {};\n    if ((m.reloads || 0) > 0) lines.push('\u2022 Ollama reloads: ' + m.reloads + ' (memory thrash)');\n    const chat = (h.metrics && h.metrics.byKind && h.metrics.byKind.chat) || {};\n    if ((chat.errors || 0) > 0) lines.push('\u2022 Chat/extraction errors: ' + chat.errors);\n    const rt = h.runtime || {};\n    if (rt.memoryPressure) lines.push('\u2022 Memory pressure: ' + (rt.totalResident || '') + ' / ' + (rt.memoryBudget || ''));\n    const srcs = Array.isArray($json.sources) ? $json.sources : [];\n    for (const s of srcs) {\n      const r = s.lastRun; if (!r) continue;\n      if (r.orphaned) lines.push('\u2022 ' + esc(s.source) + ': ORPHANED run #' + r.id);\n      else if (r.status === 'FAILED') lines.push('\u2022 ' + esc(s.source) + ': FAILED \u2014 ' + esc(r.errorMessage || 'unknown'));\n    }\n    const cand = ($json.digest && $json.digest.totals && $json.digest.totals.candidates) || 0;\n    lines.push('');\n    lines.push('Candidates \u22650.6 today: ' + cand);\n    return lines.join('\\n');\n  })()\n}}",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2224,
+        1040
+      ],
+      "id": "b3333333-3333-4333-8333-333333333333",
+      "name": "Notify health alert",
+      "webhookId": "b3333333-3333-4333-8333-333333333333",
+      "credentials": {
+        "telegramApi": {
+          "id": "MOl4hUz3memSul0W",
+          "name": "Telegram account"
+        }
+      }
     }
   ],
   "pinData": {
@@ -874,8 +947,36 @@
             "node": "Fetch daily digest",
             "type": "main",
             "index": 0
+          },
+          {
+            "node": "Fetch dashboard summary",
+            "type": "main",
+            "index": 0
           }
         ]
+      ]
+    },
+    "Fetch dashboard summary": {
+      "main": [
+        [
+          {
+            "node": "Health needs attention?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Health needs attention?": {
+      "main": [
+        [
+          {
+            "node": "Notify health alert",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
       ]
     }
   },
