@@ -1,0 +1,71 @@
+services:
+  n8n:
+    image: n8nio/n8n
+    restart: unless-stopped
+    ports:
+      - "5678:5678"
+    environment:
+      - N8N_HOST=10.0.0.23
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=http
+      - N8N_SECURE_COOKIE=false
+      - GENERIC_TIMEZONE=America/Los_Angeles
+      - DB_TYPE=postgresdb
+      - DB_POSTGRESDB_HOST=postgres
+      - DB_POSTGRESDB_DATABASE=n8n
+      - DB_POSTGRESDB_USER=gr
+      - DB_POSTGRESDB_PASSWORD=frankincense
+      - N8N_FILE_SYSTEM_ACCESS=true
+      - N8N_DEFAULT_BINARY_DATA_MODE=filesystem
+    volumes:
+      - n8n_data:/home/node/.n8n
+      - ./files:/files
+    depends_on:
+      - postgres
+
+  postgres:
+    ports:
+      - "5432:5432"
+    image: pgvector/pgvector:pg17
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=n8n
+      - POSTGRES_USER=gr
+      - POSTGRES_PASSWORD=frankincense
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./postgres-init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  express-api:
+    image: node:24-alpine
+    container_name: express-api
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./server:/app
+      - /app/node_modules
+    working_dir: /app
+    command: sh -c "npm install && npm run dev"
+    environment:
+      - NODE_ENV=development
+      - TZ=America/Los_Angeles
+      # Ollama runs natively on the Mac host (Metal GPU, full unified memory) rather
+      # than in a container capped by the ~3.8 GiB Docker VM. host.docker.internal
+      # reaches the host; the native service must bind 0.0.0.0 (see its launchd plist).
+      - OLLAMA_HOST=host.docker.internal
+      - OLLAMA_PORT=11434
+      # On the 8 GB M1 mini, qwen2.5:7b (~5.5 GB) thrashes swap alongside the Docker stack
+      # (52-330s/extraction). llama3.2:3b (~2 GB) runs swap-free and fast here. Bump back to
+      # qwen2.5:7b on a larger-memory host for higher extraction quality.
+      - OLLAMA_EXTRACTION_MODEL=llama3.2:latest
+      - OLLAMA_CHAT_MODEL=qwen2.5:7b
+      - OLLAMA_EXTRACTION_NUM_CTX=4096
+      - OLLAMA_EXTRACTION_MAX_HTML_CHARS=12000
+      - DATABASE_URL=postgresql://gr:frankincense@postgres:5432/jobhunt?schema=public
+    depends_on:
+      - postgres
+
+volumes:
+  n8n_data:
+  postgres_data:

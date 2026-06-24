@@ -1,9 +1,23 @@
-node_modules/
-dist/
-.env
-.env.development
-.env.production
-/certs/
-braindump.txt
+# OS
+.DS_Store
 
+# Secrets / env
+.env
+.env.*
+!.env.example
+
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+server/public/          # Vite build artifact (run `cd dashboard && npm run build`)
+
+# n8n runtime exports (large CSVs, regenerated)
+files/
+
+# Editor
 *.tsbuildinfo
+
+# Claude local settings
+.claude/settings.local.json

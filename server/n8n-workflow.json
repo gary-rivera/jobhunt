@@ -1,0 +1,994 @@
+{
+  "name": "jobhunt",
+  "nodes": [
+    {
+      "parameters": {
+        "actorId": {
+          "__rl": true,
+          "value": "JkfTWxtpgfvcRQn3p",
+          "mode": "list",
+          "cachedResultName": "\u26a1\ufe0fRapid Linkedin Jobs Scraper (No Cookies) | Free Jobs Scraper (worldunboxer/rapid-linkedin-scraper)",
+          "cachedResultUrl": "https://console.apify.com/actors/JkfTWxtpgfvcRQn3p/input"
+        },
+        "customBody": "{\n    \"job_post_time\": \"r86400\",\n    \"job_title\": \"Software Engineer\",\n    \"job_type\": \"F\",\n    \"jobs_entries\": 400,\n    \"location\": \"San Francisco, CA\",\n    \"start_jobs\": 0\n}"
+      },
+      "type": "@apify/n8n-nodes-apify.apify",
+      "typeVersion": 1,
+      "position": [
+        704,
+        192
+      ],
+      "id": "6c2c256d-beb6-4540-89df-6134c918b374",
+      "name": "Run an Actor",
+      "credentials": {
+        "apifyApi": {
+          "id": "XKsISk9mjVsxkbL9",
+          "name": "Apify account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "Datasets",
+        "datasetId": "={{ (() => {\n  const datasetId = ($json && $json.defaultDatasetId) ? $json.defaultDatasetId : 'nerr78BWsciyVVHiL'\n  return datasetId \n})() }}",
+        "offset": 0,
+        "limit": null
+      },
+      "type": "@apify/n8n-nodes-apify.apify",
+      "typeVersion": 1,
+      "position": [
+        928,
+        288
+      ],
+      "id": "87a812ed-b1a3-4792-9eaf-87fa947ee924",
+      "name": "Get dataset items",
+      "credentials": {
+        "apifyApi": {
+          "id": "rSMUfHK0UDSIOeUk",
+          "name": "Apify account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "1f0556e1-b371-49f8-8558-7cb3dcb654dd",
+              "leftValue": "={{ $json.job_title.toLowerCase() }}",
+              "rightValue": "=\\b(devops|dev ops|staff|lead|principal|cloud|manager|mobile|android | manager|machine|analytics|infrastructure|robotics|video|transcoding)\\b",
+              "operator": {
+                "type": "string",
+                "operation": "notRegex"
+              }
+            },
+            {
+              "id": "d2f539a5-9ce1-49cc-ad1b-fc470df7e64f",
+              "leftValue": "={{ $json.job_title }}",
+              "rightValue": "\\b(AI|ML|iOS|LLM)\\b",
+              "operator": {
+                "type": "string",
+                "operation": "notRegex"
+              }
+            },
+            {
+              "id": "24280125-332d-4610-9c15-46a25c91a194",
+              "leftValue": "={{ $json.job_title }}",
+              "rightValue": "/(software|full[\\s-]?stack|back[\\s-]?end|front[\\s-]?end)/i",
+              "operator": {
+                "type": "string",
+                "operation": "regex"
+              }
+            },
+            {
+              "id": "6be8cce7-dc86-454a-83fb-a3fb9ffdb8b2",
+              "leftValue": "={{ $json.job_title }}",
+              "rightValue": "/(engineer|developer)/i",
+              "operator": {
+                "type": "string",
+                "operation": "regex"
+              }
+            },
+            {
+              "id": "297622ff-7300-4e62-880a-8e6b2168f500",
+              "leftValue": "={{ $json.job_title }}",
+              "rightValue": "/\\b(C|C\\+\\+|Java|Python|Kotlin|Swift|Go|Rust|PHP|C#|.NET)\\b/i",
+              "operator": {
+                "type": "string",
+                "operation": "notRegex"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        1376,
+        480
+      ],
+      "id": "0fa5d3f4-89fb-4878-b608-27c07d2efb64",
+      "name": "Job Title Filter"
+    },
+    {
+      "parameters": {
+        "content": "## To Do\n- limit scrape to last x hours\n\n\n- error boundaries: \n   - actor fails -> notify on tg"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1712,
+        816
+      ],
+      "typeVersion": 1,
+      "id": "0cc13c37-982c-4396-ade3-22c3f15262ff",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "852d74f7-2bfc-41c6-838b-112b09eb057c",
+              "leftValue": "={{ $json.num_applicants }}",
+              "rightValue": "^(Be among the first 25 applicants|(?:[1-9]|[1-4][0-9]|50) applicants)$",
+              "operator": {
+                "type": "string",
+                "operation": "regex"
+              }
+            },
+            {
+              "id": "80ed2cd7-68b2-4906-9ec4-c5044136385e",
+              "leftValue": "",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        1600,
+        480
+      ],
+      "id": "0577e66d-cd62-4ff0-b5cc-ca51f1c53734",
+      "name": "Advanced Filtering"
+    },
+    {
+      "parameters": {
+        "content": "## Job Listing Scoring v2\n\n### increase score:\n- location in SF\n- location in remote\n- less than 25 applicants (NOTE: this is a dynamic value).\n- tech stack match is strong\n- looking for junior or associate level\n- listed within last 4 hours (do this instead of within the job scraping to not miss out on 'hidden' gems)\n\n\n### decrease score: \n- salary less than 150k/year\n- 5 days in office\n- job description says dumb shit like 'we are a family' or 'dont apply if work balance matters'",
+        "height": 432,
+        "width": 384,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        2384,
+        944
+      ],
+      "typeVersion": 1,
+      "id": "fcfe4194-fec0-465f-9a3b-c61a355685be",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "94dd4817-85be-4177-9dc6-9cce91f68de6",
+              "name": "scraped_at",
+              "value": "={{ new Date().toISOString() }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1824,
+        480
+      ],
+      "id": "a8bd11f1-174e-4109-8137-503509e6227f",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "=cronExpression",
+              "expression": "30 9 * * 1-5"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        480,
+        192
+      ],
+      "id": "22339101-493b-47fe-9a7c-10a960dd1465",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "chatId": "5651295221",
+        "text": "=Uh-oh, something went wrong when generating scores :/\ntimestamp: {{ new Date().toLocaleString() }}\n\njobhunt api received: {{ $json.summary.received }} scraped jobs\njobhunt api scored: {{ $json.summary.scored }} jobs\njobhunt api failed: {{ $json.summary.failed }} jobs",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2480,
+        624
+      ],
+      "id": "de6a013e-ed24-445e-9302-465d1fd1d18d",
+      "name": "Notify job scoring failed",
+      "webhookId": "c3b823db-8263-40e9-abcd-09504bc7c0b6",
+      "credentials": {
+        "telegramApi": {
+          "id": "MOl4hUz3memSul0W",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "3da5fbc9-704f-4cf4-b66a-aa9a55705aea",
+              "leftValue": "={{ $json.isEmpty() }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1152,
+        288
+      ],
+      "id": "8dfc09a5-2a49-47af-907a-468372659f1d",
+      "name": "Check if data was fetched"
+    },
+    {
+      "parameters": {
+        "url": "http://express-api:3000/score/top-candidates",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2512,
+        272
+      ],
+      "id": "28ffe305-341a-4db6-b25a-9acfec84dd7c",
+      "name": "Fetch top scores"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://express-api:3000/score/batch",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "alias",
+              "value": "dingle"
+            },
+            {
+              "name": "scraped_jobs",
+              "value": "={{ $('Edit Fields').all().map(item => item.json) }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2048,
+        480
+      ],
+      "id": "6c9d3371-8f08-4737-a24f-d7e60aa103da",
+      "name": "Batch scoring",
+      "executeOnce": true
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        464,
+        480
+      ],
+      "id": "1d1ca48a-273b-4112-a347-b8f8d0abb006",
+      "name": "Manually Trigger Workflow"
+    },
+    {
+      "parameters": {
+        "chatId": "5651295221",
+        "text": "=*Successful jobhunt run! :)*\n_timestamp: {{\n  (() => {\n    const now = new Date()\n    return now.toLocaleString('en-US', {\n      timeZone: 'America/Los_Angeles', \n      dateStyle: 'full',\n      timeStyle: 'short'\n    })\n  })()\n}}_\n\nHeres a rundown:\n- Total jobs scraped -> __{{ $('Get dataset items').all().length }}__\n- Jobs remaining after Job Title n8n filtering -> __{{ $('Job Title Filter').all().length }}__\n- Jobs remaining after Advanced n8n filtering -> __{{ $('Advanced Filtering').all().length }}__\n- Listings found with higher than 60% score -> __{{ $json.data.length }}__ \n\nTop Candidates of the day: \n{{ \n  (() => \n    $json.data\n      .map(jobListing => {\n        return `- job id ${jobListing.id} scored ${jobListing.score.toFixed(3)} cosine ~ [listing](${jobListing.listingUrl}) | [apply](${jobListing.applyToUrl})\\n`\n      })\n      .join('')\n  )() \n}}\n\n========================================================",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2736,
+        272
+      ],
+      "id": "b1ef87fa-1fe6-4b64-ac7d-6853daf4bcd7",
+      "name": "Summarize Workflow Run",
+      "webhookId": "218f60ff-853c-41bf-a0ed-ed568518a6fb",
+      "credentials": {
+        "telegramApi": {
+          "id": "MOl4hUz3memSul0W",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {
+          "delimiter": ","
+        }
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        1376,
+        288
+      ],
+      "id": "f72d2274-b9b0-4915-bec1-a32aff2eede0",
+      "name": "Convert to File"
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "=/files/{{\n  (()=> new Date().toISOString().replace('T', '_').replace(/:/g, '-').slice(0, 19))()\n}}-workflow-scrape-dataset.csv",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        1600,
+        288
+      ],
+      "id": "5bc7e814-9d51-4f34-88ec-380c7aa14b9b",
+      "name": "Read/Write Files from Disk"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.errorTrigger",
+      "typeVersion": 1,
+      "position": [
+        1840,
+        128
+      ],
+      "id": "d4bb0352-ce11-4c90-a34b-fd9edb7bd18a",
+      "name": "Error Trigger"
+    },
+    {
+      "parameters": {
+        "errorMessage": "No scraped jobs received"
+      },
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1376,
+        128
+      ],
+      "id": "847574cb-eba7-42d9-9afd-240c3ee3867c",
+      "name": "Stop and Error"
+    },
+    {
+      "parameters": {
+        "chatId": "5651295221",
+        "text": "=\u26a0\ufe0f <b>jobhunt workflow error</b>\n{{\n  (() => {\n    const esc = (s) => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');\n    const ts = new Date().toLocaleString('en-US', { timeZone: 'America/Los_Angeles', dateStyle: 'full', timeStyle: 'short' });\n    const ex = $json.execution || {};\n    const err = ex.error || {};\n    const node = ex.lastNodeExecuted || 'unknown';\n    const msg = err.message || $json.message || 'no error message captured';\n    const desc = err.description ? (' \u2014 ' + err.description) : '';\n    const ref = ex.url || ex.id || 'n/a';\n    const wf = ($json.workflow && $json.workflow.name) || 'jobhunt';\n    return [\n      'timestamp: ' + ts,\n      'workflow: ' + esc(wf),\n      'failed at node: ' + esc(node),\n      'error: ' + esc(msg + desc),\n      '',\n      'execution: ' + esc(ref)\n    ].join('\\n');\n  })()\n}}",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2064,
+        128
+      ],
+      "id": "eb4b6b45-f4fb-42bc-929a-b9473527a781",
+      "name": "Notify of Error via TG",
+      "webhookId": "c3b823db-8263-40e9-abcd-09504bc7c0b6",
+      "credentials": {
+        "telegramApi": {
+          "id": "MOl4hUz3memSul0W",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "Get last run",
+        "userActorId": {
+          "__rl": true,
+          "value": "JkfTWxtpgfvcRQn3p",
+          "mode": "list",
+          "cachedResultName": "\u26a1\ufe0fRapid Linkedin Jobs Scraper (No Cookies) | Free Jobs Scraper (worldunboxer/rapid-linkedin-scraper)",
+          "cachedResultUrl": "https://console.apify.com/actors/JkfTWxtpgfvcRQn3p/input"
+        }
+      },
+      "type": "@apify/n8n-nodes-apify.apify",
+      "typeVersion": 1,
+      "position": [
+        704,
+        480
+      ],
+      "id": "3bae55f2-f223-4095-99af-90d5cb449234",
+      "name": "Get last run",
+      "credentials": {
+        "apifyApi": {
+          "id": "rSMUfHK0UDSIOeUk",
+          "name": "Apify account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://express-api:3000/sources/wttj/run",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"query\": \"software engineer\",\n  \"locations\": [\n    \"san francisco\",\n    \"remote\"\n  ],\n  \"hitsPerPage\": 30,\n  \"maxPages\": 2\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        704,
+        720
+      ],
+      "id": "a1111111-1111-4111-8111-111111111111",
+      "name": "Run WTTJ source"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://express-api:3000/sources/built-in/run",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"query\": \"software engineer\",\n  \"locations\": [\n    \"san francisco\",\n    \"remote\"\n  ],\n  \"hitsPerPage\": 25,\n  \"maxPages\": 1\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        960,
+        720
+      ],
+      "id": "a2222222-2222-4222-8222-222222222222",
+      "name": "Run Built-in source"
+    },
+    {
+      "parameters": {
+        "unit": "seconds",
+        "amount": 20
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1216,
+        720
+      ],
+      "id": "a3333333-3333-4333-8333-333333333333",
+      "name": "Wait for in-app runs",
+      "webhookId": "a3333333-3333-4333-8333-333333333333"
+    },
+    {
+      "parameters": {
+        "url": "http://express-api:3000/digest/today?minScore=0.6&limit=25",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1808,
+        820
+      ],
+      "id": "a4444444-4444-4444-8444-444444444444",
+      "name": "Fetch daily digest"
+    },
+    {
+      "parameters": {
+        "chatId": "5651295221",
+        "text": "=<b>In-app pipeline digest (wttj + built-in)</b>\nDate: {{ $json.date }}\nCandidates (score \u2265 0.6): {{ $json.totals.candidates }}\nBy source: {{ JSON.stringify($json.totals.bySource) }}\n\n{{\n  (() => {\n    const esc = (s) => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');\n    const rows = ($json.listings || []).slice(0, 5).map(l =>\n      `\u2022 ${esc(l.title)} @ ${esc(l.company)} \u2014 ${l.score ? l.score.toFixed(3) : 'n/a'} <a href=\"${esc(l.listingUrl)}\">listing</a>`\n    );\n    return rows.length ? rows.join('\\n') : 'No candidates today.';\n  })()\n}}",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2016,
+        820
+      ],
+      "id": "a5555555-5555-4555-8555-555555555555",
+      "name": "Summarize in-app digest",
+      "webhookId": "a5555555-5555-4555-8555-555555555555",
+      "credentials": {
+        "telegramApi": {
+          "id": "MOl4hUz3memSul0W",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "=http://express-api:3000/runs/{{ $('Run Built-in source').item.json.runId }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1408,
+        720
+      ],
+      "id": "a6666666-6666-4666-8666-666666666666",
+      "name": "Check run status"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "cond-status",
+              "leftValue": "={{ $json.status }}",
+              "rightValue": "RUNNING",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            },
+            {
+              "id": "cond-cap",
+              "leftValue": "={{ $runIndex }}",
+              "rightValue": 60,
+              "operator": {
+                "type": "number",
+                "operation": "lt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        1600,
+        720
+      ],
+      "id": "a7777777-7777-4777-8777-777777777777",
+      "name": "Run still running?"
+    },
+    {
+      "parameters": {
+        "url": "http://express-api:3000/dashboard/summary",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1808,
+        1040
+      ],
+      "id": "b1111111-1111-4111-8111-111111111111",
+      "name": "Fetch dashboard summary"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "cond-health",
+              "leftValue": "={{ (() => { const h = $json.health || {}; const m = (h.metrics && h.metrics.overall) || {}; const chat = (h.metrics && h.metrics.byKind && h.metrics.byKind.chat) || {}; const srcs = Array.isArray($json.sources) ? $json.sources : []; const badRun = srcs.some(s => s.lastRun && (s.lastRun.status === 'FAILED' || s.lastRun.orphaned)); return Boolean((h.ollama && h.ollama.ok === false) || (h.database && h.database.ok === false) || (m.reloads || 0) > 0 || (chat.errors || 0) > 0 || badRun); })() }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        2016,
+        1040
+      ],
+      "id": "b2222222-2222-4222-8222-222222222222",
+      "name": "Health needs attention?"
+    },
+    {
+      "parameters": {
+        "chatId": "5651295221",
+        "text": "=<b>\u26a0 Job hunter health alert</b>\n{{\n  (() => {\n    const esc = (s) => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');\n    const h = $json.health || {};\n    const lines = [];\n    if (h.database && h.database.ok === false) lines.push('\u2022 Database: DOWN');\n    if (h.ollama && h.ollama.ok === false) lines.push('\u2022 Ollama: NOT OK' + (h.ollama.missingRequired && h.ollama.missingRequired.length ? ' (missing: ' + h.ollama.missingRequired.join(', ') + ')' : ''));\n    const m = (h.metrics && h.metrics.overall) || {};\n    if ((m.reloads || 0) > 0) lines.push('\u2022 Ollama reloads: ' + m.reloads + ' (memory thrash)');\n    const chat = (h.metrics && h.metrics.byKind && h.metrics.byKind.chat) || {};\n    if ((chat.errors || 0) > 0) lines.push('\u2022 Chat/extraction errors: ' + chat.errors);\n    const rt = h.runtime || {};\n    if (rt.memoryPressure) lines.push('\u2022 Memory pressure: ' + (rt.totalResident || '') + ' / ' + (rt.memoryBudget || ''));\n    const srcs = Array.isArray($json.sources) ? $json.sources : [];\n    for (const s of srcs) {\n      const r = s.lastRun; if (!r) continue;\n      if (r.orphaned) lines.push('\u2022 ' + esc(s.source) + ': ORPHANED run #' + r.id);\n      else if (r.status === 'FAILED') lines.push('\u2022 ' + esc(s.source) + ': FAILED \u2014 ' + esc(r.errorMessage || 'unknown'));\n    }\n    const cand = ($json.digest && $json.digest.totals && $json.digest.totals.candidates) || 0;\n    lines.push('');\n    lines.push('Candidates \u22650.6 today: ' + cand);\n    return lines.join('\\n');\n  })()\n}}",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2224,
+        1040
+      ],
+      "id": "b3333333-3333-4333-8333-333333333333",
+      "name": "Notify health alert",
+      "webhookId": "b3333333-3333-4333-8333-333333333333",
+      "credentials": {
+        "telegramApi": {
+          "id": "MOl4hUz3memSul0W",
+          "name": "Telegram account"
+        }
+      }
+    }
+  ],
+  "pinData": {
+    "Schedule Trigger": [
+      {
+        "json": {
+          "timestamp": "2025-10-02T09:30:00.028-07:00",
+          "Readable date": "October 2nd 2025, 9:30:00 am",
+          "Readable time": "9:30:00 am",
+          "Day of week": "Thursday",
+          "Year": "2025",
+          "Month": "October",
+          "Day of month": "02",
+          "Hour": "09",
+          "Minute": "30",
+          "Second": "00",
+          "Timezone": "America/Los_Angeles (UTC-07:00)"
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Job Title Filter": {
+      "main": [
+        [
+          {
+            "node": "Advanced Filtering",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get dataset items": {
+      "main": [
+        [
+          {
+            "node": "Check if data was fetched",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Run an Actor": {
+      "main": [
+        [
+          {
+            "node": "Get dataset items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Advanced Filtering": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Batch scoring",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Run an Actor",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Run WTTJ source",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Notify job scoring failed": {
+      "main": [
+        []
+      ]
+    },
+    "Check if data was fetched": {
+      "main": [
+        [
+          {
+            "node": "Stop and Error",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Convert to File",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Job Title Filter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Batch scoring": {
+      "main": [
+        [
+          {
+            "node": "Fetch top scores",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch top scores": {
+      "main": [
+        [
+          {
+            "node": "Summarize Workflow Run",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Manually Trigger Workflow": {
+      "main": [
+        [
+          {
+            "node": "Get last run",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert to File": {
+      "main": [
+        [
+          {
+            "node": "Read/Write Files from Disk",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Error Trigger": {
+      "main": [
+        [
+          {
+            "node": "Notify of Error via TG",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get last run": {
+      "main": [
+        [
+          {
+            "node": "Get dataset items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Run WTTJ source": {
+      "main": [
+        [
+          {
+            "node": "Run Built-in source",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Run Built-in source": {
+      "main": [
+        [
+          {
+            "node": "Wait for in-app runs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait for in-app runs": {
+      "main": [
+        [
+          {
+            "node": "Check run status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch daily digest": {
+      "main": [
+        [
+          {
+            "node": "Summarize in-app digest",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check run status": {
+      "main": [
+        [
+          {
+            "node": "Run still running?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Run still running?": {
+      "main": [
+        [
+          {
+            "node": "Wait for in-app runs",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Fetch daily digest",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Fetch dashboard summary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch dashboard summary": {
+      "main": [
+        [
+          {
+            "node": "Health needs attention?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Health needs attention?": {
+      "main": [
+        [
+          {
+            "node": "Notify health alert",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "917a80cf-97cd-403b-95b5-ec076ce8f562",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "9d3d1b9ede0c8d951d7f6240297aeca904e271c2bae7c075cba24ccc636ddffd"
+  },
+  "id": "V2GnYltS3EVpjuGE",
+  "tags": []
+}

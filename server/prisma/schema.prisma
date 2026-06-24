@@ -1,0 +1,99 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["postgresqlExtensions"]
+}
+
+datasource db {
+  provider   = "postgresql"
+  url        = env("DATABASE_URL")
+  extensions = [vector]
+}
+
+enum JobSource {
+  WTTJ
+  LINKEDIN_APIFY
+  BUILT_IN
+  INDEED
+  LINKEDIN
+
+  @@map("job_source")
+}
+
+enum JobScrapeRunStatus {
+  RUNNING
+  COMPLETED
+  FAILED
+
+  @@map("job_scrape_run_status")
+}
+
+model JobListing {
+  id Int @id @default(autoincrement())
+
+  source      JobSource
+  sourceJobId String  @map("source_job_id")
+  dedupeKey   String? @map("dedupe_key")
+
+  title             String
+  company           String
+  location          String
+  listingUrl        String @map("listing_url") @db.Text
+  applyToUrl        String? @map("apply_to_url") @db.Text
+
+  salaryMidpointUsd Int?    @map("salary_midpoint_usd")
+  totalApplicants   Int?    @map("total_applicants")
+
+  descriptionRaw       String  @map("description_raw") @db.Text
+  descriptionCleaned   String  @map("description_cleaned") @db.Text
+  descriptionEmbedding Float[] @map("description_embedding")
+
+  score Float?
+
+  jobScrapeRunId Int?           @map("job_scrape_run_id")
+  jobScrapeRun   JobScrapeRun?  @relation(fields: [jobScrapeRunId], references: [id], onDelete: SetNull)
+
+  postedAt  DateTime? @map("posted_at")
+  scrapedAt DateTime  @map("scraped_at")
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @default(now()) @updatedAt @map("updated_at")
+
+  @@unique([source, sourceJobId])
+  @@index([dedupeKey])
+  @@index([createdAt, score])
+  @@index([source, createdAt])
+  @@map("job_listings")
+}
+
+model JobScrapeRun {
+  id Int @id @default(autoincrement())
+
+  source JobSource
+  status JobScrapeRunStatus @default(RUNNING)
+
+  startedAt   DateTime  @default(now()) @map("started_at")
+  completedAt DateTime? @map("completed_at")
+
+  totalFetched   Int? @map("total_fetched")
+  totalExtracted Int? @map("total_extracted")
+  totalSaved     Int? @map("total_saved")
+  totalSkipped   Int? @map("total_skipped")
+  totalFailed    Int? @map("total_failed")
+  errorMessage   String? @map("error_message") @db.Text
+
+  jobListings JobListing[]
+
+  @@index([source, startedAt])
+  @@map("job_scrape_runs")
+}
+
+model User {
+  id           Int      @id @default(autoincrement())
+  alias        String   @unique
+  bio          String?
+  bioEmbedding Float[]  @map("bio_embedding")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @default(now()) @updatedAt @map("updated_at")
+
+  @@map("users")
+}
+
